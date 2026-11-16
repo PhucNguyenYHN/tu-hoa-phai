@@ -1,0 +1,384 @@
+{
+ "_ghi_chu": "Quy tắc lập mệnh bàn nguyên cục của Tứ Hóa phái (Khâm Thiên môn), trích từ Quyển 1 chương 2. Nguồn ghi dạng s1:số trang ảnh. Bảng đã được kiểm bằng thuật toán chuẩn và 2 lá số mẫu trong sách.",
+ "dia_chi": [
+  "Tí",
+  "Sửu",
+  "Dần",
+  "Mão",
+  "Thìn",
+  "Tị",
+  "Ngọ",
+  "Mùi",
+  "Thân",
+  "Dậu",
+  "Tuất",
+  "Hợi"
+ ],
+ "thien_can": [
+  "Giáp",
+  "Ất",
+  "Bính",
+  "Đinh",
+  "Mậu",
+  "Kỷ",
+  "Canh",
+  "Tân",
+  "Nhâm",
+  "Quý"
+ ],
+ "bo_cuc": {
+  "mo_ta": "12 địa chi ghi vào 12 cung thuận chiều kim đồng hồ: Tí, Sửu, Dần … Tuất, Hợi. Ô giữa ghi họ tên, cục, âm dương nam nữ, ngày giờ sinh, tứ hóa.",
+  "nguon": "s1:35"
+ },
+ "gio_sinh": {
+  "quy_tac": "Giờ Tí bắt đầu từ 23h; từ 23:00 đến 00:00 tính là ngày hôm sau (ngày mới bắt đầu lúc 23h).",
+  "nguon": "s1:35-36",
+  "mui_gio_lich_su_viet_nam": [
+   {
+    "tu": "1911-05-01",
+    "den": "1942-12-31",
+    "mui_gio": 7,
+    "chinh": "không chỉnh"
+   },
+   {
+    "tu": "1943-01-01",
+    "den": "1945-03-13",
+    "mui_gio": 8,
+    "chinh": "lùi 1 giờ dương lịch"
+   },
+   {
+    "tu": "1945-03-14",
+    "den": "1945-09-01",
+    "mui_gio": 9,
+    "chinh": "lùi 2 giờ dương lịch"
+   },
+   {
+    "tu": "1945-09-02",
+    "den": "nay",
+    "vung": "miền Bắc",
+    "mui_gio": 7,
+    "chinh": "không chỉnh"
+   },
+   {
+    "tu": "1947-04-01",
+    "den": "1955-06-30",
+    "vung": "miền Nam",
+    "mui_gio": 8,
+    "chinh": "lùi 1 giờ"
+   },
+   {
+    "tu": "1955-07-01",
+    "den": "1959-12-31",
+    "vung": "miền Nam",
+    "mui_gio": 7,
+    "chinh": "không chỉnh"
+   },
+   {
+    "tu": "1960-01-01",
+    "den": "1975-06-12",
+    "vung": "miền Nam",
+    "mui_gio": 8,
+    "chinh": "lùi 1 giờ"
+   },
+   {
+    "tu": "1975-06-13",
+    "den": "nay",
+    "vung": "toàn quốc",
+    "mui_gio": 7,
+    "chinh": "không chỉnh"
+   }
+  ],
+  "nguon_lich_su": "s1:36-37"
+ },
+ "ngu_ho_don": {
+  "mo_ta": "Can của cung: theo can năm sinh, khởi can ở cung Dần rồi đếm thuận sang các cung sau (10 can lặp lại, nên có 4 cung trùng can).",
+  "can_nam_sinh_khoi_o_cung_Dan": {
+   "Giáp,Kỷ": "Bính",
+   "Ất,Canh": "Mậu",
+   "Bính,Tân": "Canh",
+   "Đinh,Nhâm": "Nhâm",
+   "Mậu,Quý": "Giáp"
+  },
+  "nguon": "s1:37-38"
+ },
+ "cung_menh_than": {
+  "cach_tinh": "Từ cung Dần là tháng 1, đếm thuận đến tháng sinh; cung đó là giờ Tí; từ đó đếm nghịch đến giờ sinh = cung Mệnh; đếm thuận đến giờ sinh = cung Thân.",
+  "cung_than_trung_voi": [
+   "mệnh",
+   "phúc đức",
+   "quan lộc",
+   "thiên di",
+   "tài bạch",
+   "phu thê"
+  ],
+  "thu_tu_12_cung_theo_chieu_nghich_tu_menh": [
+   "mệnh",
+   "huynh đệ",
+   "phu thê",
+   "tử nữ",
+   "tài bạch",
+   "tật ách",
+   "thiên di",
+   "nô bộc",
+   "quan lộc",
+   "điền trạch",
+   "phúc đức",
+   "phụ mẫu"
+  ],
+  "nguon": "s1:38",
+  "thang_nhuan": {
+   "cach_1": "15 ngày đầu tháng nhuận tính vào tháng đó; 15 ngày sau tính vào tháng kế.",
+   "cach_2": "Tháng nhuận xem như tháng đó lặp lại.",
+   "ghi_chu": "Sách khuyên lập cả hai mệnh bàn nếu sinh tháng nhuận, xem cái nào ứng nghiệm.",
+   "nguon": "s1:39"
+  }
+ },
+ "cuc_ngu_hanh": {
+  "mo_ta": "Cục xác định theo Can và Chi của cung Mệnh.",
+  "bang": {
+   "Tí Sửu Ngọ Mùi": [
+    "Kim4",
+    "Thủy2",
+    "Hỏa6",
+    "Thổ5",
+    "Mộc3"
+   ],
+   "Dần Mão Thân Dậu": [
+    "Thủy2",
+    "Hỏa6",
+    "Thổ5",
+    "Mộc3",
+    "Kim4"
+   ],
+   "Thìn Tị Tuất Hợi": [
+    "Hỏa6",
+    "Thổ5",
+    "Mộc3",
+    "Kim4",
+    "Thủy2"
+   ]
+  },
+  "cot_can": [
+   "Giáp Ất",
+   "Bính Đinh",
+   "Mậu Kỷ",
+   "Canh Tân",
+   "Nhâm Quý"
+  ],
+  "ten_cuc": {
+   "Thủy2": "Thủy nhị cục",
+   "Mộc3": "Mộc tam cục",
+   "Kim4": "Kim tứ cục",
+   "Thổ5": "Thổ ngũ cục",
+   "Hỏa6": "Hỏa lục cục"
+  },
+  "luu_y": "Sách ghi nhãn 'Thổ lục cục' ở bảng (s1:41-42) nhưng đúng là Thổ ngũ cục: văn bản s1:40 ghi đại vận khởi 5 tuổi, và thứ tự cột 2-3-4-5-6; bảng an Tử Vi khớp thuật toán chuẩn khi Thổ = 5. Sách cũng ghi nhầm 'Hỏa ngũ cục' ở s1:40 (đúng là Hỏa lục cục, khởi 6 tuổi).",
+  "nguon": "s1:40-41"
+ },
+ "dai_van": {
+  "tuoi_khoi_van": {
+   "Thủy2": 2,
+   "Mộc3": 3,
+   "Kim4": 4,
+   "Thổ5": 5,
+   "Hỏa6": 6
+  },
+  "moi_dai_van_dai": 10,
+  "dai_van_dau_tien_o": "cung Mệnh",
+  "chieu": {
+   "thuan": "dương nam, âm nữ",
+   "nghich": "âm nam, dương nữ"
+  },
+  "nguon": "s1:40-41"
+ },
+ "an_tu_vi": {
+  "mo_ta": "Tra cung an Tử Vi theo cục và ngày sinh Âm lịch.",
+  "bang": {
+   "2": {
+    "1": "Sửu",
+    "2": "Dần",
+    "3": "Dần",
+    "4": "Mão",
+    "5": "Mão",
+    "6": "Thìn",
+    "7": "Thìn",
+    "8": "Tị",
+    "9": "Tị",
+    "10": "Ngọ",
+    "11": "Ngọ",
+    "12": "Mùi",
+    "13": "Mùi",
+    "14": "Thân",
+    "15": "Thân",
+    "16": "Dậu",
+    "17": "Dậu",
+    "18": "Tuất",
+    "19": "Tuất",
+    "20": "Hợi",
+    "21": "Hợi",
+    "22": "Tí",
+    "23": "Tí",
+    "24": "Sửu",
+    "25": "Sửu",
+    "26": "Dần",
+    "27": "Dần",
+    "28": "Mão",
+    "29": "Mão",
+    "30": "Thìn"
+   },
+   "3": {
+    "1": "Thìn",
+    "2": "Sửu",
+    "3": "Dần",
+    "4": "Tị",
+    "5": "Dần",
+    "6": "Mão",
+    "7": "Ngọ",
+    "8": "Mão",
+    "9": "Thìn",
+    "10": "Mùi",
+    "11": "Thìn",
+    "12": "Tị",
+    "13": "Thân",
+    "14": "Tị",
+    "15": "Ngọ",
+    "16": "Dậu",
+    "17": "Ngọ",
+    "18": "Mùi",
+    "19": "Tuất",
+    "20": "Mùi",
+    "21": "Thân",
+    "22": "Hợi",
+    "23": "Thân",
+    "24": "Dậu",
+    "25": "Tí",
+    "26": "Dậu",
+    "27": "Tuất",
+    "28": "Sửu",
+    "29": "Tuất",
+    "30": "Hợi"
+   },
+   "4": {
+    "1": "Hợi",
+    "2": "Thìn",
+    "3": "Sửu",
+    "4": "Dần",
+    "5": "Tí",
+    "6": "Tị",
+    "7": "Dần",
+    "8": "Mão",
+    "9": "Sửu",
+    "10": "Ngọ",
+    "11": "Mão",
+    "12": "Thìn",
+    "13": "Dần",
+    "14": "Mùi",
+    "15": "Thìn",
+    "16": "Tị",
+    "17": "Mão",
+    "18": "Thân",
+    "19": "Tị",
+    "20": "Ngọ",
+    "21": "Thìn",
+    "22": "Dậu",
+    "23": "Ngọ",
+    "24": "Mùi",
+    "25": "Tị",
+    "26": "Tuất",
+    "27": "Mùi",
+    "28": "Thân",
+    "29": "Ngọ",
+    "30": "Hợi"
+   },
+   "5": {
+    "1": "Ngọ",
+    "2": "Hợi",
+    "3": "Thìn",
+    "4": "Sửu",
+    "5": "Dần",
+    "6": "Mùi",
+    "7": "Tí",
+    "8": "Tị",
+    "9": "Dần",
+    "10": "Mão",
+    "11": "Thân",
+    "12": "Sửu",
+    "13": "Ngọ",
+    "14": "Mão",
+    "15": "Thìn",
+    "16": "Dậu",
+    "17": "Dần",
+    "18": "Mùi",
+    "19": "Thìn",
+    "20": "Tị",
+    "21": "Tuất",
+    "22": "Mão",
+    "23": "Thân",
+    "24": "Tị",
+    "25": "Ngọ",
+    "26": "Hợi",
+    "27": "Thìn",
+    "28": "Dậu",
+    "29": "Ngọ",
+    "30": "Mùi"
+   },
+   "6": {
+    "1": "Dậu",
+    "2": "Ngọ",
+    "3": "Hợi",
+    "4": "Thìn",
+    "5": "Sửu",
+    "6": "Dần",
+    "7": "Tuất",
+    "8": "Mùi",
+    "9": "Tí",
+    "10": "Tị",
+    "11": "Dần",
+    "12": "Mão",
+    "13": "Hợi",
+    "14": "Thân",
+    "15": "Sửu",
+    "16": "Ngọ",
+    "17": "Mão",
+    "18": "Thìn",
+    "19": "Tí",
+    "20": "Dậu",
+    "21": "Dần",
+    "22": "Mùi",
+    "23": "Thìn",
+    "24": "Tị",
+    "25": "Sửu",
+    "26": "Tuất",
+    "27": "Mão",
+    "28": "Thân",
+    "29": "Tị",
+    "30": "Ngọ"
+   }
+  },
+  "thuat_toan_tuong_duong": "Tìm k nhỏ nhất sao cho (ngày + k) chia hết cho cục n; q = (ngày+k)/n; xuất phát từ Dần, tiến q-1 cung thuận; nếu k lẻ lùi k cung, nếu k chẵn tiến k cung. Khớp 150/150 ô của bảng trong sách.",
+  "nguon": "s1:42-43"
+ },
+ "tu_hoa_nam_sinh": {
+  "tham_chieu": "du-lieu/tu-hoa-theo-can.json",
+  "ghi_chu": "Bảng đối chiếu các phái ở s1:43; Khâm Thiên môn / Lục Bân Triệu khớp cả 40 ô."
+ },
+ "lai_nhan_cung": {
+  "dinh_nghia": "Cung có thiên can trùng với can năm sinh; là cung định hóa tượng tiên thiên (tứ hóa năm sinh).",
+  "nguon": "s1:54-56",
+  "cau_hoi_mo": "Năm Tân và năm Nhâm có hai cung cùng can (Tân: Mão và Sửu; Nhâm: Dần và Tí). Sách chưa nêu cách chọn trong phần định nghĩa; cần xem các lá số mẫu Tân Mùi (s1:805) và Nhâm Tí (s1:785).",
+  "vi_du_da_kiem": "Kỷ Mùi: Lai nhân cung là cung Phúc đức ở Tị (can Kỷ) — s2:801."
+ },
+ "dau_quan": {
+  "tien_thien": "Đẩu Quân năm Tí: từ cung năm Tí là tháng 1 (lưu niên Tí ở cung Tí), đếm nghịch đến tháng sinh, gọi đó là giờ Tí, đếm thuận đến giờ sinh; mỗi năm sau lùi 1 cung.",
+  "hau_thien": "Xem cung Dần của nguyên cục là cung chức gì, tìm cung chức cùng tên của lưu niên; đó là tháng 1, đếm thuận cho các tháng sau.",
+  "nguon": "s1:57-58"
+ },
+ "chua_co_trong_sach": [
+  "Cách an 13 chính tinh còn lại (Thiên Phủ, Thái Âm, Tham Lang … Phá Quân) và các phụ tinh: sách nói dành cho người đã biết Tử Vi, tham khảo sách Trung Châu Tam Hợp phái (s1:35).",
+  "Có thể có bảng ở Quyển 2 chương 5 (sao thường dùng), chưa rà."
+ ],
+ "kiem_chung": {
+  "ba_x_canh_tuat_thang9_gio_ti": "Mệnh Tân Tị, Kim tứ cục, Huynh đệ Thìn, Phụ mẫu Ngọ — khớp s1:39.",
+  "ky_mui_thang3_gio_suu": "Mệnh Đinh Mão, Hỏa lục cục, Phúc đức Tị — khớp s2:801."
+ }
+}
