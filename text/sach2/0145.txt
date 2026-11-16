@@ -22,7 +22,7 @@ theo Hà Đổ, vậy cung phu thê-và cung nô bộc là “nhất lục cộn
 tông”, giữa hai cung có khí trường tương ứng.
 
 Cung phu thê là cung vị “1”, cung điền trạch là “8”, vậy cung
-điển trạch là cung vị “tuyệt tình” của cung phu thê. Nếu hai cung có
+điền trạch là cung vị “tuyệt tình” của cung phu thê. Nếu hai cung có
 tứ hóa phi nhập qua lại thì gọi là “tuyến thê điển giao dịch”.
 
 Cung phu thê, cung tật ách, cung quan lộc, cung phụ mẫu là

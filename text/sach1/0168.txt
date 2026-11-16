@@ -16,7 +16,7 @@ số người học Tử Vi Đấu Số thường khó nắm bắt được tr�
 sự việc sẽ xảy ra, dân đến tình trạng đoán lầm. Ví dụ rõ ràng là xảy
 ra vấn đề về tài chính, lại luận giải thành vấn đề sức khỏe! -
 
-Thực ra trong Tử Vì Đẩu Số, cùng một mệnh bàn ít nhất cũng
+Thực ra trong Tử Vi Đẩu Số, cùng một mệnh bàn ít nhất cũng
 hàm chứa trên ba quỹ tích mệnh vận, vì vậy trong lúc ứng dụng, có
 được càng nhiều tham số để tham khảo thì càng tốt, càng hiểu biết
 nhiều về đối tượng mình đang luận mệnh càng hay. Hoặc dựa vào

@@ -21,7 +21,7 @@ tích “cách cục” (thuộc phạm vi “mệnh”), phân tích “định
 tượng của sự kiện, thuộc phạm vi “đại vận”) và phân tích “ứng số”
 (thuộc phạm vi “lưu niên”).
 
-- Phi cung hóa tượng: Là quỹ tích của tứ hóa phi tình, cũng là
+- Phi cung hóa tượng: Là quỹ tích của tứ hóa phi tinh, cũng là
 lí luận rất tinh vi uyên áo trong Tứ Hóa phái, là chức năng đặc biệt
 xâu chuỗi mối quan hệ giữa các cung, vẽ ra hướng đi của mệnh vận.
 

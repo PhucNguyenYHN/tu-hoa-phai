@@ -10,7 +10,7 @@ Kị chiến khắc” gây tổn thất.
 VidụuB:
 | TỨNG THÌN PHÚC ĐỨC DẬU
 l
-ÍTÀI BẠCH MÀO ĐIỆN TRẠCH  TUẤT
+ÍTÀI BẠCH MÀO ĐIỀN TRẠCH  TUẤT
 |L-
 mm
 G1 TC
@@ -28,4 +28,4 @@ chưa định. Cung nô bộc là “tha cung“ lại phi Hóa Kị nhập cung
 bạch, cho nên trường hợp này cũng là hai cung khác nhau phi hóa,
 một cung phi Hóa Lộc, một cung :phi Hóa Kị nhập vào cùng một
 cung, thành “Lộc Kị chiến khắc”; Lộc là “nhân”, còn Kị là “quả”,
-106 TRUNG CHÂU TỪ VI ĐẦU SỐ - TỨ HÓA PHÁI
+106 TRUNG CHÂU TỬ VI ĐẦU SỐ - TỨ HÓA PHÁI

@@ -42,4 +42,4 @@ phi đến cung B mà gây ảnh hưởng tới đối cung (cung C) thì gọi 
 “chiếu”. Nếu tượng “giao dịch” là Kị, phi đến cung B mà gây ảnh
 hưởng tới đối cung (cung C) thì gọi là “xung”.
 
-642 TRUNG CHẦU TỬ VỊ ĐẦU SỐ - TỨ HÓA PHÁI
+642 TRUNG CHẦU TỬ VI ĐẦU SỐ - TỨ HÓA PHÁI

@@ -6,7 +6,7 @@ sự phân biệt tiến mã và thoái mã. Vì vậy nên ghi nhớ lúc nào 
 mã” cũng đi nghịch thì sẽ không sai.
 
 Lấy hai ví dụ trên để nói, nếu phi Hóa Kị gặp tình huống tự
-Hóa Kĩ, thì gọi là Tiến Mã Kị hay Thoái Mã Kị.
+Hóa Kị, thì gọi là Tiến Mã Kị hay Thoái Mã Kị.
 
 Về phương pháp vận dụng, có một số người cho rằng, gặp
 Tiến Thoái Mã thì mang phi hóa trực tiếp đến cung đi nghịch. Như

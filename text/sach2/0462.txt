@@ -1,4 +1,4 @@
-4.14. HÌNH PHÚ CỦA PHÁ QUẦN ,
+4.14. HÌNH PHÚ CỦA PHÁ QUÂN ,
 
 4.14.1. Ý tượng cơ bản của Phá Quân
 
@@ -49,4 +49,4 @@ Vị trí địa lí: c
 
 Bến tàu, bãi chứa container, bờ biển, bờ nước, thị trường, bãi
 xử lí rác, kho hàng. s
-462 TRUNG CHÂU TỪ VI ĐẮLI SỐ - TỪ HÓA PHÁI
+462 TRUNG CHÂU TỬ VI ĐẮLI SỐ - TỨ HÓA PHÁI

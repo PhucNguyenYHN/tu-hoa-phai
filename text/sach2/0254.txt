@@ -39,4 +39,4 @@ cung vị giao dịch và cung vị khí số của nó, thì mới có thể lu
 “vận lúc ở bên ngoài hay xuất ngoại” một cách tinh tế, nếu không,
 nhiều lắm thì chỉ có thể đoán được một phẩn ba sự thực.
 
-254 TRUNG CHẦU TỪ VI ĐẦU SỐ - TỪ HÓA PHÁI
+254 TRUNG CHẦU TỬ VI ĐẦU SỐ - TỨ HÓA PHÁI

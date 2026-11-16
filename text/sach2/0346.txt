@@ -8,7 +8,7 @@ sau: Tử Vi, Thiên Cơ, Thái Dương, Vũ Khúc, Thiên Đồng,
 Liêm Trinh, Thiên Phủ, Thái Âm, Tham Lang, Cự Môn,
 Thiên Tướng, Thiên Lương, Thất Sát, Phá Quân. Ngoài 14
 chính tinh của nhóm sao cấp 1, còn có các sao Kình Dương, Đà La,
-Lộc Tôn, Văn Xương, Văn Khúc, Tả Phụ, Hữu Bật, Hỏa Tinh, Linh
+Lộc Tồn, Văn Xương, Văn Khúc, Tả Phụ, Hữu Bật, Hỏa Tinh, Linh
 Tinh, Địa Kiếp, Thiên Không, Thiên Khôi, Thiên Việt, Thiên Hình,
 Thiên Diêu, Hồng Loan, Thiên Hi, v.v... có thể ảnh hưởng đến sắc
 thái của cách cục mệnh vận.
@@ -37,4 +37,4 @@ Lấy Tử Vi ở cung Tí làm ví dụ, cung vị nào cũng có thể thành
 cung mệnh, đó cũng là nói, Tử Vi tọa lạc ở cung Tí trong mệnh bàn
 có thể hình thành 12 cung mệnh khác nhau; mà Tử Vi ở cung Sửu
 cũng có thể hình thành 12 cung mệnh khác nhau; vì vậy; từ trường
-s6 TRUNG CHÂU TỬ VỊ ĐẦU SỐ - TÚ HÓA PHÁI
+s6 TRUNG CHÂU TỬ VI ĐẦU SỐ - TỨ HÓA PHÁI

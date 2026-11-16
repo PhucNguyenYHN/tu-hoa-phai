@@ -5,7 +5,7 @@ pháp lập mệnh bàn; vì cách an các nhóm sao ngầm chứa nhiều mật
 mã về hàm nghĩa của các sao trong đó. Như: Tính lôgïc của tinh diệu,
 sức mạnh của tĩnh diệu mạnh hay yếu, các sao ưa ghét thế nào, đặc
 tính của 144 mệnh bàn cơ bản (gồm 72 mệnh bàn đơn tinh, 48 mệnh
-bàn song tinh, 24 mệnh bàn vô chính điệu), hai sao chạm nhau, tổ
+bàn song tinh, 24 mệnh bàn vô chính diệu), hai sao chạm nhau, tổ
 hợp tinh hệ, các sao liên quan với nhau, cách cục đặc biệt, can cung,
 chi cung. Thuộc lòng cách an các tổ hợp sao, lâu ngày đương nhiên
 sẽ dung hội quán thông, từ đó mới có thể thâm nhập kĩ thuật luận

@@ -23,8 +23,8 @@ tài bạch và cung quan lộc là tam hợp, cung vị “khí số” của c
 mệnh là cung quan lộc, cung vị “khí số” của cung quan lộc là cung
 tài bạch, cung vị “khí số” của cung tài bạch là cung mệnh; còn trường
 hợp cung huynh đệ, cung tật ách và cung điền trạch là tam hợp, cung
-vị “khí số” của cung huynh đệ là cung điển trạch, cung vị “khí số”
-của cung điển trạch là cung tật ách, cung vị “khí số” của cung tật ách
+vị “khí số” của cung huynh đệ là cung điền trạch, cung vị “khí số”
+của cung điền trạch là cung tật ách, cung vị “khí số” của cung tật ách
 là cung huynh đệ. :
 
 - Cung đếm nghịch đến 8 theo thứ tự 12 cung chức là cung Vị
@@ -37,4 +37,4 @@ tật ách. “Cung vị tật ách” là bản thể của cung chức này s�
 trong các cung là “thể”, cung thứ 8 đếm nghịch trong các cung là
 “biến”! Cung X là cung vị tật ách của “ta”, “ta” cũng là cung vị
 “tuyệt tình” của cung X. i
-22 k TRUNG CHÂU TỬ VỊ ĐẦU SỐ - TÚ HÓA PHÁI
+22 k TRUNG CHÂU TỬ VI ĐẦU SỐ - TỨ HÓA PHÁI
