@@ -46,7 +46,7 @@ footer{padding:6px 12px;padding-bottom:max(6px,env(safe-area-inset-bottom));back
   <span id="tot"></span>
   <button id="next" aria-label="Trang sau">›</button>
   <button id="mode" title="Vừa khung / rộng hết cỡ">⤢</button>
-  <button id="txt" title="Đối chiếu với ảnh trang gốc">Ảnh</button>
+  <button id="txt" title="Đối chiếu với ảnh trang gốc">Ảnh gốc</button>
   <button id="srch" title="Tìm trong sách">🔍</button>
   <button id="tocb" title="Mục lục">☰ Mục lục</button>
 </header>
@@ -88,7 +88,7 @@ footer{padding:6px 12px;padding-bottom:max(6px,env(safe-area-inset-bottom));back
   }
   $("txt").onclick=function(){
     textMode=!textMode;$("img").hidden=textMode;$("ptxt").hidden=!textMode;
-    $("txt").textContent=textMode?"Ảnh":"Chữ";
+    $("txt").textContent=textMode?"Ảnh gốc":"Chữ";
     if(!textMode)$("img").src=cur.b+"/"+pad(cur.p)+".jpg";
     $("stage").classList.toggle("fit",!textMode&&!$("stage").classList.contains("wide"));
     loadText();
