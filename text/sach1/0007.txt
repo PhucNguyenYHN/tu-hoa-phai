@@ -7,7 +7,7 @@ Thuật ngữ sử dụng trong sách này:
 = Chuyển phi hóa: Chỉ hiện tượng cung nào đó tự hóa hoặc có tứ
 hóa phi nhập rồi cung này lại xảy ra phản ứng phi hóa.
 
-= Hình phú: Mỗi một chính tỉnh đều có mô thức cố định về hình
+= Hình phú: Mỗi một chính tinh đều có mô thức cố định về hình
 tượng, cá tính, tính khí và chuẩn tắc hành vi, thuật ngữ của Tử Vi
 Đấu Số gọi đây là “hình phú”.
 
