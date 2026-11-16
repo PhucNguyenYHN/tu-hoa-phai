@@ -19,7 +19,11 @@ input{width:72px;text-align:center}
 #stage img{max-width:100%;height:auto;display:block;background:#fff}
 #stage.fit img{max-height:100%;width:auto;object-fit:contain}
 #stage.wide img{max-width:none;width:100%}
-#ptxt{white-space:pre-wrap;font:18px/1.6 Georgia,"Times New Roman",serif;max-width:720px;margin:0;padding:16px;width:100%}
+#ptxt{white-space:pre-wrap;font:18px/1.6 "Times New Roman","Noto Serif",Palatino,"Palatino Linotype","Segoe UI",Arial,sans-serif;max-width:720px;margin:0;padding:16px;width:100%}
+#tbox{padding:6px 12px;background:var(--bar);border-top:1px solid var(--mut);max-height:55vh;overflow:auto}
+#tbox div{padding:8px 4px;border-bottom:1px solid var(--mut);cursor:pointer;display:flex;gap:8px;justify-content:space-between}
+#tbox .l1{font-weight:700;color:var(--acc);padding-top:12px}#tbox .l3{padding-left:22px;font-size:14px;color:var(--mut)}#tbox .l2{padding-left:8px}
+#tbox i{font-style:normal;color:var(--mut);white-space:nowrap}
 #sbox{padding:8px 12px;background:var(--bar);border-top:1px solid var(--mut);max-height:45vh;overflow:auto}
 #res div{padding:8px 4px;border-bottom:1px solid var(--mut);cursor:pointer;font-size:14px}
 #res b{color:var(--acc)} #res mark{background:var(--acc);color:#000}
@@ -38,7 +42,9 @@ footer{padding:6px 12px;padding-bottom:max(6px,env(safe-area-inset-bottom));back
   <button id="mode" title="Vừa khung / rộng hết cỡ">⤢</button>
   <button id="txt" title="Xem chữ (đã OCR)">Chữ</button>
   <button id="srch" title="Tìm trong sách">🔍</button>
+  <button id="tocb" title="Mục lục">☰ Mục lục</button>
 </header>
+<div id="tbox" hidden></div>
 <div id="sbox" hidden>
   <input id="q" type="search" placeholder="Tìm (vd: hóa lộc, thể dụng)…" style="width:100%">
   <div id="res"></div>
@@ -69,7 +75,7 @@ footer{padding:6px 12px;padding-bottom:max(6px,env(safe-area-inset-bottom));back
     if(!textMode)return;
     var b=cur.b,p=cur.p;
     fetch("text/"+b+"/"+pad(p)+".txt").then(function(r){return r.text()}).then(function(t){
-      if(b===cur.b&&p===cur.p)$("ptxt").textContent=t.replace(/([^\n])\n(?!\n)/g,"$1 ");
+      if(b===cur.b&&p===cur.p)$("ptxt").textContent=t.normalize("NFC").replace(/([^\n])\n(?!\n)/g,"$1 ");
     }).catch(function(){$("ptxt").textContent="(chưa có chữ cho trang này)"});
   }
   $("txt").onclick=function(){
@@ -98,14 +104,27 @@ footer{padding:6px 12px;padding-bottom:max(6px,env(safe-area-inset-bottom));back
       res.innerHTML=out.length?out.join(""):"Không thấy trong "+(cur.b==="sach1"?"Quyển 1":"Quyển 2");
     });
   }
-  $("srch").onclick=function(){var s=$("sbox");s.hidden=!s.hidden;if(!s.hidden)$("q").focus()};
+  $("srch").onclick=function(){var s=$("sbox");s.hidden=!s.hidden;if(!s.hidden){$("tbox").hidden=true;$("q").focus()}};
   var tm;$("q").oninput=function(){clearTimeout(tm);tm=setTimeout(search,250)};
   $("res").onclick=function(e){var d=e.target.closest("div[data-p]");if(d){cur.p=+d.getAttribute("data-p");show()}};
+  var tocs={};
+  function renderToc(){
+    var b=cur.b,box=$("tbox");
+    function draw(a){
+      box.innerHTML=a.map(function(x){return '<div class="l'+x[0]+'" data-p="'+x[2]+'"><span>'+esc(x[1])+'</span><i>tr.'+x[2]+'</i></div>'}).join("");
+    }
+    if(tocs[b])return draw(tocs[b]);
+    box.textContent="Đang tải…";
+    fetch("toc-"+b+".json").then(function(r){return r.json()}).then(function(a){tocs[b]=a;if(b===cur.b)draw(a)})
+      .catch(function(){box.textContent="Chưa có mục lục."});
+  }
+  $("tocb").onclick=function(){var s=$("tbox");s.hidden=!s.hidden;if(!s.hidden){$("sbox").hidden=true;renderToc()}};
+  $("tbox").onclick=function(e){var d=e.target.closest("div[data-p]");if(d){cur.p=+d.getAttribute("data-p");$("tbox").hidden=true;show()}};
   function go(d){cur.p+=d;show()}
   $("prev").onclick=function(){go(-1)};
   $("next").onclick=function(){go(1)};
   $("pg").onchange=function(){cur.p=parseInt(this.value,10);show()};
-  $("book").onchange=function(){cur.b=this.value;cur.p=parseInt(ls("pos_"+cur.b),10)||1;show()};
+  $("book").onchange=function(){cur.b=this.value;cur.p=parseInt(ls("pos_"+cur.b),10)||1;show();if(!$("tbox").hidden)renderToc()};
   $("mode").onclick=function(){var s=$("stage");var w=s.classList.toggle("wide");s.classList.toggle("fit",!w)};
   document.addEventListener("keydown",function(e){
     if(e.target.tagName==="INPUT")return;
