@@ -19,7 +19,7 @@ cung tài bạch, cung phu thê).
 Tiếp theo, bắt đầu từ cung mệnh, mang các cung chức bố trí
 theo chiều nghịch vào 11 cung vị còn lại, thứ tự như sau: cung mệnh,
 cung huynh đệ, cung phu thê, cung tử nữ, cung tài bạch, cung tật
-ách, cung thiên di, cung nỏ bộc, cung quan lộc, cung điền trạch, cung
+ách, cung thiên di, cung nô bộc, cung quan lộc, cung điền trạch, cung
 phúc đức, cung phụ mẫu.
 
 Lưu ý:

@@ -35,7 +35,7 @@ cung nô bộc, đều chủ về hung ách. Tuyến “huynh nô” là cửa n
 toàn mệnh bàn, không được xem thường! Nếu cung tài bạch phi Hóa
 Kị nhập cung nô bộc và xung cung huynh đệ thì tổn thất hoàn toàn;
 nếu cung tài bạch phi Hóa Kị nhập cung huynh đệ và xung cung nô
-bộc thì tổn thẩt lớn, còn lại không nhiều. :
+bộc thì tổn thất lớn, còn lại không nhiều. :
 
 Nếu cung nô bộc là.cung vị “1”, cung mệnh là cung vị đếm
 nghịch đến “6”, vậy cung nô bộe và cụng mệnh theo Hà Đổ nói là

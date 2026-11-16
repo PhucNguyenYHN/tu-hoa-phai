@@ -28,7 +28,7 @@ của nguyên cục biến thành cung phụ mẫu của đại vận này. Cùn
 một lí, lưu niên bàn mỗi năm cũng hoán chuyển như vậy. Đây là
 cung chuyển hoán theo hạn vận, cũng là theo thời gian lưu chuyển
 vậy, là tính tương đối. Tức cung mệnh có thể biến thành 11 cung còn
-lại, vầ các cung còn lại cũng có thể biến thành 11 cung khác.
+lại, và các cung còn lại cũng có thể biến thành 11 cung khác.
 
 Một loại tính tương đối khác là y chiếu theo chủ để đang xem
 xét, lấy cung vị chủ về việc đang nói tới là số “1”, các cung còn lại

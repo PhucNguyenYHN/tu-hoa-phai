@@ -1,7 +1,7 @@
 Chỗ khiến cho người ta:đau đầu chính là làm rõ lúc nào là
 tiến mã, lúc nào là thoái mã. Tiện thực tế, nếu bạn đọc xem kĩ định
 nghĩa thì biết rằng “trú mã” (chỗ mã dừng lại) luôn đi nghịch, thuần
-túy chỉ tại vì vị trí của cung phixuất phân chia ranh giới nện-mới có
+túy chỉ tại vì vị trí của cung phixuất phân chia ranh giới nên-mới có
 sự phân biệt tiến mã và thoái mã. Vì vậy nên ghi nhớ lúc nào “trú
 mã” cũng đi nghịch thì sẽ không sai.
 
