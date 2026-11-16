@@ -1,0 +1,25 @@
+{
+  "_ghi_chu": "Bảng Tứ Hóa [năm sinh] theo Thiên Can của phái Tứ Hóa (Trung Châu Tử Vi Đẩu Số - Tứ Hóa phái). Trích từ sách, mỗi ô có trang nguồn (s1 = Quyển 1, s2 = Quyển 2; số = số trang ảnh trên sách web). Ô đánh dấu 'chart' lấy từ chữ trong lá số mẫu, nên cần đối chiếu ảnh gốc.",
+  "can": {
+    "Giáp": {"loc": "Liêm Trinh", "quyen": "Phá Quân",   "khoa": "Vũ Khúc",  "ki": "Thái Dương",
+             "nguon": {"loc": "s1:61", "quyen": "s1:61", "khoa": "s1:61", "ki": "s1:61"}},
+    "Ất":   {"loc": "Thiên Cơ",   "quyen": "Thiên Lương","khoa": "Tử Vi",    "ki": "Thái Âm",
+             "nguon": {"loc": "s1:457", "quyen": "s1:457", "khoa": "s1:457", "ki": "s1:457"}},
+    "Bính": {"loc": "Thiên Đồng", "quyen": "Thiên Cơ",   "khoa": "Văn Xương","ki": "Liêm Trinh",
+             "nguon": {"loc": "s1:62", "quyen": "s1:62", "khoa": "s1:62", "ki": "s1:62"}},
+    "Đinh": {"loc": "Thái Âm",    "quyen": "Thiên Đồng", "khoa": "Thiên Cơ", "ki": "Cự Môn",
+             "nguon": {"loc": "s2:91", "quyen": "s2:91", "khoa": "s2:320", "ki": "s2:194"}},
+    "Mậu":  {"loc": "Tham Lang",  "quyen": "Thái Âm",    "khoa": "Hữu Bật",  "ki": "Thiên Cơ",
+             "nguon": {"loc": "s2:793", "quyen": "s2:91", "khoa": "s2:640", "ki": "s2:320"}},
+    "Kỷ":   {"loc": "Vũ Khúc",    "quyen": "Tham Lang",  "khoa": "Thiên Lương","ki": "Văn Khúc",
+             "nguon": {"loc": "s1:795", "quyen": "s1:665", "khoa": "s2:801 (chart)", "ki": "s1:724"}},
+    "Canh": {"loc": "Thái Dương", "quyen": "Vũ Khúc",    "khoa": "Thái Âm",  "ki": "Thiên Đồng",
+             "nguon": {"loc": "s1:655", "quyen": "s1/s2 (1 câu)", "khoa": "s2:91", "ki": "s2:91"}},
+    "Tân":  {"loc": "Cự Môn",     "quyen": "Thái Dương", "khoa": "Văn Khúc", "ki": "Văn Xương",
+             "nguon": {"loc": "s1:655", "quyen": "s1:806", "khoa": "s1:805 (chart)", "ki": "s1:805"}},
+    "Nhâm": {"loc": "Thiên Lương","quyen": "Tử Vi",      "khoa": "Tả Phụ",   "ki": "Vũ Khúc",
+             "nguon": {"loc": "s1:685", "quyen": "s1:685", "khoa": "s1:685", "ki": "s1:685"}},
+    "Quý":  {"loc": "Phá Quân",   "quyen": "Cự Môn",     "khoa": "Thái Âm",  "ki": "Tham Lang",
+             "nguon": {"loc": "s2:469", "quyen": "s2:469", "khoa": "s2:469", "ki": "s2:469"}}
+  }
+}
