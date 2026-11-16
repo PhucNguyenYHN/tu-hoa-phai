@@ -1,0 +1,37 @@
+{
+  "_ghi_chu": "Quy tắc an sao dùng để lập lá số. Sách (Q1/Q2) KHÔNG in bảng an sao nên đây là cách an tiêu chuẩn, đã đối chiếu với 2 lá số mẫu trong sách (Kỷ Mùi s2:801 và một lá thứ hai). Vị trí tính theo số thứ tự chi: Tí=0, Sửu=1, Dần=2, Mão=3, Thìn=4, Tị=5, Ngọ=6, Mùi=7, Thân=8, Dậu=9, Tuất=10, Hợi=11; mọi phép tính lấy mod 12. Phần lập Mệnh/Thân/cục/Tử Vi xem lap-menh-ban.json.",
+  "dau_vao": {"thang": "tháng âm lịch 1-12", "gio": "giờ 0=Tí … 11=Hợi (Tí bắt đầu từ 23h)", "ngay": "ngày âm lịch", "can_nam": "Thiên Can năm sinh", "chi_nam": "Địa Chi năm sinh"},
+  "tu_vi_he": {
+    "Tử Vi": "TV (theo thuật toán cục + ngày, xem lap-menh-ban.json)",
+    "Thiên Cơ": "TV-1", "Thái Dương": "TV-3", "Vũ Khúc": "TV-4", "Thiên Đồng": "TV-5", "Liêm Trinh": "TV-8"
+  },
+  "thien_phu_he": {
+    "Thiên Phủ": "(4-TV) mod 12",
+    "Thái Âm": "Phủ+1", "Tham Lang": "Phủ+2", "Cự Môn": "Phủ+3", "Thiên Tướng": "Phủ+4", "Thiên Lương": "Phủ+5", "Thất Sát": "Phủ+6", "Phá Quân": "Phủ+10"
+  },
+  "theo_thang_gio": {
+    "Tả Phụ": "Thìn + (tháng-1)", "Hữu Bật": "Tuất - (tháng-1)",
+    "Văn Xương": "Tuất - giờ", "Văn Khúc": "Thìn + giờ",
+    "Thiên Hình": "Dậu + (tháng-1)", "Thiên Diêu": "Sửu + (tháng-1)",
+    "Địa Không": "Hợi - giờ", "Địa Kiếp": "Hợi + giờ",
+    "Âm Sát": "(2 - 2*(tháng-1)) mod 12"
+  },
+  "theo_can_nam": {
+    "Lộc Tồn": {"Giáp": "Dần", "Ất": "Mão", "Bính": "Tị", "Mậu": "Tị", "Đinh": "Ngọ", "Kỷ": "Ngọ", "Canh": "Thân", "Tân": "Dậu", "Nhâm": "Hợi", "Quý": "Tí"},
+    "Kình Dương": "Lộc Tồn + 1", "Đà La": "Lộc Tồn - 1",
+    "Thiên Khôi / Thiên Việt": {"Giáp": ["Sửu", "Mùi"], "Mậu": ["Sửu", "Mùi"], "Canh": ["Sửu", "Mùi"], "Ất": ["Tí", "Thân"], "Kỷ": ["Tí", "Thân"], "Bính": ["Hợi", "Dậu"], "Đinh": ["Hợi", "Dậu"], "Tân": ["Ngọ", "Dần"], "Nhâm": ["Mão", "Tị"], "Quý": ["Mão", "Tị"]}
+  },
+  "theo_chi_nam": {
+    "Hồng Loan": "Mão - chi năm", "Thiên Hỷ": "Hồng Loan + 6",
+    "Thiên Mã": {"Thân/Tí/Thìn": "Dần", "Dần/Ngọ/Tuất": "Thân", "Hợi/Mão/Mùi": "Tị", "Tị/Dậu/Sửu": "Hợi"},
+    "Hỏa Tinh / Linh Tinh": {
+      "_cach_an": "lấy cung khởi theo nhóm chi năm rồi đếm THUẬN theo giờ (Tí=0)",
+      "Dần/Ngọ/Tuất": {"Hỏa": "Sửu", "Linh": "Mão"},
+      "Thân/Tí/Thìn": {"Hỏa": "Dần", "Linh": "Tuất"},
+      "Tị/Dậu/Sửu": {"Hỏa": "Mão", "Linh": "Tuất"},
+      "Hợi/Mão/Mùi": {"Hỏa": "Dậu", "Linh": "Tuất"}
+    }
+  },
+  "kiem_chung": "Kỷ Mùi, tháng 3, giờ Sửu, ngày 10 (Hỏa lục cục): đối chiếu 12 cung của lá số mẫu s2:801. Khôi/Việt, Thiên Mã, Hỏa/Linh, Âm Sát là cách an tiêu chuẩn, kiểm trên mẫu chứ chưa có bảng gốc trong sách.",
+  "chua_chac": ["Thiên Mã, Hỏa/Linh, Âm Sát: sách không in bảng, cần đối chiếu thêm lá số mẫu khác", "Khôi/Việt có nhiều trường phái (Tân, Nhâm, Quý có thể khác)"]
+}
