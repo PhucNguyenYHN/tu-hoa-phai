@@ -46,7 +46,7 @@ footer{padding:6px 12px;padding-bottom:max(6px,env(safe-area-inset-bottom));back
   <span id="tot"></span>
   <button id="next" aria-label="Trang sau">›</button>
   <button id="mode" title="Vừa khung / rộng hết cỡ">⤢</button>
-  <button id="txt" title="Xem chữ (đã OCR)">Chữ</button>
+  <button id="txt" title="Đối chiếu với ảnh trang gốc">Ảnh</button>
   <button id="srch" title="Tìm trong sách">🔍</button>
   <button id="tocb" title="Mục lục">☰ Mục lục</button>
 </header>
@@ -56,20 +56,20 @@ footer{padding:6px 12px;padding-bottom:max(6px,env(safe-area-inset-bottom));back
 </div>
 <div id="main">
 <nav id="tbox" aria-label="Mục lục"></nav>
-<div id="stage" class="fit"><img id="img" alt="Trang sách"><pre id="ptxt" hidden></pre></div>
+<div id="stage"><img id="img" alt="Trang sách" hidden><pre id="ptxt"></pre></div>
 </div>
 <footer>Vuốt trái/phải hoặc phím ← → để lật trang · Chạm đúp để phóng to</footer>
 <script>
 (function(){
   var books={sach1:{n:824},sach2:{n:817}};
   var $=function(i){return document.getElementById(i)};
-  var cur={b:"sach1",p:1};
+  var cur={b:"sach1",p:1},textMode=true;
   function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
   function pad(n){return ("000"+n).slice(-4)}
   function show(){
     var n=books[cur.b].n;
     cur.p=Math.max(1,Math.min(n,cur.p|0||1));
-    $("img").src=cur.b+"/"+pad(cur.p)+".jpg";
+    if(!textMode)$("img").src=cur.b+"/"+pad(cur.p)+".jpg";
     $("pg").value=cur.p;$("pg").max=n;$("tot").textContent="/ "+n;
     $("book").value=cur.b;
     $("stage").scrollTop=0;
@@ -77,9 +77,8 @@ footer{padding:6px 12px;padding-bottom:max(6px,env(safe-area-inset-bottom));back
     loadText();
     if($("tbox").classList.contains("open")&&tocBook!==cur.b)renderToc();
     // tải trước trang kế
-    if(cur.p<n){var i=new Image();i.src=cur.b+"/"+pad(cur.p+1)+".jpg"}
+    if(!textMode&&cur.p<n){var i=new Image();i.src=cur.b+"/"+pad(cur.p+1)+".jpg"}
   }
-  var textMode=false;
   function loadText(){
     if(!textMode)return;
     var b=cur.b,p=cur.p;
@@ -89,6 +88,8 @@ footer{padding:6px 12px;padding-bottom:max(6px,env(safe-area-inset-bottom));back
   }
   $("txt").onclick=function(){
     textMode=!textMode;$("img").hidden=textMode;$("ptxt").hidden=!textMode;
+    $("txt").textContent=textMode?"Ảnh":"Chữ";
+    if(!textMode)$("img").src=cur.b+"/"+pad(cur.p)+".jpg";
     $("stage").classList.toggle("fit",!textMode&&!$("stage").classList.contains("wide"));
     loadText();
   };
