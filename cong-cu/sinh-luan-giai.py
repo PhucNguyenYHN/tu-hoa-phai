@@ -120,8 +120,8 @@ for src in CHUC:
             ex = None
             if sec and src != tgt:
                 title, p0 = sec
-                pat = r"Cung %s (?:phi )?%s nhập cung %s:" % (re.escape(src), ten.replace("Hóa", "[Hh]óa"), re.escape(tgt))
-                ex = seg("sach1", p0, p0 + 14, pat, 560, stop=r"Cung [a-zà-ỹ ]{3,12} (?:phi )?[Hh]óa [^:]{3,12} nhập cung|\(\d\) Cung [a-zà-ỹ ]{3,12} phi", title=title)
+                pat = r"(?i:(?:Cung\s+)?%s\s+(?:phi\s+)?%s\s+nh[ậâa]p\s+cung\s+%s\s*[:;.])" % (re.escape(src), ten.replace("Hóa", "[Hh][óo]a"), re.escape(tgt))
+                ex = seg("sach1", p0, p0 + 22, pat, 560, stop=r"(?i:(?:Cung )?[a-zà-ỹ ]{3,12} (?:phi )?hóa [^:]{3,12} nh[ậâa]p cung)|\(\d\) Cung [a-zà-ỹ ]{3,12} phi", title=title)
             if not ex and src == tgt:
                 pat = r"[^.]{0,80}cung %s[^.]{0,60}tự %s" % (re.escape(src), ten.replace("Hóa", "[Hh]óa"))
                 ex = seg("sach1", 457, 570, pat, 520, title="Chương 6 Cung tự hóa", skip_head=False)
@@ -129,7 +129,55 @@ for src in CHUC:
                 OUT["phi_hoa"]["%s|%s|%s" % (src, h, tgt)] = pack(ex)
             else:
                 miss.append((src, h, tgt))
-stat["phi_hoa"] = "%d/%d" % (len(OUT["phi_hoa"]), 12 * 4 * 12)
+
+
+def all_matches(b, p0, p1, pattern, n, stop, title):
+    """mọi chỗ khớp pattern trong p0..p1: [(vị trí, trang, đoạn chữ)]"""
+    txt, marks = "", []
+    for p in range(p0, p1 + 1):
+        marks.append((len(txt), p))
+        txt += re.sub(r"\s*\n\s*", " ", page(b, p)).strip() + " "
+    res = []
+    for m in re.finditer(pattern, txt):
+        pg = p0
+        for off, p in marks:
+            if off <= m.start():
+                pg = p
+        body = txt[m.end():]
+        ms = re.search(stop, body[5:])
+        if ms:
+            body = body[:ms.start() + 5]
+        res.append((m.start(), dict(title=title, page=pg, book=b, text=clip(body.strip(), n))))
+    return res
+
+
+# vá các dòng OCR làm hỏng tên Hóa: ghép theo thứ tự trong sách (Lộc, Quyền, Khoa, Kị)
+STOPX = r"(?i:(?:Cung )?[a-zà-ỹ ]{3,12} (?:phi )?hóa\W{0,2}\w{0,6}\s*nh[ậâa]p\s*cung)|\(\d\) Cung [a-zà-ỹ ]{3,12} phi"
+HORDER = ["loc", "quyen", "khoa", "ki"]
+fixed = 0
+for src in CHUC:
+    sec = heading_page("sach1", "5.5.%s" % CH[src])
+    if not sec:
+        continue
+    title, p0 = sec
+    for tgt in CHUC:
+        if src == tgt:
+            continue
+        gone = [h for h in HORDER if "%s|%s|%s" % (src, h, tgt) not in OUT["phi_hoa"]]
+        if not gone:
+            continue
+        loose = r"(?i:(?:Cung\s+)?%s\s+(?:phi\s+)?h[óo]a\W{0,2}\w{0,6}\W{0,2}\s*nh[ậâa]p\s*cung\s+%s\s*[:;.])" % (re.escape(src), re.escape(tgt))
+        found = all_matches("sach1", p0, p0 + 22, loose, 560, STOPX, title)
+        # bỏ những chỗ đã gán cho Hóa khác (so theo trang + đoạn chữ)
+        used = set((v["p"], v["x"][:40]) for k, v in OUT["phi_hoa"].items() if k.startswith(src + "|") and k.endswith("|" + tgt))
+        found = [f for f in found if (f[1]["page"], f[1]["text"][:40]) not in used]
+        if len(found) == len(gone):
+            for h, (pos, e) in zip(gone, found):
+                OUT["phi_hoa"]["%s|%s|%s" % (src, h, tgt)] = pack(e)
+                fixed += 1
+miss = [(s, h, t) for s in CHUC for h in HORDER for t in CHUC if "%s|%s|%s" % (s, h, t) not in OUT["phi_hoa"]]
+print("vá thêm:", fixed)
+stat["phi_hoa"] ="%d/%d" % (len(OUT["phi_hoa"]), 12 * 4 * 12)
 
 # 3. Sao: ý tượng cơ bản (Q2 chương 4)
 STAR = {"Tử Vi": "4.1.1", "Thiên Cơ": "4.2.1", "Thái Dương": "4.3", "Vũ Khúc": "4.4.1", "Thiên Đồng": "4.5.1", "Liêm Trinh": "4.6.1",

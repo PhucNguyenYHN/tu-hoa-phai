@@ -148,7 +148,7 @@ function build(gt,D,M,Y,H){
   var nam=TH[canNam];R.nam=HOA.map(function(h){var st=nam[h[0]],p=S[st];return {h:h[0],ten:h[1],sao:st,pos:p,chuc:p===undefined?null:chucAt[p]}});
   R.phi=[];for(i=0;i<12;i++){var c=cc[CHI[i]],t=TH[c];HOA.forEach(function(h){var st=t[h[0]],p=S[st];
     R.phi.push({src:chucAt[i],can:c,h:h[0],ten:h[1],sao:st,tgt:p===undefined?null:chucAt[p],tu:p===i})})}
-  R.lai=[];for(i=0;i<12;i++)if(cc[CHI[i]]===canNam)R.lai.push(i);
+  R.lai=[];for(i=0;i<12;i++){var q=(2+i)%12;if(cc[CHI[q]]===canNam)R.lai.push(q)}
   R.dv=[];for(var j=0;j<12;j++){var q=R.thuan?mod(menh+j):mod(menh-j);R.dv.push({pos:q,chuc:chucAt[q],tu:n+10*j,den:n+10*j+9})}
   return R}
 
@@ -171,15 +171,15 @@ function render(R){
     o.push('<div class="cell'+(i===R.menh?' m':'')+'" style="grid-row:'+g[0]+';grid-column:'+g[1]+'"><div class="hd"><b>'+esc(cap(R.chucAt[i]))+'</b><span>'+esc(R.cc[ch]+" "+ch)+'</span></div><div class="st">'+st.join("<br>")+'</div><div class="tg">'+tag.join(" · ")+'</div></div>')});
   o.push('<div class="center"><b>'+(R.gt==="nam"?"Nam":"Nữ")+', '+(R.duong?"dương":"âm")+' '+(R.gt==="nam"?"nam":"nữ")+'</b>'+
     esc(R.dd)+'<br>= ngày '+L.d+' tháng '+L.m+(L.leap?' (nhuận)':'')+' năm '+esc(R.canNam+" "+R.chiNam)+', giờ '+gioName+'<br>Cục: '+esc(CUC_NAME[R.cuc])+'<br>Mệnh: '+esc(R.cc[CHI[R.menh]]+" "+CHI[R.menh])+' · Thân: '+esc(CHI[R.than])+'<br>Tử Vi tại '+CHI[R.S["Tử Vi"]]+'<br><small>Đại vận '+(R.thuan?"thuận":"nghịch")+', khởi '+R.n+' tuổi</small></div></div>');
-  o.push('<p class="note">Sao có chữ đậm đỏ là sao mang Tứ Hóa năm sinh. Khung đỏ là cung Mệnh. Giờ Tí tính từ 23h; ngày không đổi sang hôm sau.</p>');
+  o.push('<p class="note">Sao có chữ đậm đỏ là sao mang Tứ Hóa năm sinh. Khung đỏ là cung Mệnh. Giờ Tí tính từ 23h; ngày không đổi sang hôm sau. Thiên Mã và Âm Sát an theo cách tiêu chuẩn (lá số mẫu trong sách không in Thiên Mã, và Âm Sát chỉ khớp một trong hai mẫu đã đối chiếu), không dùng để luận giải.</p>');
   /* 2. tứ hóa năm sinh */
   o.push('<h2>2. Tứ Hóa năm sinh ('+esc(R.canNam)+')</h2>');
   R.nam.forEach(function(x){var t='<b>'+esc(x.sao)+' '+esc(x.ten)+'</b> ở cung '+esc(x.chuc||"?")+' ('+CHI[x.pos]+')';
     o.push(card(t,[x.chuc&&LG.tuhoa_nam[x.h][x.chuc]]))});
   /* 3. lai nhân cung */
-  var lt=R.lai.map(function(p){return R.chucAt[p]+" ("+CHI[p]+")"}).join(" hoặc ");
-  var extra=R.lai.length>1?'<div class="note">Năm '+esc(R.canNam)+' có hai cung cùng thiên can nên có hai ứng viên; sách mẫu chưa nói rõ chọn cung nào, hãy đối chiếu thêm.</div>':'';
-  var lx=[];R.lai.forEach(function(p){lx.push(LG.lai_nhan[R.chucAt[p]])});lx=lx.concat(LG.lai_nhan_chung||[]);
+  var P=R.lai[0],lt=R.chucAt[P]+" ("+CHI[P]+")";
+  var extra=R.lai.length>1?'<div class="note">Năm '+esc(R.canNam)+' có hai cung cùng thiên can: '+esc(R.chucAt[R.lai[0]])+' ('+CHI[R.lai[0]]+') và '+esc(R.chucAt[R.lai[1]])+' ('+CHI[R.lai[1]]+'). Ví dụ Nhâm Ngọ ở Q1 tr.810 sách lấy cung có can đó xuất hiện trước tính từ Dần, nên chọn '+esc(R.chucAt[P])+'; cung còn lại chỉ để tham khảo'+(R.canNam==="Nhâm"?'.':' (năm Tân chưa có ví dụ riêng trong sách, đây là suy ra).')+'</div>':'';
+  var lx=[LG.lai_nhan[R.chucAt[P]]].concat(LG.lai_nhan_chung||[]);
   o.push('<h2>3. Lai nhân cung</h2>'+card('Lai nhân cung: <b>'+esc(lt)+'</b>',lx,extra));
   /* 4. cục */
   var ce=LG.cuc[R.cuc]&&LG.cuc[R.cuc][CHI[R.menh]];
