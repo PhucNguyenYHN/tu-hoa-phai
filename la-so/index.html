@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Lập lá số Tứ Hóa phái</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;display=swap">
+<style>
+:root{--bg:#f7f3ea;--fg:#2a2620;--mut:#7a7061;--ac:#9c2f2f;--card:#fffdf7;--line:#d8cfbd;--hl:rgba(224,164,88,.18)}
+@media (prefers-color-scheme:dark){:root{--bg:#1c1b19;--fg:#ece7dc;--mut:#a39d8f;--ac:#e0a458;--card:#26241f;--line:#3d3a33;--hl:rgba(224,164,88,.14)}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 "Noto Serif","Times New Roman",serif}
+.wrap{max-width:1000px;margin:0 auto;padding:16px;padding-bottom:60px}
+h1{font-size:22px;color:var(--ac);margin:8px 0 4px}
+h2{font-size:18px;margin:30px 0 10px;border-bottom:1px solid var(--line);padding-bottom:4px;color:var(--ac)}
+.note{color:var(--mut);font-size:13.5px;margin:0 0 12px}
+form{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;align-items:end}
+label{display:block;font-size:12.5px;color:var(--mut);margin-bottom:3px}
+input,select,button{font:inherit;width:100%;padding:10px;border-radius:9px;border:1px solid var(--mut);background:var(--bg);color:var(--fg)}
+button.go{background:var(--ac);color:#fff;border:0;font-weight:700}
+#err{color:#c0392b;font-size:14px;margin-top:8px;min-height:18px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.cell{background:var(--card);border:1px solid var(--line);padding:6px;min-height:104px;font-size:13px;min-width:0}
+.cell.m{outline:2px solid var(--ac)}
+.hd{display:flex;justify-content:space-between;gap:4px;color:var(--mut);font-size:12px}.hd b{color:var(--ac);font-size:13px}
+.st{margin-top:3px}.st .tu{color:var(--ac);font-weight:700}
+.tg{color:var(--ac);font-size:11.5px;margin-top:3px}
+.center{background:var(--card);border:1px solid var(--line);padding:10px;font-size:13.5px;display:flex;flex-direction:column;justify-content:center;text-align:center;grid-row:2/4;grid-column:2/4}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0 0 10px}
+.card .ti{font-weight:700;margin-bottom:4px}
+.ex{margin:6px 0 0;padding-top:6px;border-top:1px dashed var(--line);font-size:14.5px}
+.ex .t{color:var(--mut);font-size:12.5px;margin-bottom:2px}
+a{color:var(--ac)}
+table{width:100%;border-collapse:collapse;font-size:14px}td,th{border:1px solid var(--line);padding:6px 8px;vertical-align:top;text-align:left}th{background:var(--card)}
+tr.tu td{background:var(--hl)}
+details summary{cursor:pointer;color:var(--ac);font-size:13px}
+.bar{display:flex;gap:8px;margin:10px 0}.bar button,.bar a{width:auto;padding:8px 14px;text-decoration:none;border:1px solid var(--mut);border-radius:9px;color:var(--fg);background:var(--card);font-size:14px}
+[hidden]{display:none!important}
+@media(max-width:700px){.cell{font-size:11.5px;padding:4px;min-height:92px}.hd{font-size:10.5px}.hd b{font-size:11.5px}.center{font-size:12px;padding:6px}}
+@media print{form,.bar,#err{display:none!important}.card,.cell{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Lập lá số Tứ Hóa phái</h1>
+<p class="note">Nhập ngày giờ sinh (dương lịch). Lá số được tính ngay trên máy bạn, <b>không lưu và không gửi đi đâu</b>. Các đoạn sách là trích tự động từ chữ OCR của bộ sách Trung Châu Tử Vi Đẩu Số (Tứ Hóa phái); đây là phần sách nhắc tới, không phải lời phán đoán về một con người. <a href="../">Đọc sách</a></p>
+<form id="fm" autocomplete="off">
+  <div><label for="gt">Giới tính</label><select id="gt"><option value="nam">Nam</option><option value="nu">Nữ</option></select></div>
+  <div><label for="d">Ngày</label><input id="d" type="number" inputmode="numeric" min="1" max="31" placeholder="03"></div>
+  <div><label for="m">Tháng</label><input id="m" type="number" inputmode="numeric" min="1" max="12" placeholder="11"></div>
+  <div><label for="y">Năm</label><input id="y" type="number" inputmode="numeric" min="1900" max="2100" placeholder="1993"></div>
+  <div><label for="hh">Giờ (0–23)</label><input id="hh" type="number" inputmode="numeric" min="0" max="23" placeholder="21"></div>
+  <div><label for="mi">Phút</label><input id="mi" type="number" inputmode="numeric" min="0" max="59" placeholder="30"></div>
+  <div><button class="go" type="submit">Lập lá số</button></div>
+</form>
+<div id="err" role="alert"></div>
+<div id="out" hidden>
+  <div class="bar"><button id="print" type="button">In / Lưu PDF</button></div>
+  <div id="r"></div>
+</div>
+</div>
+<script>
+(function(){
+"use strict";
+var $=function(i){return document.getElementById(i)};
+var CHI=["Tí","Sửu","Dần","Mão","Thìn","Tị","Ngọ","Mùi","Thân","Dậu","Tuất","Hợi"];
+var CAN=["Giáp","Ất","Bính","Đinh","Mậu","Kỷ","Canh","Tân","Nhâm","Quý"];
+var CUNG=["mệnh","huynh đệ","phu thê","tử nữ","tài bạch","tật ách","thiên di","nô bộc","quan lộc","điền trạch","phúc đức","phụ mẫu"];
+var HOA=[["loc","Hóa Lộc"],["quyen","Hóa Quyền"],["khoa","Hóa Khoa"],["ki","Hóa Kị"]];
+function mod(x){return ((x%12)+12)%12}
+
+/* ---------- âm lịch (Hồ Ngọc Đức) ---------- */
+function jdFrom(dd,mm,yy){var a=Math.floor((14-mm)/12),y=yy+4800-a,m=mm+12*a-3;
+  var jd=dd+Math.floor((153*m+2)/5)+365*y+Math.floor(y/4)-Math.floor(y/100)+Math.floor(y/400)-32045;
+  if(jd<2299161)jd=dd+Math.floor((153*m+2)/5)+365*y+Math.floor(y/4)-32083;return jd}
+function newMoon(k){var T=k/1236.85,T2=T*T,T3=T2*T,dr=Math.PI/180,S=Math.sin;
+  var J=2415020.75933+29.53058868*k+0.0001178*T2-0.000000155*T3;
+  J+=0.00033*S((166.56+132.87*T-0.009173*T2)*dr);
+  var M=359.2242+29.10535608*k-0.0000333*T2-0.00000347*T3,
+      Mp=306.0253+385.81691806*k+0.0107306*T2+0.00001236*T3,
+      F=21.2964+390.67050646*k-0.0016528*T2-0.00000239*T3;
+  var C=(0.1734-0.000393*T)*S(M*dr)+0.0021*S(2*dr*M);
+  C-=0.4068*S(Mp*dr)+(-0.0161*S(dr*2*Mp));C-=0.0004*S(dr*3*Mp);
+  C+=0.0104*S(dr*2*F)-0.0051*S(dr*(M+Mp));C-=0.0074*S(dr*(M-Mp))+0.0004*S(dr*(2*F+M));
+  C-=0.0004*S(dr*(2*F-M))-0.0006*S(dr*(2*F+Mp));C+=0.0010*S(dr*(2*F-Mp))+0.0005*S(dr*(2*Mp+M));
+  var dt=-0.000278+0.000265*T+0.000262*T2;return J+C-dt}
+function nmDay(k,tz){return Math.floor(newMoon(k)+0.5+tz/24)}
+function sunLong(jdn,tz){var T=(jdn-2451545.5-tz/24)/36525,T2=T*T,dr=Math.PI/180;
+  var M=357.52910+35999.05030*T-0.0001559*T2-0.00000048*T*T2,L0=280.46645+36000.76983*T+0.0003032*T2;
+  var DL=(1.914600-0.004817*T-0.000014*T2)*Math.sin(dr*M)+(0.019993-0.000101*T)*Math.sin(dr*2*M)+0.000290*Math.sin(dr*3*M);
+  var L=(L0+DL)*dr;L=L-Math.PI*2*Math.floor(L/(Math.PI*2));return Math.floor(L/Math.PI*6)}
+function lunarM11(yy,tz){var off=jdFrom(31,12,yy)-2415021,k=Math.floor(off/29.530588853),nm=nmDay(k,tz);
+  if(sunLong(nm,tz)>=9)nm=nmDay(k-1,tz);return nm}
+function leapOff(a11,tz){var k=Math.floor((a11-2415021.076998695)/29.530588853+0.5),i=1,arc=sunLong(nmDay(k+i,tz),tz),last;
+  do{last=arc;i++;arc=sunLong(nmDay(k+i,tz),tz)}while(arc!==last&&i<14);return i-1}
+function toLunar(dd,mm,yy){var tz=7,dn=jdFrom(dd,mm,yy),k=Math.floor((dn-2415021.076998695)/29.530588853),ms=nmDay(k+1,tz);
+  if(ms>dn)ms=nmDay(k,tz);
+  var a11=lunarM11(yy,tz),b11=a11,ly;
+  if(a11>=ms){ly=yy;a11=lunarM11(yy-1,tz)}else{ly=yy+1;b11=lunarM11(yy+1,tz)}
+  var ld=dn-ms+1,diff=Math.floor((ms-a11)/29),leap=0,lm=diff+11;
+  if(b11-a11>365){var lo=leapOff(a11,tz);if(diff>=lo){lm=diff+10;if(diff===lo)leap=1}}
+  if(lm>12)lm-=12;if(lm>=11&&diff<4)ly-=1;
+  return {d:ld,m:lm,y:ly,leap:leap}}
+
+/* ---------- lập mệnh bàn (Q1 tr.35-43) ---------- */
+var CUC_TABLE={"Tí Sửu Ngọ Mùi":["Kim4","Thủy2","Hỏa6","Thổ5","Mộc3"],"Dần Mão Thân Dậu":["Thủy2","Hỏa6","Thổ5","Mộc3","Kim4"],"Thìn Tị Tuất Hợi":["Hỏa6","Thổ5","Mộc3","Kim4","Thủy2"]};
+var CAN_GROUP=["Giáp Ất","Bính Đinh","Mậu Kỷ","Canh Tân","Nhâm Quý"];
+var CUC_NAME={Thủy2:"Thủy nhị cục",Mộc3:"Mộc tam cục",Kim4:"Kim tứ cục",Thổ5:"Thổ ngũ cục",Hỏa6:"Hỏa lục cục"};
+function canCung(yc){var start={"Giáp":"Bính","Kỷ":"Bính","Ất":"Mậu","Canh":"Mậu","Bính":"Canh","Tân":"Canh","Đinh":"Nhâm","Nhâm":"Nhâm","Mậu":"Giáp","Quý":"Giáp"}[yc];
+  var s=CAN.indexOf(start),r={};for(var i=0;i<12;i++)r[CHI[(2+i)%12]]=CAN[(s+i)%10];return r}
+function cucOf(canM,chiM){var row=null,k;for(k in CUC_TABLE)if(k.split(" ").indexOf(chiM)>=0)row=k;
+  var col=0;CAN_GROUP.forEach(function(g,i){if(g.split(" ").indexOf(canM)>=0)col=i});return CUC_TABLE[row][col]}
+function tuviAlgo(d,n){var k=0;while((d+k)%n)k++;var q=(d+k)/n,pos=2+(q-1);pos=k%2?pos-k:pos+k;return mod(pos)}
+
+/* ---------- an sao (du-lieu/an-sao.json) ---------- */
+function anSao(canNam,chiNam,thang,gio,ngay,n){
+  var S={},tv=tuviAlgo(ngay,n),ph=mod(4-tv),ix=function(c){return CHI.indexOf(c)};
+  S["Tử Vi"]=tv;S["Thiên Cơ"]=mod(tv-1);S["Thái Dương"]=mod(tv-3);S["Vũ Khúc"]=mod(tv-4);S["Thiên Đồng"]=mod(tv-5);S["Liêm Trinh"]=mod(tv-8);
+  S["Thiên Phủ"]=ph;["Thái Âm","Tham Lang","Cự Môn","Thiên Tướng","Thiên Lương","Thất Sát"].forEach(function(s,i){S[s]=mod(ph+i+1)});S["Phá Quân"]=mod(ph+10);
+  S["Tả Phụ"]=mod(4+thang-1);S["Hữu Bật"]=mod(10-(thang-1));S["Văn Xương"]=mod(10-gio);S["Văn Khúc"]=mod(4+gio);
+  var lt=ix({"Giáp":"Dần","Ất":"Mão","Bính":"Tị","Mậu":"Tị","Đinh":"Ngọ","Kỷ":"Ngọ","Canh":"Thân","Tân":"Dậu","Nhâm":"Hợi","Quý":"Tí"}[canNam]);
+  S["Lộc Tồn"]=lt;S["Kình Dương"]=mod(lt+1);S["Đà La"]=mod(lt-1);
+  var kv={"Giáp":["Sửu","Mùi"],"Mậu":["Sửu","Mùi"],"Canh":["Sửu","Mùi"],"Ất":["Tí","Thân"],"Kỷ":["Tí","Thân"],"Bính":["Hợi","Dậu"],"Đinh":["Hợi","Dậu"],"Tân":["Ngọ","Dần"],"Nhâm":["Mão","Tị"],"Quý":["Mão","Tị"]}[canNam];
+  S["Thiên Khôi"]=ix(kv[0]);S["Thiên Việt"]=ix(kv[1]);
+  var ci=ix(chiNam);S["Hồng Loan"]=mod(3-ci);S["Thiên Hỷ"]=mod(S["Hồng Loan"]+6);
+  S["Thiên Hình"]=mod(9+thang-1);S["Thiên Diêu"]=mod(1+thang-1);S["Địa Không"]=mod(11-gio);S["Địa Kiếp"]=mod(11+gio);
+  var HL={"Dần":["Sửu","Mão"],"Ngọ":["Sửu","Mão"],"Tuất":["Sửu","Mão"],"Thân":["Dần","Tuất"],"Tí":["Dần","Tuất"],"Thìn":["Dần","Tuất"],"Tị":["Mão","Tuất"],"Dậu":["Mão","Tuất"],"Sửu":["Mão","Tuất"],"Hợi":["Dậu","Tuất"],"Mão":["Dậu","Tuất"],"Mùi":["Dậu","Tuất"]}[chiNam];
+  S["Hỏa Tinh"]=mod(ix(HL[0])+gio);S["Linh Tinh"]=mod(ix(HL[1])+gio);
+  var TM={"Thân":"Dần","Tí":"Dần","Thìn":"Dần","Dần":"Thân","Ngọ":"Thân","Tuất":"Thân","Hợi":"Tị","Mão":"Tị","Mùi":"Tị","Tị":"Hợi","Dậu":"Hợi","Sửu":"Hợi"}[chiNam];
+  S["Thiên Mã"]=ix(TM);S["Âm Sát"]=mod(2-2*(thang-1));
+  return S}
+
+/* ---------- dựng lá số ---------- */
+var TH=null,LG=null;
+function build(gt,D,M,Y,H){
+  var L=toLunar(D,M,Y),canNam=CAN[(L.y+6)%10],chiNam=CHI[(L.y+8)%12];
+  var gio=Math.floor(((H+1)%24)/2);
+  var cc=canCung(canNam),ti=mod(2+L.m-1),menh=mod(ti-gio),than=mod(ti+gio);
+  var cuc=cucOf(cc[CHI[menh]],CHI[menh]),n=+cuc.slice(-1);
+  var S=anSao(canNam,chiNam,L.m,gio,L.d,n);
+  var chucAt={},chucOf={};for(var i=0;i<12;i++){var p=mod(menh-i);chucAt[p]=CUNG[i];chucOf[CUNG[i]]=p}
+  var by=[];for(i=0;i<12;i++)by.push([]);for(var s in S)by[S[s]].push(s);
+  var R={lunar:L,canNam:canNam,chiNam:chiNam,gio:gio,gt:gt,menh:menh,than:than,cuc:cuc,n:n,S:S,cc:cc,chucAt:chucAt,by:by};
+  var duong=CAN.indexOf(canNam)%2===0;R.duong=duong;R.thuan=(gt==="nam")===duong;
+  var nam=TH[canNam];R.nam=HOA.map(function(h){var st=nam[h[0]],p=S[st];return {h:h[0],ten:h[1],sao:st,pos:p,chuc:p===undefined?null:chucAt[p]}});
+  R.phi=[];for(i=0;i<12;i++){var c=cc[CHI[i]],t=TH[c];HOA.forEach(function(h){var st=t[h[0]],p=S[st];
+    R.phi.push({src:chucAt[i],can:c,h:h[0],ten:h[1],sao:st,tgt:p===undefined?null:chucAt[p],tu:p===i})})}
+  R.lai=[];for(i=0;i<12;i++)if(cc[CHI[i]]===canNam)R.lai.push(i);
+  R.dv=[];for(var j=0;j<12;j++){var q=R.thuan?mod(menh+j):mod(menh-j);R.dv.push({pos:q,chuc:chucAt[q],tu:n+10*j,den:n+10*j+9})}
+  return R}
+
+/* ---------- hiển thị ---------- */
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function ex(e){if(!e)return "";var u="../#sach"+e.b+"-"+e.p;
+  return '<div class="ex"><div class="t">'+esc(e.t)+' · <a href="'+u+'" target="_blank" rel="noopener">Q'+e.b+' tr.'+e.p+'</a></div>'+(e.x?'<div>'+esc(e.x)+'</div>':'')+'</div>'}
+function card(title,exs,extra){var h='<div class="card"><div class="ti">'+title+'</div>'+(extra||"");var k=0;
+  (exs||[]).forEach(function(e){if(e){h+=ex(e);k++}});if(!k)h+='<div class="note">Chưa tìm thấy đoạn tương ứng trong sách.</div>';return h+'</div>'}
+var GRID={"Tị":[1,1],"Ngọ":[1,2],"Mùi":[1,3],"Thân":[1,4],"Thìn":[2,1],"Dậu":[2,4],"Mão":[3,1],"Tuất":[3,4],"Dần":[4,1],"Sửu":[4,2],"Tí":[4,3],"Hợi":[4,4]};
+var CHINH=["Tử Vi","Thiên Cơ","Thái Dương","Vũ Khúc","Thiên Đồng","Liêm Trinh","Thiên Phủ","Thái Âm","Tham Lang","Cự Môn","Thiên Tướng","Thiên Lương","Thất Sát","Phá Quân"];
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+function render(R){
+  var o=[],L=R.lunar,gioName=CHI[R.gio];
+  /* 1. lá số */
+  o.push('<h2>1. Lá số</h2><div class="grid">');
+  CHI.forEach(function(ch,i){var g=GRID[ch],tag=[];if(i===R.than)tag.push("Cung Thân");
+    var st=R.by[i].map(function(s){
+      var hh=R.nam.filter(function(x){return x.sao===s})[0];return hh?'<span class="tu">'+esc(s)+' <small>'+esc(hh.ten)+'</small></span>':esc(s)});
+    o.push('<div class="cell'+(i===R.menh?' m':'')+'" style="grid-row:'+g[0]+';grid-column:'+g[1]+'"><div class="hd"><b>'+esc(cap(R.chucAt[i]))+'</b><span>'+esc(R.cc[ch]+" "+ch)+'</span></div><div class="st">'+st.join("<br>")+'</div><div class="tg">'+tag.join(" · ")+'</div></div>')});
+  o.push('<div class="center"><b>'+(R.gt==="nam"?"Nam":"Nữ")+', '+(R.duong?"dương":"âm")+' '+(R.gt==="nam"?"nam":"nữ")+'</b>'+
+    esc(R.dd)+'<br>= ngày '+L.d+' tháng '+L.m+(L.leap?' (nhuận)':'')+' năm '+esc(R.canNam+" "+R.chiNam)+', giờ '+gioName+'<br>Cục: '+esc(CUC_NAME[R.cuc])+'<br>Mệnh: '+esc(R.cc[CHI[R.menh]]+" "+CHI[R.menh])+' · Thân: '+esc(CHI[R.than])+'<br>Tử Vi tại '+CHI[R.S["Tử Vi"]]+'<br><small>Đại vận '+(R.thuan?"thuận":"nghịch")+', khởi '+R.n+' tuổi</small></div></div>');
+  o.push('<p class="note">Sao có chữ đậm đỏ là sao mang Tứ Hóa năm sinh. Khung đỏ là cung Mệnh. Giờ Tí tính từ 23h; ngày không đổi sang hôm sau.</p>');
+  /* 2. tứ hóa năm sinh */
+  o.push('<h2>2. Tứ Hóa năm sinh ('+esc(R.canNam)+')</h2>');
+  R.nam.forEach(function(x){var t='<b>'+esc(x.sao)+' '+esc(x.ten)+'</b> ở cung '+esc(x.chuc||"?")+' ('+CHI[x.pos]+')';
+    o.push(card(t,[x.chuc&&LG.tuhoa_nam[x.h][x.chuc]]))});
+  /* 3. lai nhân cung */
+  var lt=R.lai.map(function(p){return R.chucAt[p]+" ("+CHI[p]+")"}).join(" hoặc ");
+  var extra=R.lai.length>1?'<div class="note">Năm '+esc(R.canNam)+' có hai cung cùng thiên can nên có hai ứng viên; sách mẫu chưa nói rõ chọn cung nào, hãy đối chiếu thêm.</div>':'';
+  var lx=[];R.lai.forEach(function(p){lx.push(LG.lai_nhan[R.chucAt[p]])});lx=lx.concat(LG.lai_nhan_chung||[]);
+  o.push('<h2>3. Lai nhân cung</h2>'+card('Lai nhân cung: <b>'+esc(lt)+'</b>',lx,extra));
+  /* 4. cục */
+  var ce=LG.cuc[R.cuc]&&LG.cuc[R.cuc][CHI[R.menh]];
+  o.push('<h2>4. Cục ngũ hành</h2>'+card('<b>'+esc(CUC_NAME[R.cuc])+'</b>, Mệnh tại '+esc(R.cc[CHI[R.menh]]+" "+CHI[R.menh]),[ce]));
+  /* 5. sao cung mệnh và thân */
+  o.push('<h2>5. Sao ở cung Mệnh và cung Thân</h2>');
+  var ms=R.by[R.menh].filter(function(s){return LG.sao[s]});
+  var hc=R.by[R.menh].filter(function(s){return CHINH.indexOf(s)>=0});
+  o.push(card('Cung Mệnh: <b>'+(R.by[R.menh].map(esc).join(", ")||"vô chính diệu")+'</b>',ms.map(function(s){var e=LG.sao[s];return e&&{b:e.b,p:e.p,t:s+" – "+e.t,x:e.x}}),hc.length?'':'<div class="note">Cung Mệnh vô chính diệu (không có chính tinh); sách luận riêng ở Q2 mục 1.13.</div>'));
+  var tc=R.chucAt[R.than];
+  o.push(card('Cung Thân ('+CHI[R.than]+') đồng cung với cung <b>'+esc(tc)+'</b>',[LG.than[tc]],R.than===R.menh?'<div class="note">Thân cư Mệnh.</div>':''));
+  /* 6. phi hóa */
+  o.push('<h2>6. Phi hóa của 12 cung (Chương 5.5 và 6), 48 dòng; dòng tô màu là tự hóa</h2><table><tr><th>Cung phát</th><th>Hóa</th><th>Sao → cung nhận</th><th>Sách</th></tr>');
+  R.phi.forEach(function(f){var e=f.tgt&&LG.phi_hoa[f.src+"|"+f.h+"|"+f.tgt];
+    o.push('<tr class="'+(f.tu?'tu':'')+'"><td>'+esc(f.src)+' <small>('+esc(f.can)+')</small></td><td>'+esc(f.ten)+'</td><td>'+esc(f.sao)+' → '+esc(f.tgt||"?")+(f.tu?' <b>(tự hóa)</b>':'')+'</td><td>'+
+      (e?'<details><summary>'+esc(e.t)+' · Q'+e.b+' tr.'+e.p+'</summary>'+ex(e)+'</details>':'<span class="note">—</span>')+'</td></tr>')});
+  o.push('</table>');
+  /* 7. đại vận */
+  o.push('<h2>7. Đại vận ('+(R.thuan?'thuận':'nghịch')+', khởi '+R.n+' tuổi)</h2><table><tr><th>Tuổi</th><th>Cung</th><th>Chức</th></tr>');
+  R.dv.forEach(function(d){o.push('<tr><td>'+d.tu+'–'+d.den+'</td><td>'+esc(R.cc[CHI[d.pos]]+" "+CHI[d.pos])+'</td><td>'+esc(d.chuc)+'</td></tr>')});
+  o.push('</table>');
+  $("r").innerHTML=o.join("");$("out").hidden=false;
+  try{$("out").scrollIntoView({behavior:"smooth"})}catch(e){}
+}
+
+var loading=null;
+function load(){if(loading)return loading;
+  loading=Promise.all([fetch("../du-lieu/tu-hoa-theo-can.json").then(function(r){return r.json()}),fetch("../du-lieu/luan-giai.json").then(function(r){return r.json()})])
+    .then(function(a){TH=a[0].can;LG=a[1]});return loading}
+$("fm").onsubmit=function(e){
+  e.preventDefault();var er=$("err");er.textContent="";
+  var gt=$("gt").value,D=+$("d").value,M=+$("m").value,Y=+$("y").value,H=$("hh").value===""?NaN:+$("hh").value,Mi=+($("mi").value||0);
+  if(!(D>=1&&M>=1&&M<=12&&Y>=1900&&Y<=2100&&H>=0&&H<=23&&Mi>=0&&Mi<=59)){er.textContent="Hãy nhập đủ ngày, tháng, năm, giờ hợp lệ.";return}
+  var t=new Date(Y,M-1,D);if(t.getMonth()!==M-1||t.getDate()!==D){er.textContent="Ngày này không tồn tại.";return}
+  er.textContent="Đang lập lá số…";
+  load().then(function(){
+    var R=build(gt,D,M,Y,H);R.dd=("0"+H).slice(-2)+"h"+("0"+Mi).slice(-2)+" ngày "+("0"+D).slice(-2)+"/"+("0"+M).slice(-2)+"/"+Y+" (dương lịch)";
+    render(R);er.textContent=""}).catch(function(){er.textContent="Không tải được dữ liệu. Hãy thử lại."})};
+$("print").onclick=function(){window.print()};
+window.__tv={build:build,render:render,load:load};
+})();
+</script>
+</body>
+</html>
