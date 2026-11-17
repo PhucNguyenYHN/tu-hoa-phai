@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Xem kết quả</title>
+<style>
+:root{--bg:#efe9db;--bar:#fbf7ee;--fg:#2b2620;--mut:#7a7061;--acc:#9c2f2f}
+@media (prefers-color-scheme:dark){:root{--bg:#1c1b19;--bar:#2a2825;--fg:#ece7dc;--mut:#a39d8f;--acc:#d9a441}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100%}
+#gate{max-width:420px;margin:12vh auto 0;padding:24px 18px}
+h1{font-size:20px;color:var(--acc);margin:0 0 6px}
+p{color:var(--mut);margin:0 0 16px;font-size:14px}
+label{display:block;font-size:13px;color:var(--mut);margin:12px 0 4px}
+input,button{font:inherit;width:100%;padding:12px;border-radius:10px;border:1px solid var(--mut);background:var(--bar);color:var(--fg)}
+button{margin-top:16px;background:var(--acc);color:#fff;border:0;font-weight:600}
+#err{color:#c0392b;margin-top:12px;font-size:14px;min-height:20px}
+#bar{display:flex;gap:8px;padding:8px 12px;padding-top:max(8px,env(safe-area-inset-top));background:var(--bar);position:sticky;top:0;z-index:2}
+#bar button{width:auto;margin:0;padding:8px 14px}
+#f{border:0;width:100%;display:block;background:transparent}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div id="gate">
+  <h1>Xem kết quả</h1>
+  <p>Kết quả được mã hóa. Chỉ người có mật khẩu riêng mới mở được; mật khẩu không gửi đi đâu, việc giải mã diễn ra ngay trên máy bạn.</p>
+  <form id="fm" autocomplete="off">
+    <label for="id">Mã kết quả</label>
+    <input id="id" inputmode="latin" autocapitalize="off" autocorrect="off" spellcheck="false">
+    <label for="pw">Mật khẩu</label>
+    <input id="pw" type="password" autocapitalize="off" autocorrect="off" spellcheck="false">
+    <button type="submit">Mở</button>
+    <div id="err" role="alert"></div>
+  </form>
+</div>
+<div id="view" hidden>
+  <div id="bar"><button id="print">In / Lưu PDF</button><button id="close">Đóng</button></div>
+  <iframe id="f" title="Kết quả" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+</div>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var h=(location.hash||"").replace(/^#/,"");
+  if(h)$("id").value=h;
+  function b64(s){var b=atob(s),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a}
+  async function decrypt(o,pw){
+    var km=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw.normalize("NFC")),"PBKDF2",false,["deriveKey"]);
+    var key=await crypto.subtle.deriveKey({name:"PBKDF2",salt:b64(o.salt),iterations:o.iter,hash:"SHA-256"},km,{name:"AES-GCM",length:256},false,["decrypt"]);
+    var pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(o.iv)},key,b64(o.ct));
+    return new TextDecoder().decode(pt);
+  }
+  function fit(){var f=$("f");try{f.style.height="0";f.style.height=(f.contentDocument.body.scrollHeight+100)+"px"}catch(e){f.style.height="90vh"}}
+  $("fm").onsubmit=async function(e){
+    e.preventDefault();
+    var id=$("id").value.trim().toLowerCase(),pw=$("pw").value.trim(),er=$("err");
+    er.textContent="";
+    if(!/^[0-9a-z]{6,32}$/.test(id)){er.textContent="Mã kết quả không hợp lệ.";return}
+    if(!pw){er.textContent="Hãy nhập mật khẩu.";return}
+    if(!(window.crypto&&crypto.subtle)){er.textContent="Trình duyệt này không hỗ trợ giải mã (cần HTTPS).";return}
+    er.textContent="Đang mở…";
+    var o;
+    try{var r=await fetch("../ket-qua/"+id+".json",{cache:"no-store"});if(!r.ok)throw 0;o=await r.json()}
+    catch(x){er.textContent="Không tìm thấy kết quả với mã này.";return}
+    try{
+      var html=await decrypt(o,pw);
+      html=html.replace(/<head>/i,'<head><base target="_blank">');
+      $("gate").hidden=true;$("view").hidden=false;
+      var f=$("f");f.onload=fit;f.srcdoc=html;
+      $("pw").value="";er.textContent="";
+    }catch(x){er.textContent="Sai mật khẩu."}
+  };
+  $("close").onclick=function(){$("f").srcdoc="";$("view").hidden=true;$("gate").hidden=false};
+  $("print").onclick=function(){var w=$("f").contentWindow;w.focus();w.print()};
+  window.addEventListener("resize",fit);
+})();
+</script>
+</body>
+</html>
