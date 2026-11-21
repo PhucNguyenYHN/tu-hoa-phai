@@ -227,6 +227,40 @@ for chuc in CHUC:
     OUT["than"][chuc] = pack(e)
 stat["than"] = sum(1 for v in OUT["than"].values() if v)
 
+# 7. Cung chức tổng quan (Q2 chương 2) + đại vận / lưu niên (Q1 chương 9)
+import unicodedata as _u
+
+
+def _flat(s):
+    return _u.normalize("NFD", s.lower()).encode("ascii", "ignore").decode().replace("đ", "d")
+
+
+OUT["cung_chuc"] = {}
+for chuc in CHUC:
+    ent = None
+    for x in tocs["sach2"]:
+        if re.match(r"2\.\d+ CUNG ", x[1]) and "biet luan" in _flat(x[1]) and _flat(x[1]).split("cung ")[1].replace(" biet luan", "").strip() == _flat(chuc).replace("đ", "d"):
+            ent = x
+            break
+    e = None
+    if ent:
+        p0 = ent[2]
+        e = seg("sach2", p0, p0 + 2, r"(?i:BIỆT LUẬN)\s*(?:\d\.\d+\.?\d*\.?\s+[^.]{0,80}?\s)?(?=[A-ZĐ][a-zà-ỹ]+ )", 700, title=ent[1].title().replace("Biệt Luận", "biệt luận"))
+        if not e:
+            hp = ent
+            e = dict(book="sach2", page=p0, title=ent[1], text="")
+    OUT["cung_chuc"][chuc] = pack(e)
+stat["cung_chuc"] = "%d/12 (có chữ %d)" % (sum(1 for v in OUT["cung_chuc"].values() if v), sum(1 for v in OUT["cung_chuc"].values() if v and v["x"]))
+
+OUT["dai_van"] = [pack(seg("sach1", 710, 711, r"9\.3\.\s*PHƯƠNG PHÁP LUẬN ĐOÁN ĐẠI VẬN\s*", 700, title="9.3 Phương pháp luận đoán đại vận")),
+                  pack(seg("sach1", 710, 711, r"9\.3\.1\.\s*Vận dụng tứ hóa \[đại vận\]\s*", 800, title="9.3.1 Vận dụng tứ hóa [đại vận]")),
+                  pack(seg("sach1", 711, 712, r"\(1\) Tứ hóa \[đại vận\] nhập “ngã cung” và “tha cung” của thiên bàn:\s*", 800, title="9.3.1 Tứ hóa [đại vận] nhập cung của thiên bàn"))]
+OUT["luu_nien"] = [pack(seg("sach1", 730, 730, r"9\.4\.1\.\s*Mối tương quan giữa đại vận và lưu niên\s*", 700, title="9.4.1 Mối tương quan giữa đại vận và lưu niên")),
+                   pack(seg("sach1", 732, 732, r"Tuế vận là lấy thiên can kết hợp địa chỉ mà cấu tạo thành năm", 700, title="9.4 Lưu niên (Thái Tuế) và vì sao không dùng tiểu hạn", skip_head=False)),
+                   pack(seg("sach1", 735, 736, r"9\.4\.2\.\s*Tác động của tứ hóa \[đại vận\] và \[lưu niên\]\s*", 800, title="9.4.2 Tác động của tứ hóa [đại vận] và [lưu niên]"))]
+stat["dai_van"] = sum(1 for v in OUT["dai_van"] if v)
+stat["luu_nien"] = sum(1 for v in OUT["luu_nien"] if v)
+
 dst = os.path.join(root, "du-lieu", "luan-giai.json")
 io.open(dst, "w", encoding="utf-8").write(json.dumps(OUT, ensure_ascii=False, separators=(",", ":")))
 print(json.dumps(stat, ensure_ascii=False))

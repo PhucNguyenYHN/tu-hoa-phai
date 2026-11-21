@@ -4,57 +4,108 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
+<meta name="color-scheme" content="dark">
 <title>Lập lá số Tứ Hóa phái</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;display=swap">
 <style>
-:root{--bg:#f7f3ea;--fg:#2a2620;--mut:#7a7061;--ac:#9c2f2f;--card:#fffdf7;--line:#d8cfbd;--hl:rgba(224,164,88,.18)}
-@media (prefers-color-scheme:dark){:root{--bg:#1c1b19;--fg:#ece7dc;--mut:#a39d8f;--ac:#e0a458;--card:#26241f;--line:#3d3a33;--hl:rgba(224,164,88,.14)}}
+:root{--bg:#0e0d0c;--card:#181614;--card2:#1f1c19;--line:#34302a;--fg:#e8e2d4;--mut:#9a917f;--ac:#d6a84e;--ac2:#f0cf86;--red:#d9755f;--hl:rgba(214,168,78,.13)}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 "Noto Serif","Times New Roman",serif}
-.wrap{max-width:1000px;margin:0 auto;padding:16px;padding-bottom:60px}
-h1{font-size:22px;color:var(--ac);margin:8px 0 4px}
-h2{font-size:18px;margin:30px 0 10px;border-bottom:1px solid var(--line);padding-bottom:4px;color:var(--ac)}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 "Noto Serif","Times New Roman",serif}
+.wrap{max-width:1000px;margin:0 auto;padding:18px 16px 70px}
+.eyebrow{color:var(--ac);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin:6px 0 6px}
+h1{font-size:clamp(26px,5vw,38px);font-weight:400;line-height:1.2;margin:0 0 8px}
+h1 em{color:var(--ac2);font-style:italic}
+h2{font-size:19px;margin:34px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--line);color:var(--ac2);font-weight:700}
+h3{font-size:16px;margin:16px 0 6px;color:var(--ac)}
 .note{color:var(--mut);font-size:13.5px;margin:0 0 12px}
-form{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;align-items:end}
-label{display:block;font-size:12.5px;color:var(--mut);margin-bottom:3px}
-input,select,button{font:inherit;width:100%;padding:10px;border-radius:9px;border:1px solid var(--mut);background:var(--bg);color:var(--fg)}
-button.go{background:var(--ac);color:#fff;border:0;font-weight:700}
-#err{color:#c0392b;font-size:14px;margin-top:8px;min-height:18px}
+a{color:var(--ac)}
+form{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));gap:12px;align-items:end}
+label{display:block;font-size:12.5px;color:var(--mut);margin-bottom:4px}
+input,select,button{font:inherit;width:100%;padding:10px 11px;border-radius:9px;border:1px solid var(--line);background:var(--card2);color:var(--fg)}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+button.go{background:var(--ac);color:#1a1408;border:0;font-weight:700}
+button.sm{width:auto;padding:8px 12px;font-size:14px}
+.chk{display:flex;gap:8px;align-items:center;font-size:13.5px;color:var(--mut);padding-bottom:10px}.chk input{width:auto}
+.prof{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:end;border-top:1px dashed var(--line);padding-top:12px}
+.prof>div{flex:1 1 150px}.prof .btns{display:flex;gap:8px;flex:0 0 auto}
+#err{color:var(--red);font-size:14px;margin-top:8px;min-height:18px}
+details.g{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:12px 0}
+details.g summary{cursor:pointer;color:var(--ac2);font-weight:700}
+details.g ol,details.g ul{margin:8px 0 4px;padding-left:20px}details.g li{margin:4px 0}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
-.cell{background:var(--card);border:1px solid var(--line);padding:6px;min-height:104px;font-size:13px;min-width:0}
-.cell.m{outline:2px solid var(--ac)}
-.hd{display:flex;justify-content:space-between;gap:4px;color:var(--mut);font-size:12px}.hd b{color:var(--ac);font-size:13px}
-.st{margin-top:3px}.st .tu{color:var(--ac);font-weight:700}
+.cell{background:var(--card);border:1px solid var(--line);padding:6px;min-height:108px;font-size:13px;min-width:0;cursor:pointer;position:relative}
+.cell:hover{border-color:var(--ac)}
+.cell.m{box-shadow:inset 0 0 0 2px var(--ac)}
+.cell.sel{background:var(--card2);border-color:var(--ac2);box-shadow:inset 0 0 0 2px var(--ac2)}
+.cell.tp{background:var(--hl);border-color:var(--ac)}
+.hd{display:flex;justify-content:space-between;gap:4px;color:var(--mut);font-size:12px}.hd b{color:var(--ac2);font-size:13px}
+.st{margin-top:3px}.st .tu{color:var(--ac2);font-weight:700}.st small{color:var(--ac)}
 .tg{color:var(--ac);font-size:11.5px;margin-top:3px}
+.dvt{position:absolute;right:5px;bottom:3px;color:var(--mut);font-size:11px}
 .center{background:var(--card);border:1px solid var(--line);padding:10px;font-size:13.5px;display:flex;flex-direction:column;justify-content:center;text-align:center;grid-row:2/4;grid-column:2/4}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0 0 10px}
-.card .ti{font-weight:700;margin-bottom:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:0 0 10px}
+.card .ti{font-weight:700;margin-bottom:4px;color:var(--fg)}
 .ex{margin:6px 0 0;padding-top:6px;border-top:1px dashed var(--line);font-size:14.5px}
 .ex .t{color:var(--mut);font-size:12.5px;margin-bottom:2px}
-a{color:var(--ac)}
-table{width:100%;border-collapse:collapse;font-size:14px}td,th{border:1px solid var(--line);padding:6px 8px;vertical-align:top;text-align:left}th{background:var(--card)}
+#detail{margin-top:14px;scroll-margin-top:10px}
+#detail .card{border-color:var(--ac)}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:1px 9px;font-size:12.5px;color:var(--mut);margin:0 4px 4px 0}
+.pill.hot{border-color:var(--ac);color:var(--ac2)}
+table{width:100%;border-collapse:collapse;font-size:14px}td,th{border:1px solid var(--line);padding:6px 8px;vertical-align:top;text-align:left}th{background:var(--card);color:var(--ac2)}
 tr.tu td{background:var(--hl)}
 details summary{cursor:pointer;color:var(--ac);font-size:13px}
-.bar{display:flex;gap:8px;margin:10px 0}.bar button,.bar a{width:auto;padding:8px 14px;text-decoration:none;border:1px solid var(--mut);border-radius:9px;color:var(--fg);background:var(--card);font-size:14px}
+.bar{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}.bar button{width:auto;padding:8px 14px}
+.yr{display:flex;gap:8px;align-items:center;margin:8px 0 12px}.yr input{width:96px;text-align:center}.yr button{width:auto}
 [hidden]{display:none!important}
-@media(max-width:700px){.cell{font-size:11.5px;padding:4px;min-height:92px}.hd{font-size:10.5px}.hd b{font-size:11.5px}.center{font-size:12px;padding:6px}}
-@media print{form,.bar,#err{display:none!important}.card,.cell{break-inside:avoid}}
+@media(max-width:700px){.cell{font-size:11.5px;padding:4px;min-height:94px}.hd{font-size:10.5px}.hd b{font-size:11.5px}.center{font-size:12px;padding:6px}.dvt{display:none}}
+@media print{
+ :root{--bg:#fff;--card:#fff;--card2:#f4efe3;--line:#ccc;--fg:#111;--mut:#555;--ac:#7a5b12;--ac2:#5b4208;--hl:#f3ead2}
+ form,.bar,#err,.yr,details.g{display:none!important}.card,.cell{break-inside:avoid}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<h1>Lập lá số Tứ Hóa phái</h1>
-<p class="note">Nhập ngày giờ sinh (dương lịch). Lá số được tính ngay trên máy bạn, <b>không lưu và không gửi đi đâu</b>. Các đoạn sách là trích tự động từ chữ OCR của bộ sách Trung Châu Tử Vi Đẩu Số (Tứ Hóa phái); đây là phần sách nhắc tới, không phải lời phán đoán về một con người. <a href="../">Đọc sách</a></p>
+<div class="eyebrow">Tử Vi Đẩu Số · Tứ Hóa phái</div>
+<h1>Lá số, <em>đọc theo sách</em></h1>
+<p class="note">Nhập ngày giờ sinh, lá số được tính ngay trên máy bạn; <b>không gửi đi đâu</b>. Mỗi ý đều kèm đoạn trích và số trang trong bộ sách Trung Châu Tử Vi Đẩu Số (Tứ Hóa phái). Đây là phần sách nhắc tới, không phải lời phán về một con người. <a href="../">Đọc sách</a></p>
+
+<details class="g"><summary>Cách đọc một lá số (tóm tắt theo sách)</summary>
+<ol>
+<li><b>Mệnh và Thân trước.</b> Cung Mệnh là con người bạn, cung Thân là nơi nửa đời sau dồn sức vào (Q2 tr.74).</li>
+<li><b>Bấm vào một cung</b> để thấy ba cung chiếu về nó (tam hợp và xung chiếu), sao trong cung, Tứ Hóa và phi hóa ra vào cung đó (Q2 tr.79 về tam phương tứ chính).</li>
+<li><b>Việc nào xem cung nấy:</b> cưới hỏi xem Phu Thê, nhà cửa xem Điền Trạch, sức khỏe xem Tật Ách, tiền xem Tài Bạch, công việc xem Quan Lộc.</li>
+<li><b>Ngã cung và tha cung:</b> sách xếp Mệnh, Tài Bạch, Quan Lộc, Tật Ách, Điền Trạch, Phúc Đức là “ngã cung” (của bản thân), các cung còn lại là “tha cung” (Q1 tr.131). Hóa Lộc, Hóa Kị rơi vào ngã cung hay tha cung cho ý nghĩa khác nhau.</li>
+<li><b>Thể và dụng:</b> lá số gốc (thiên bàn) là “thể”, đại vận (địa bàn) là “dụng”. Xem Tứ Hóa của đại vận rơi vào đâu trên lá số gốc (Q1 tr.710).</li>
+<li><b>Vận từng năm:</b> sách dùng Thái Tuế lưu niên (can chi của năm) và phê phán cách “lập tiểu hạn” vì bỏ qua thiên can (Q1 tr.730 – 732). App làm theo cách này.</li>
+</ol>
+<p class="note">Giờ sinh quyết định cung Mệnh: sai một canh giờ là ra lá số khác. Người sinh tháng Chạp hay tháng Giêng nên kiểm lại năm âm lịch (trước Tết vẫn tính năm cũ; nhập dương lịch thì app tự đổi). Không rõ giờ sinh thì chi tiết từng cung không chắc.</p></details>
+
+<details class="g"><summary>Cách tính (để đối chiếu)</summary>
+<ul>
+<li>Đổi dương lịch sang âm lịch theo múi giờ Việt Nam (thuật toán Hồ Ngọc Đức). Giờ Tí tính từ 23h, ngày giữ nguyên.</li>
+<li>Cung Mệnh, Thân, Cục, vị trí Tử Vi: theo bảng và quy tắc ở Q1 tr.35 – 43, 54 – 58 (đã đối chiếu với lá số mẫu trong sách).</li>
+<li>An sao: cách tiêu chuẩn, đã kiểm trên 3 lá số mẫu trong sách (Kỷ Mùi, Canh Tuất, Tân Mùi). Thiên Mã và Âm Sát chưa kiểm được nên không dùng để luận.</li>
+<li>Tứ Hóa: bảng theo can của Tứ Hóa phái (đối chiếu Q1 tr.43). Đại vận: khởi theo số cục; thuận với dương nam, âm nữ, nghịch với âm nam, dương nữ.</li>
+<li>Năm Tân, Nhâm có hai cung cùng can nên có hai ứng viên lai nhân cung; app chọn cung có can đó xuất hiện trước tính từ Dần, theo ví dụ Nhâm Ngọ Q1 tr.810.</li>
+</ul></details>
+
 <form id="fm" autocomplete="off">
+  <div><label for="nm">Họ tên (không bắt buộc)</label><input id="nm" maxlength="40" placeholder="Nguyễn Văn An"></div>
   <div><label for="gt">Giới tính</label><select id="gt"><option value="nam">Nam</option><option value="nu">Nữ</option></select></div>
+  <div><label for="cal">Ngày nhập là</label><select id="cal"><option value="d">Dương lịch</option><option value="a">Âm lịch</option></select></div>
   <div><label for="d">Ngày</label><input id="d" type="number" inputmode="numeric" min="1" max="31" placeholder="03"></div>
   <div><label for="m">Tháng</label><input id="m" type="number" inputmode="numeric" min="1" max="12" placeholder="11"></div>
   <div><label for="y">Năm</label><input id="y" type="number" inputmode="numeric" min="1900" max="2100" placeholder="1993"></div>
-  <div><label for="hh">Giờ (0–23)</label><input id="hh" type="number" inputmode="numeric" min="0" max="23" placeholder="21"></div>
-  <div><label for="mi">Phút</label><input id="mi" type="number" inputmode="numeric" min="0" max="59" placeholder="30"></div>
+  <div id="leapbox" class="chk" hidden><input id="leap" type="checkbox"><label for="leap" style="margin:0">Tháng nhuận</label></div>
+  <div><label for="gio">Giờ sinh</label><select id="gio"></select></div>
   <div><button class="go" type="submit">Lập lá số</button></div>
+  <div class="prof">
+    <div><label for="pf">Hồ sơ đã lưu trên máy này</label><select id="pf"><option value="">— chưa chọn —</option></select></div>
+    <div class="btns"><button class="sm" id="save" type="button">Lưu hồ sơ</button><button class="sm" id="del" type="button">Xóa</button></div>
+    <div class="note" style="flex-basis:100%;margin:0">Hồ sơ chỉ lưu trong trình duyệt này, không gửi đi đâu; xóa dữ liệu trình duyệt là mất.</div>
+  </div>
 </form>
 <div id="err" role="alert"></div>
 <div id="out" hidden>
@@ -67,10 +118,13 @@ details summary{cursor:pointer;color:var(--ac);font-size:13px}
 "use strict";
 var $=function(i){return document.getElementById(i)};
 var CHI=["Tí","Sửu","Dần","Mão","Thìn","Tị","Ngọ","Mùi","Thân","Dậu","Tuất","Hợi"];
+var GIOHOUR=["23–1h","1–3h","3–5h","5–7h","7–9h","9–11h","11–13h","13–15h","15–17h","17–19h","19–21h","21–23h"];
 var CAN=["Giáp","Ất","Bính","Đinh","Mậu","Kỷ","Canh","Tân","Nhâm","Quý"];
 var CUNG=["mệnh","huynh đệ","phu thê","tử nữ","tài bạch","tật ách","thiên di","nô bộc","quan lộc","điền trạch","phúc đức","phụ mẫu"];
+var NGA=["mệnh","tài bạch","quan lộc","tật ách","điền trạch","phúc đức"];
 var HOA=[["loc","Hóa Lộc"],["quyen","Hóa Quyền"],["khoa","Hóa Khoa"],["ki","Hóa Kị"]];
 function mod(x){return ((x%12)+12)%12}
+function ix(c){return CHI.indexOf(c)}
 
 /* ---------- âm lịch (Hồ Ngọc Đức) ---------- */
 function jdFrom(dd,mm,yy){var a=Math.floor((14-mm)/12),y=yy+4800-a,m=mm+12*a-3;
@@ -117,7 +171,7 @@ function tuviAlgo(d,n){var k=0;while((d+k)%n)k++;var q=(d+k)/n,pos=2+(q-1);pos=k
 
 /* ---------- an sao (du-lieu/an-sao.json) ---------- */
 function anSao(canNam,chiNam,thang,gio,ngay,n){
-  var S={},tv=tuviAlgo(ngay,n),ph=mod(4-tv),ix=function(c){return CHI.indexOf(c)};
+  var S={},tv=tuviAlgo(ngay,n),ph=mod(4-tv);
   S["Tử Vi"]=tv;S["Thiên Cơ"]=mod(tv-1);S["Thái Dương"]=mod(tv-3);S["Vũ Khúc"]=mod(tv-4);S["Thiên Đồng"]=mod(tv-5);S["Liêm Trinh"]=mod(tv-8);
   S["Thiên Phủ"]=ph;["Thái Âm","Tham Lang","Cự Môn","Thiên Tướng","Thiên Lương","Thất Sát"].forEach(function(s,i){S[s]=mod(ph+i+1)});S["Phá Quân"]=mod(ph+10);
   S["Tả Phụ"]=mod(4+thang-1);S["Hữu Bật"]=mod(10-(thang-1));S["Văn Xương"]=mod(10-gio);S["Văn Khúc"]=mod(4+gio);
@@ -134,92 +188,163 @@ function anSao(canNam,chiNam,thang,gio,ngay,n){
   return S}
 
 /* ---------- dựng lá số ---------- */
-var TH=null,LG=null;
-function build(gt,D,M,Y,H){
-  var L=toLunar(D,M,Y),canNam=CAN[(L.y+6)%10],chiNam=CHI[(L.y+8)%12];
-  var gio=Math.floor(((H+1)%24)/2);
+var TH=null,LG=null,R=null,selCung=null;
+function build(gt,L,gio){
+  var canNam=CAN[(L.y+6)%10],chiNam=CHI[(L.y+8)%12];
   var cc=canCung(canNam),ti=mod(2+L.m-1),menh=mod(ti-gio),than=mod(ti+gio);
   var cuc=cucOf(cc[CHI[menh]],CHI[menh]),n=+cuc.slice(-1);
   var S=anSao(canNam,chiNam,L.m,gio,L.d,n);
-  var chucAt={},chucOf={};for(var i=0;i<12;i++){var p=mod(menh-i);chucAt[p]=CUNG[i];chucOf[CUNG[i]]=p}
+  var chucAt={},i;for(i=0;i<12;i++)chucAt[mod(menh-i)]=CUNG[i];
   var by=[];for(i=0;i<12;i++)by.push([]);for(var s in S)by[S[s]].push(s);
-  var R={lunar:L,canNam:canNam,chiNam:chiNam,gio:gio,gt:gt,menh:menh,than:than,cuc:cuc,n:n,S:S,cc:cc,chucAt:chucAt,by:by};
-  var duong=CAN.indexOf(canNam)%2===0;R.duong=duong;R.thuan=(gt==="nam")===duong;
-  var nam=TH[canNam];R.nam=HOA.map(function(h){var st=nam[h[0]],p=S[st];return {h:h[0],ten:h[1],sao:st,pos:p,chuc:p===undefined?null:chucAt[p]}});
-  R.phi=[];for(i=0;i<12;i++){var c=cc[CHI[i]],t=TH[c];HOA.forEach(function(h){var st=t[h[0]],p=S[st];
-    R.phi.push({src:chucAt[i],can:c,h:h[0],ten:h[1],sao:st,tgt:p===undefined?null:chucAt[p],tu:p===i})})}
-  R.lai=[];for(i=0;i<12;i++){var q=(2+i)%12;if(cc[CHI[q]]===canNam)R.lai.push(q)}
-  R.dv=[];for(var j=0;j<12;j++){var q=R.thuan?mod(menh+j):mod(menh-j);R.dv.push({pos:q,chuc:chucAt[q],tu:n+10*j,den:n+10*j+9})}
-  return R}
+  var Rr={lunar:L,canNam:canNam,chiNam:chiNam,gio:gio,gt:gt,menh:menh,than:than,cuc:cuc,n:n,S:S,cc:cc,chucAt:chucAt,by:by};
+  var duong=CAN.indexOf(canNam)%2===0;Rr.duong=duong;Rr.thuan=(gt==="nam")===duong;
+  var nam=TH[canNam];Rr.nam=HOA.map(function(h){var st=nam[h[0]],p=S[st];return {h:h[0],ten:h[1],sao:st,pos:p,chuc:p===undefined?null:chucAt[p]}});
+  Rr.phi=[];for(i=0;i<12;i++){var c=cc[CHI[i]],t=TH[c];HOA.forEach(function(h){var st=t[h[0]],p=S[st];
+    Rr.phi.push({src:chucAt[i],srcPos:i,can:c,h:h[0],ten:h[1],sao:st,pos:p,tgt:p===undefined?null:chucAt[p],tu:p===i})})}
+  Rr.lai=[];for(i=0;i<12;i++){var q=(2+i)%12;if(cc[CHI[q]]===canNam)Rr.lai.push(q)}
+  Rr.dv=[];for(var j=0;j<12;j++){var qq=Rr.thuan?mod(menh+j):mod(menh-j);Rr.dv.push({pos:qq,chuc:chucAt[qq],tu:n+10*j,den:n+10*j+9})}
+  return Rr}
 
 /* ---------- hiển thị ---------- */
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function ex(e){if(!e)return "";var u="../#sach"+e.b+"-"+e.p;
   return '<div class="ex"><div class="t">'+esc(e.t)+' · <a href="'+u+'" target="_blank" rel="noopener">Q'+e.b+' tr.'+e.p+'</a></div>'+(e.x?'<div>'+esc(e.x)+'</div>':'')+'</div>'}
+function det(e,label){if(!e)return '<span class="note">—</span>';return '<details><summary>'+esc(label||e.t)+' · Q'+e.b+' tr.'+e.p+'</summary>'+ex(e)+'</details>'}
 function card(title,exs,extra){var h='<div class="card"><div class="ti">'+title+'</div>'+(extra||"");var k=0;
   (exs||[]).forEach(function(e){if(e){h+=ex(e);k++}});if(!k)h+='<div class="note">Chưa tìm thấy đoạn tương ứng trong sách.</div>';return h+'</div>'}
 var GRID={"Tị":[1,1],"Ngọ":[1,2],"Mùi":[1,3],"Thân":[1,4],"Thìn":[2,1],"Dậu":[2,4],"Mão":[3,1],"Tuất":[3,4],"Dần":[4,1],"Sửu":[4,2],"Tí":[4,3],"Hợi":[4,4]};
 var CHINH=["Tử Vi","Thiên Cơ","Thái Dương","Vũ Khúc","Thiên Đồng","Liêm Trinh","Thiên Phủ","Thái Âm","Tham Lang","Cự Môn","Thiên Tướng","Thiên Lương","Thất Sát","Phá Quân"];
 function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
-function render(R){
-  var o=[],L=R.lunar,gioName=CHI[R.gio];
-  /* 1. lá số */
-  o.push('<h2>1. Lá số</h2><div class="grid">');
-  CHI.forEach(function(ch,i){var g=GRID[ch],tag=[];if(i===R.than)tag.push("Cung Thân");
-    var st=R.by[i].map(function(s){
-      var hh=R.nam.filter(function(x){return x.sao===s})[0];return hh?'<span class="tu">'+esc(s)+' <small>'+esc(hh.ten)+'</small></span>':esc(s)});
-    o.push('<div class="cell'+(i===R.menh?' m':'')+'" style="grid-row:'+g[0]+';grid-column:'+g[1]+'"><div class="hd"><b>'+esc(cap(R.chucAt[i]))+'</b><span>'+esc(R.cc[ch]+" "+ch)+'</span></div><div class="st">'+st.join("<br>")+'</div><div class="tg">'+tag.join(" · ")+'</div></div>')});
-  o.push('<div class="center"><b>'+(R.gt==="nam"?"Nam":"Nữ")+', '+(R.duong?"dương":"âm")+' '+(R.gt==="nam"?"nam":"nữ")+'</b>'+
-    esc(R.dd)+'<br>= ngày '+L.d+' tháng '+L.m+(L.leap?' (nhuận)':'')+' năm '+esc(R.canNam+" "+R.chiNam)+', giờ '+gioName+'<br>Cục: '+esc(CUC_NAME[R.cuc])+'<br>Mệnh: '+esc(R.cc[CHI[R.menh]]+" "+CHI[R.menh])+' · Thân: '+esc(CHI[R.than])+'<br>Tử Vi tại '+CHI[R.S["Tử Vi"]]+'<br><small>Đại vận '+(R.thuan?"thuận":"nghịch")+', khởi '+R.n+' tuổi</small></div></div>');
-  o.push('<p class="note">Sao có chữ đậm đỏ là sao mang Tứ Hóa năm sinh. Khung đỏ là cung Mệnh. Giờ Tí tính từ 23h; ngày không đổi sang hôm sau. Thiên Mã và Âm Sát an theo cách tiêu chuẩn (lá số mẫu trong sách không in Thiên Mã, và Âm Sát chỉ khớp một trong hai mẫu đã đối chiếu), không dùng để luận giải.</p>');
-  /* 2. tứ hóa năm sinh */
-  o.push('<h2>2. Tứ Hóa năm sinh ('+esc(R.canNam)+')</h2>');
-  R.nam.forEach(function(x){var t='<b>'+esc(x.sao)+' '+esc(x.ten)+'</b> ở cung '+esc(x.chuc||"?")+' ('+CHI[x.pos]+')';
-    o.push(card(t,[x.chuc&&LG.tuhoa_nam[x.h][x.chuc]]))});
-  /* 3. lai nhân cung */
-  var P=R.lai[0],lt=R.chucAt[P]+" ("+CHI[P]+")";
-  var extra=R.lai.length>1?'<div class="note">Năm '+esc(R.canNam)+' có hai cung cùng thiên can: '+esc(R.chucAt[R.lai[0]])+' ('+CHI[R.lai[0]]+') và '+esc(R.chucAt[R.lai[1]])+' ('+CHI[R.lai[1]]+'). Ví dụ Nhâm Ngọ ở Q1 tr.810 sách lấy cung có can đó xuất hiện trước tính từ Dần, nên chọn '+esc(R.chucAt[P])+'; cung còn lại chỉ để tham khảo'+(R.canNam==="Nhâm"?'.':' (năm Tân chưa có ví dụ riêng trong sách, đây là suy ra).')+'</div>':'';
-  var lx=[LG.lai_nhan[R.chucAt[P]]].concat(LG.lai_nhan_chung||[]);
-  o.push('<h2>3. Lai nhân cung</h2>'+card('Lai nhân cung: <b>'+esc(lt)+'</b>',lx,extra));
-  /* 4. cục */
-  var ce=LG.cuc[R.cuc]&&LG.cuc[R.cuc][CHI[R.menh]];
-  o.push('<h2>4. Cục ngũ hành</h2>'+card('<b>'+esc(CUC_NAME[R.cuc])+'</b>, Mệnh tại '+esc(R.cc[CHI[R.menh]]+" "+CHI[R.menh]),[ce]));
-  /* 5. sao cung mệnh và thân */
+function starHtml(Rr,s){var hh=Rr.nam.filter(function(x){return x.sao===s})[0];return hh?'<span class="tu">'+esc(s)+' <small>'+esc(hh.ten)+'</small></span>':esc(s)}
+function cungName(Rr,p){return cap(Rr.chucAt[p])+" ("+Rr.cc[CHI[p]]+" "+CHI[p]+")"}
+function dvOf(Rr,p){for(var j=0;j<12;j++)if(Rr.dv[j].pos===p)return Rr.dv[j];return null}
+
+function render(Rr){
+  var o=[],L=Rr.lunar;
+  o.push('<h2>1. Lá số <span class="note" style="font-weight:400">· chạm vào một cung để đọc</span></h2><div class="grid">');
+  CHI.forEach(function(ch,i){var g=GRID[ch],tag=[];if(i===Rr.than)tag.push("Cung Thân");var dv=dvOf(Rr,i);
+    o.push('<div class="cell'+(i===Rr.menh?' m':'')+'" data-i="'+i+'" tabindex="0" role="button" aria-label="Cung '+esc(Rr.chucAt[i])+'" style="grid-row:'+g[0]+';grid-column:'+g[1]+'"><div class="hd"><b>'+esc(cap(Rr.chucAt[i]))+'</b><span>'+esc(Rr.cc[ch]+" "+ch)+'</span></div><div class="st">'+Rr.by[i].map(function(s){return starHtml(Rr,s)}).join("<br>")+'</div><div class="tg">'+tag.join(" · ")+'</div><div class="dvt">'+dv.tu+'–'+dv.den+'</div></div>')});
+  o.push('<div class="center"><b>'+(Rr.gt==="nam"?"Nam":"Nữ")+', '+(Rr.duong?"dương":"âm")+' '+(Rr.gt==="nam"?"nam":"nữ")+'</b>'+
+    esc(Rr.dd)+'<br>= ngày '+L.d+' tháng '+L.m+(L.leap?' (nhuận)':'')+' năm '+esc(Rr.canNam+" "+Rr.chiNam)+', giờ '+CHI[Rr.gio]+'<br>Cục: '+esc(CUC_NAME[Rr.cuc])+'<br>Mệnh: '+esc(Rr.cc[CHI[Rr.menh]]+" "+CHI[Rr.menh])+' · Thân: '+esc(CHI[Rr.than])+'<br>Tử Vi tại '+CHI[Rr.S["Tử Vi"]]+'<br><small>Đại vận '+(Rr.thuan?"thuận":"nghịch")+', khởi '+Rr.n+' tuổi</small></div></div>');
+  o.push('<p class="note">Sao chữ vàng đậm mang Tứ Hóa năm sinh. Khung vàng là cung Mệnh. Số nhỏ cuối ô là tuổi của đại vận. Giờ Tí tính từ 23h, ngày giữ nguyên. Thiên Mã, Âm Sát an theo cách tiêu chuẩn, không dùng để luận.</p>');
+  o.push('<div id="detail"></div>');
+  /* tứ hóa năm sinh */
+  o.push('<h2>2. Tứ Hóa năm sinh ('+esc(Rr.canNam)+')</h2>');
+  Rr.nam.forEach(function(x){o.push(card('<b>'+esc(x.sao)+' '+esc(x.ten)+'</b> ở cung '+esc(x.chuc||"?")+' ('+CHI[x.pos]+')',[x.chuc&&LG.tuhoa_nam[x.h][x.chuc]]))});
+  /* lai nhân cung */
+  var P=Rr.lai[0],lt=Rr.chucAt[P]+" ("+CHI[P]+")";
+  var extra=Rr.lai.length>1?'<div class="note">Năm '+esc(Rr.canNam)+' có hai cung cùng thiên can: '+esc(Rr.chucAt[Rr.lai[0]])+' ('+CHI[Rr.lai[0]]+') và '+esc(Rr.chucAt[Rr.lai[1]])+' ('+CHI[Rr.lai[1]]+'). Ví dụ Nhâm Ngọ ở Q1 tr.810 sách lấy cung có can đó xuất hiện trước tính từ Dần, nên chọn '+esc(Rr.chucAt[P])+'; cung còn lại chỉ để tham khảo'+(Rr.canNam==="Nhâm"?'.':' (năm Tân chưa có ví dụ riêng trong sách, đây là suy ra).')+'</div>':'';
+  o.push('<h2>3. Lai nhân cung</h2>'+card('Lai nhân cung: <b>'+esc(lt)+'</b>',[LG.lai_nhan[Rr.chucAt[P]]].concat(LG.lai_nhan_chung||[]),extra));
+  /* cục */
+  o.push('<h2>4. Cục ngũ hành</h2>'+card('<b>'+esc(CUC_NAME[Rr.cuc])+'</b>, Mệnh tại '+esc(Rr.cc[CHI[Rr.menh]]+" "+CHI[Rr.menh]),[LG.cuc[Rr.cuc]&&LG.cuc[Rr.cuc][CHI[Rr.menh]]]));
+  /* sao mệnh, thân */
   o.push('<h2>5. Sao ở cung Mệnh và cung Thân</h2>');
-  var ms=R.by[R.menh].filter(function(s){return LG.sao[s]});
-  var hc=R.by[R.menh].filter(function(s){return CHINH.indexOf(s)>=0});
-  o.push(card('Cung Mệnh: <b>'+(R.by[R.menh].map(esc).join(", ")||"vô chính diệu")+'</b>',ms.map(function(s){var e=LG.sao[s];return e&&{b:e.b,p:e.p,t:s+" – "+e.t,x:e.x}}),hc.length?'':'<div class="note">Cung Mệnh vô chính diệu (không có chính tinh); sách luận riêng ở Q2 mục 1.13.</div>'));
-  var tc=R.chucAt[R.than];
-  o.push(card('Cung Thân ('+CHI[R.than]+') đồng cung với cung <b>'+esc(tc)+'</b>',[LG.than[tc]],R.than===R.menh?'<div class="note">Thân cư Mệnh.</div>':''));
-  /* 6. phi hóa */
-  o.push('<h2>6. Phi hóa của 12 cung (Chương 5.5 và 6), 48 dòng; dòng tô màu là tự hóa</h2><table><tr><th>Cung phát</th><th>Hóa</th><th>Sao → cung nhận</th><th>Sách</th></tr>');
-  R.phi.forEach(function(f){var e=f.tgt&&LG.phi_hoa[f.src+"|"+f.h+"|"+f.tgt];
-    o.push('<tr class="'+(f.tu?'tu':'')+'"><td>'+esc(f.src)+' <small>('+esc(f.can)+')</small></td><td>'+esc(f.ten)+'</td><td>'+esc(f.sao)+' → '+esc(f.tgt||"?")+(f.tu?' <b>(tự hóa)</b>':'')+'</td><td>'+
-      (e?'<details><summary>'+esc(e.t)+' · Q'+e.b+' tr.'+e.p+'</summary>'+ex(e)+'</details>':'<span class="note">—</span>')+'</td></tr>')});
+  var ms=Rr.by[Rr.menh].filter(function(s){return LG.sao[s]}),hc=Rr.by[Rr.menh].filter(function(s){return CHINH.indexOf(s)>=0});
+  o.push(card('Cung Mệnh: <b>'+(Rr.by[Rr.menh].map(esc).join(", ")||"vô chính diệu")+'</b>',ms.map(function(s){var e=LG.sao[s];return e&&{b:e.b,p:e.p,t:s+" – "+e.t,x:e.x}}),hc.length?'':'<div class="note">Cung Mệnh vô chính diệu (không có chính tinh); sách luận riêng ở Q2 mục 1.13.</div>'));
+  var tc=Rr.chucAt[Rr.than];
+  o.push(card('Cung Thân ('+CHI[Rr.than]+') đồng cung với cung <b>'+esc(tc)+'</b>',[LG.than[tc]],Rr.than===Rr.menh?'<div class="note">Thân cư Mệnh.</div>':''));
+  /* phi hóa */
+  o.push('<h2>6. Phi hóa của 12 cung, 48 dòng <span class="note" style="font-weight:400">· dòng tô màu là tự hóa</span></h2><table><tr><th>Cung phát</th><th>Hóa</th><th>Sao → cung nhận</th><th>Sách</th></tr>');
+  Rr.phi.forEach(function(f){var e=f.tgt&&LG.phi_hoa[f.src+"|"+f.h+"|"+f.tgt];
+    o.push('<tr class="'+(f.tu?'tu':'')+'"><td>'+esc(f.src)+' <small>('+esc(f.can)+')</small></td><td>'+esc(f.ten)+'</td><td>'+esc(f.sao)+' → '+esc(f.tgt||"?")+(f.tu?' <b>(tự hóa)</b>':'')+'</td><td>'+det(e)+'</td></tr>')});
   o.push('</table>');
-  /* 7. đại vận */
-  o.push('<h2>7. Đại vận ('+(R.thuan?'thuận':'nghịch')+', khởi '+R.n+' tuổi)</h2><table><tr><th>Tuổi</th><th>Cung</th><th>Chức</th></tr>');
-  R.dv.forEach(function(d){o.push('<tr><td>'+d.tu+'–'+d.den+'</td><td>'+esc(R.cc[CHI[d.pos]]+" "+CHI[d.pos])+'</td><td>'+esc(d.chuc)+'</td></tr>')});
-  o.push('</table>');
+  /* đại vận + lưu niên */
+  o.push('<h2>7. Đại vận và lưu niên</h2><div id="dvln"></div>');
   $("r").innerHTML=o.join("");$("out").hidden=false;
+  selCung=null;renderDV(curYear());
   try{$("out").scrollIntoView({behavior:"smooth"})}catch(e){}
 }
 
+/* ---------- chi tiết một cung ---------- */
+function selectCung(i){
+  var Rr=R;if(!Rr)return;selCung=i;
+  var tp=[mod(i+6),mod(i+4),mod(i+8)];
+  [].forEach.call(document.querySelectorAll(".cell"),function(c){var k=+c.getAttribute("data-i");c.classList.toggle("sel",k===i);c.classList.toggle("tp",tp.indexOf(k)>=0)});
+  var chuc=Rr.chucAt[i],h=[],dv=dvOf(Rr,i);
+  h.push('<div class="card"><div class="ti">Cung '+esc(cap(chuc))+' · '+esc(Rr.cc[CHI[i]]+" "+CHI[i])+(i===Rr.than?' · <span class="pill hot">Cung Thân</span>':'')+(i===Rr.menh?' · <span class="pill hot">Mệnh</span>':'')+'</div>');
+  h.push('<div>'+(Rr.by[i].length?Rr.by[i].map(function(s){return '<span class="pill'+(Rr.nam.some(function(x){return x.sao===s})?' hot':'')+'">'+esc(s)+(Rr.nam.filter(function(x){return x.sao===s}).map(function(x){return " "+x.ten}).join(""))+'</span>'}).join(""):'<span class="note">Không có sao nào được an trong cung này (vô chính diệu).</span>')+'</div>');
+  if(dv)h.push('<div class="note">Đại vận của cung này: '+dv.tu+'–'+dv.den+' tuổi.</div>');
+  h.push('<h3>Tam phương tứ chính</h3><div class="note">Ba cung chiếu về cung này (tô nền trên lá số): xung chiếu và hai cung tam hợp (Q2 tr.79).</div><ul style="margin:4px 0;padding-left:18px">'+
+    [[i,"Bản cung"],[mod(i+6),"Xung chiếu"],[mod(i+4),"Tam hợp"],[mod(i+8),"Tam hợp"]].map(function(a){return '<li><b>'+a[1]+':</b> '+esc(cungName(Rr,a[0]))+' — '+(Rr.by[a[0]].map(esc).join(", ")||'<i>vô chính diệu</i>')+'</li>'}).join("")+'</ul>');
+  var ov=LG.cung_chuc&&LG.cung_chuc[chuc];if(ov)h.push('<h3>Tổng quan về cung '+esc(chuc)+'</h3>'+ex(ov));
+  var nh=Rr.nam.filter(function(x){return x.pos===i});
+  if(nh.length){h.push('<h3>Tứ Hóa năm sinh ở cung này</h3>');nh.forEach(function(x){h.push('<div><b>'+esc(x.sao)+' '+esc(x.ten)+'</b></div>'+ex(LG.tuhoa_nam[x.h][chuc]))})}
+  var out=Rr.phi.filter(function(f){return f.src===chuc});
+  h.push('<h3>Cung '+esc(chuc)+' phi hóa (can '+esc(Rr.cc[CHI[i]])+')</h3><table><tr><th>Hóa</th><th>Sao → cung nhận</th><th>Sách</th></tr>'+out.map(function(f){return '<tr class="'+(f.tu?'tu':'')+'"><td>'+esc(f.ten)+'</td><td>'+esc(f.sao)+' → '+esc(f.tgt||"?")+(f.tu?' <b>(tự hóa)</b>':'')+'</td><td>'+det(f.tgt&&LG.phi_hoa[f.src+"|"+f.h+"|"+f.tgt])+'</td></tr>'}).join("")+'</table>');
+  var inn=Rr.phi.filter(function(f){return f.pos===i&&f.srcPos!==i});
+  h.push('<h3>Hóa từ cung khác phi nhập cung '+esc(chuc)+'</h3>'+(inn.length?'<table><tr><th>Từ cung</th><th>Hóa</th><th>Sách</th></tr>'+inn.map(function(f){return '<tr><td>'+esc(f.src)+' <small>('+esc(f.can)+')</small></td><td>'+esc(f.ten)+' ('+esc(f.sao)+')</td><td>'+det(LG.phi_hoa[f.src+"|"+f.h+"|"+f.tgt])+'</td></tr>'}).join("")+'</table>':'<div class="note">Không có cung nào khác phi Hóa nhập cung này.</div>'));
+  var ss=Rr.by[i].filter(function(s){return LG.sao[s]&&LG.sao[s].x});
+  if(ss.length){h.push('<h3>Sao trong cung</h3>');ss.forEach(function(s){var e=LG.sao[s];h.push(det({b:e.b,p:e.p,t:e.t,x:e.x,},s+" – "+e.t))})}
+  h.push('</div>');
+  $("detail").innerHTML=h.join("");
+  try{$("detail").scrollIntoView({behavior:"smooth",block:"nearest"})}catch(e){}
+}
+
+/* ---------- đại vận và lưu niên ---------- */
+function curYear(){var t=new Date();return toLunar(t.getDate(),t.getMonth()+1,t.getFullYear()).y}
+function flowsOf(Rr,can,mpos){ // Tứ Hóa của một can → cung nguyên cục và đại chức (nếu có cung mệnh vận mpos)
+  return HOA.map(function(h){var st=TH[can][h[0]],p=Rr.S[st],o={ten:h[1],h:h[0],sao:st,pos:p};
+    if(p!==undefined){o.chuc=Rr.chucAt[p];o.nga=NGA.indexOf(o.chuc)>=0;if(mpos!==null&&mpos!==undefined)o.dchuc=CUNG[mod(mpos-p)]}return o})}
+function flowTable(fl,hasD){return '<table><tr><th>Hóa</th><th>Sao</th><th>Nhập cung (lá số gốc)</th>'+(hasD?'<th>Đại vận chức</th>':'')+'</tr>'+fl.map(function(f){
+  return '<tr><td>'+esc(f.ten)+'</td><td>'+esc(f.sao)+'</td><td>'+(f.chuc?esc(f.chuc)+' <small>('+CHI[f.pos]+(f.nga?', ngã cung':', tha cung')+')</small>':'—')+'</td>'+(hasD?'<td>'+esc(f.dchuc||"")+'</td>':'')+'</tr>'}).join("")+'</table>'}
+function renderDV(year){
+  var Rr=R;if(!Rr)return;var o=[],age=year-Rr.lunar.y+1;
+  o.push('<div class="yr"><button class="sm" id="yp" type="button">‹</button><input id="yy" type="number" inputmode="numeric" value="'+year+'" aria-label="Năm âm lịch xem vận"><button class="sm" id="yn" type="button">›</button><span class="note" style="margin:0">Năm âm lịch xem vận · tuổi mụ '+age+'</span></div>');
+  var j=-1;for(var k=0;k<12;k++)if(age>=Rr.dv[k].tu&&age<=Rr.dv[k].den)j=k;
+  var dv=j>=0?Rr.dv[j]:null,mp=dv?dv.pos:null;
+  if(dv){
+    var can=Rr.cc[CHI[dv.pos]];
+    o.push('<div class="card"><div class="ti">Đại vận hiện tại: '+dv.tu+'–'+dv.den+' tuổi, cung '+esc(cungName(Rr,dv.pos))+'</div><div class="note">Cung đại vận là “cung mệnh” của giai đoạn này (Q1 tr.711). Từ đó đếm nghịch ra các cung đại vận chức. Tứ Hóa đại vận lấy theo can '+esc(can)+' của cung này.</div>'+
+      flowTable(flowsOf(Rr,can,mp),true)+'</div>');
+    var cs=[];for(k=0;k<12;k++)cs.push('<tr><td>'+esc(CUNG[k])+'</td><td>'+esc(CHI[mod(mp-k)])+'</td><td>'+esc(Rr.chucAt[mod(mp-k)])+'</td></tr>');
+    o.push('<details class="g"><summary>Bảng đại vận chức đối chiếu lá số gốc</summary><table><tr><th>Đại vận chức</th><th>Cung</th><th>Chức ở lá số gốc</th></tr>'+cs.join("")+'</table></details>');
+  }else o.push('<div class="card"><div class="ti">Đại vận hiện tại</div><div class="note">'+(age<Rr.n?'Chưa tới tuổi khởi đại vận ('+Rr.n+' tuổi).':'Ngoài các đại vận đã tính.')+'</div></div>');
+  var ynn=CAN[(year+6)%10],yc=CHI[(year+8)%12],tp=ix(yc);
+  o.push('<div class="card"><div class="ti">Lưu niên '+esc(ynn+" "+yc)+' ('+year+' âm lịch)</div><div class="note">Thái Tuế lưu niên nằm ở cung '+esc(yc)+' = cung <b>'+esc(Rr.chucAt[tp])+'</b> của lá số gốc'+(dv?', tức đại vận chức <b>'+esc(CUNG[mod(mp-tp)])+'</b>':'')+'. Tứ Hóa lưu niên lấy theo can '+esc(ynn)+' (Q1 tr.732, không dùng tiểu hạn).</div>'+flowTable(flowsOf(Rr,ynn,mp),!!dv)+'</div>');
+  o.push(card('Sách nói về đại vận',LG.dai_van));
+  o.push(card('Sách nói về lưu niên',LG.luu_nien));
+  $("dvln").innerHTML=o.join("");
+  $("yp").onclick=function(){renderDV(year-1)};$("yn").onclick=function(){renderDV(year+1)};
+  $("yy").onchange=function(){var v=parseInt(this.value,10);if(v>=1900&&v<=2200)renderDV(v)};
+}
+
+/* ---------- hồ sơ lưu trên máy ---------- */
+var PKEY="tv_profiles";
+function getP(){try{var a=JSON.parse(localStorage.getItem(PKEY)||"[]");return Array.isArray(a)?a:[]}catch(e){return []}}
+function setP(a){try{localStorage.setItem(PKEY,JSON.stringify(a));return true}catch(e){return false}}
+function fillPf(sel){var a=getP(),s=$("pf");s.innerHTML='<option value="">— chưa chọn —</option>'+a.map(function(p){return '<option value="'+esc(p.id)+'">'+esc(p.name||"(không tên)")+' · '+esc(p.d+"/"+p.m+"/"+p.y)+'</option>'}).join("");if(sel)s.value=sel}
+function readForm(){return {name:$("nm").value.trim(),gt:$("gt").value,cal:$("cal").value,d:+$("d").value,m:+$("m").value,y:+$("y").value,leap:$("leap").checked?1:0,gio:+$("gio").value}}
+function writeForm(p){$("nm").value=p.name||"";$("gt").value=p.gt;$("cal").value=p.cal;$("d").value=p.d;$("m").value=p.m;$("y").value=p.y;$("leap").checked=!!p.leap;$("gio").value=p.gio;syncCal()}
+function syncCal(){$("leapbox").hidden=$("cal").value!=="a"}
+$("cal").onchange=syncCal;
+$("save").onclick=function(){var f=readForm(),er=$("err");if(!(f.d>=1&&f.m>=1&&f.y>=1900)){er.textContent="Nhập ngày sinh trước khi lưu.";return}
+  var a=getP(),id=$("pf").value||("p"+Date.now());f.id=id;var k=-1;a.forEach(function(p,i){if(p.id===id)k=i});if(k>=0)a[k]=f;else a.push(f);
+  er.textContent=setP(a)?"Đã lưu hồ sơ trên trình duyệt này.":"Không lưu được (trình duyệt chặn lưu trữ).";fillPf(id)};
+$("del").onclick=function(){var id=$("pf").value;if(!id)return;setP(getP().filter(function(p){return p.id!==id}));fillPf("");$("err").textContent="Đã xóa hồ sơ."};
+$("pf").onchange=function(){var id=this.value;if(!id)return;var p=getP().filter(function(x){return x.id===id})[0];if(p){writeForm(p);compute()}};
+
+/* ---------- tính và hiển thị ---------- */
 var loading=null;
 function load(){if(loading)return loading;
   loading=Promise.all([fetch("../du-lieu/tu-hoa-theo-can.json").then(function(r){return r.json()}),fetch("../du-lieu/luan-giai.json").then(function(r){return r.json()})])
     .then(function(a){TH=a[0].can;LG=a[1]});return loading}
-$("fm").onsubmit=function(e){
-  e.preventDefault();var er=$("err");er.textContent="";
-  var gt=$("gt").value,D=+$("d").value,M=+$("m").value,Y=+$("y").value,H=$("hh").value===""?NaN:+$("hh").value,Mi=+($("mi").value||0);
-  if(!(D>=1&&M>=1&&M<=12&&Y>=1900&&Y<=2100&&H>=0&&H<=23&&Mi>=0&&Mi<=59)){er.textContent="Hãy nhập đủ ngày, tháng, năm, giờ hợp lệ.";return}
-  var t=new Date(Y,M-1,D);if(t.getMonth()!==M-1||t.getDate()!==D){er.textContent="Ngày này không tồn tại.";return}
+function compute(){
+  var er=$("err");er.textContent="";var f=readForm();
+  if(!(f.d>=1&&f.m>=1&&f.m<=12&&f.y>=1900&&f.y<=2100)){er.textContent="Hãy nhập đủ ngày, tháng, năm hợp lệ.";return}
+  var L,dd;
+  if(f.cal==="d"){var t=new Date(f.y,f.m-1,f.d);if(t.getMonth()!==f.m-1||t.getDate()!==f.d){er.textContent="Ngày này không tồn tại.";return}
+    L=toLunar(f.d,f.m,f.y);dd=("0"+f.d).slice(-2)+"/"+("0"+f.m).slice(-2)+"/"+f.y+" (dương lịch)"}
+  else{if(f.d>30){er.textContent="Ngày âm lịch tối đa là 30.";return}L={d:f.d,m:f.m,y:f.y,leap:f.leap};dd=f.d+"/"+f.m+"/"+f.y+" (âm lịch"+(f.leap?", tháng nhuận":"")+")"}
   er.textContent="Đang lập lá số…";
-  load().then(function(){
-    var R=build(gt,D,M,Y,H);R.dd=("0"+H).slice(-2)+"h"+("0"+Mi).slice(-2)+" ngày "+("0"+D).slice(-2)+"/"+("0"+M).slice(-2)+"/"+Y+" (dương lịch)";
-    render(R);er.textContent=""}).catch(function(){er.textContent="Không tải được dữ liệu. Hãy thử lại."})};
+  load().then(function(){R=build(f.gt,L,f.gio);R.dd=dd+", giờ "+CHI[f.gio]+" ("+GIOHOUR[f.gio]+")";render(R);er.textContent="";
+    $("fm").setAttribute("data-last",JSON.stringify(f))}).catch(function(){er.textContent="Không tải được dữ liệu. Hãy thử lại."})}
+$("fm").onsubmit=function(e){e.preventDefault();compute()};
 $("print").onclick=function(){window.print()};
-window.__tv={build:build,render:render,load:load};
+$("r").addEventListener("click",function(e){var c=e.target.closest&&e.target.closest(".cell");if(c)selectCung(+c.getAttribute("data-i"))});
+$("r").addEventListener("keydown",function(e){if(e.key!=="Enter"&&e.key!==" ")return;var c=e.target.closest&&e.target.closest(".cell");if(c){e.preventDefault();selectCung(+c.getAttribute("data-i"))}});
+/* khởi tạo */
+(function(){var s=$("gio"),h="";for(var i=0;i<12;i++)h+='<option value="'+i+'">'+CHI[i]+' ('+GIOHOUR[i]+')</option>';s.innerHTML=h;fillPf("");syncCal()})();
+window.__tv={build:build,render:render,load:load,compute:compute,setR:function(r){R=r}};
 })();
 </script>
 </body>
