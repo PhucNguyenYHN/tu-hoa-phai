@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="dark">
+<title>Thư viện Tứ Hóa phái</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;display=swap">
+<style>
+:root{--bg:#0e0d0c;--card:#181614;--card2:#1f1c19;--line:#34302a;--fg:#e8e2d4;--mut:#9a917f;--ac:#d6a84e;--ac2:#f0cf86}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.7 "Noto Serif","Times New Roman",serif}
+.wrap{max-width:860px;margin:0 auto;padding:16px 16px 80px}
+.top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.top a.home{color:var(--ac2);font-weight:700;text-decoration:none;margin-right:auto}
+.top a.lk{color:var(--mut);font-size:14px;text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px}
+.eyebrow{color:var(--ac);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin:8px 0 6px}
+h1{font-size:clamp(26px,5vw,36px);font-weight:400;line-height:1.2;margin:0 0 8px}h1 em{color:var(--ac2)}
+h2{font-size:18px;margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line);color:var(--ac2)}
+.note{color:var(--mut);font-size:13.5px}
+input[type=search]{width:100%;font:inherit;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card2);color:var(--fg)}
+input:focus{outline:2px solid var(--ac)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips a{display:inline-block;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:99px;padding:5px 13px;font-size:15px;text-decoration:none}
+.chips a:hover{border-color:var(--ac);color:var(--ac2)}
+.list a{display:flex;justify-content:space-between;gap:10px;padding:9px 4px;border-bottom:1px solid var(--line);color:var(--fg);text-decoration:none}
+.list a:hover{color:var(--ac2)}.list i{font-style:normal;color:var(--mut);font-size:13px;white-space:nowrap}
+.crumb{color:var(--mut);font-size:13.5px;margin:4px 0 8px}.crumb a{color:var(--ac)}
+article h1{font-size:clamp(22px,4.5vw,30px);font-weight:700;color:var(--ac2)}
+article p{margin:0 0 .9em}article p.b{padding-left:1em;text-indent:-.9em}
+.pg{color:var(--mut);font-size:12px;border:1px solid var(--line);border-radius:6px;padding:0 6px;margin-right:6px;text-decoration:none;vertical-align:1px}
+.nav{display:flex;gap:8px;justify-content:space-between;margin:24px 0}
+.nav a,.nav button{flex:1;text-align:center;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:10px;padding:10px;text-decoration:none;font:inherit;font-size:15px;cursor:pointer}
+.nav a:hover,.nav button:hover{border-color:var(--ac)}
+.sub{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 14px;margin:18px 0}
+mark{background:var(--ac);color:#111}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="home" href="#">Thư viện Tứ Hóa phái</a><a class="lk" href="../la-so/">Lập lá số</a><a class="lk" href="../">Đọc sách</a></div>
+<input id="q" type="search" placeholder="Tìm trong thư viện (vd: Thất Sát, hóa kị, phu thê…)" aria-label="Tìm">
+<div id="res" hidden></div>
+<div id="view"></div>
+</div>
+<script>
+(function(){
+"use strict";
+var $=function(i){return document.getElementById(i)};
+var BN={q1:"sach1",q2:"sach2"},BL={q1:"Quyển 1",q2:"Quyển 2"},NPAGES={sach1:824,sach2:817};
+var E={q1:[],q2:[]},ready=null;
+function flat(s){return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/đ/g,"d")}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+var SMALL={"của":1,"và":1,"các":1,"theo":1,"trong":1,"về":1,"là":1,"có":1,"cho":1,"với":1,"khi":1,"để":1,"một":1,"những":1,"ở":1,"hay":1,"hoặc":1,"đến":1,"từ":1};
+var FIX={"cúa":"của","cũa":"của","vẻ":"về","vệ":"về","vẺ":"về","tỏng":"tổng","tông":"tổng"};
+function clean(t){
+  var m=t.match(/^(CHƯƠNG\s+\d+|PHẦN\s+\d+|\d+(?:\.\d+)*\.?)\s+(.*)$/),pre="",rest=t;
+  if(m){pre=m[1].replace(/\.$/,"");rest=m[2]}
+  rest=rest.replace(/[\s.:`'"‘’\-–—_,;|]+$/,"").replace(/^[\s.:`'"]+/,"");
+  var up=rest===rest.toUpperCase();
+  var w=rest.split(/\s+/).map(function(x,i){var l=x.toLowerCase();if(up){if(FIX[l])l=FIX[l];return (i>0&&SMALL[l])?l:l.charAt(0).toUpperCase()+l.slice(1)}return x});
+  return (pre?pre+" ":"")+w.join(" ");
+}
+function numOf(t){var m=t.match(/^(\d+(?:\.\d+)*)\.?\s/);return m?m[1]:null}
+function load(){
+  if(ready)return ready;
+  ready=Promise.all([fetch("../toc-sach1.json").then(function(r){return r.json()}),fetch("../toc-sach2.json").then(function(r){return r.json()})]).then(function(a){
+    ["q1","q2"].forEach(function(k,j){E[k]=a[j].map(function(x,i){return {i:i,l:x[0],t:clean(x[1]),raw:x[1],p:x[2],n:numOf(x[1])}})});
+  });
+  return ready;
+}
+function find(b,id){ // id: số mục "4.1.3" hoặc "i123"
+  var a=E[b],k;
+  if(/^i\d+$/.test(id))return a[+id.slice(1)]||null;
+  for(k=0;k<a.length;k++)if(a[k].n===id)return a[k];
+  for(k=0;k<a.length;k++)if(a[k].n&&a[k].n.indexOf(id+".")===0){ // mục cha bị mất do OCR: dựng từ mục con đầu tiên
+    var nm=id;STAR.concat(PHU).forEach(function(s){if(s[1]===id)nm=id+" Hình Phú của "+s[0]});
+    return {i:-1,syn:true,l:a[k].l-1,t:nm,raw:id,p:a[k].p,n:id,child:k}}
+  return null;
+}
+function hid(b,e){return b+"-"+(e.n&&!e.syn?e.n:(e.syn?e.n:"i"+e.i))}
+function link(b,e){return "#"+hid(b,e)}
+function nextIdx(b,e){return e.syn?e.child:e.i+1}
+function childrenOf(b,e){
+  var a=E[b],out=[],k=e.syn?e.child:e.i+1,l=e.syn?e.l+1:e.l;
+  if(e.syn){ // mọi mục có số bắt đầu bằng id.
+    for(;k<a.length&&a[k].n&&a[k].n.indexOf(e.n+".")===0;k++)out.push(a[k]);return out}
+  for(;k<a.length&&a[k].l>l;k++)out.push(a[k]);
+  return out;
+}
+function bound(b,e){ // mục kế tiếp để cắt bài: chương (cấp 1) cắt ở mục con đầu; cấp 2 trở xuống lấy cả nhánh
+  var a=E[b],k;
+  if(e.syn){k=e.child;for(;k<a.length&&a[k].n&&a[k].n.indexOf(e.n+".")===0;k++){}return a[k]||null}
+  if(e.l<=1)return a[e.i+1]||null;
+  for(k=e.i+1;k<a.length&&a[k].l>e.l;k++){}
+  return a[k]||null;
+}
+var cache={};
+function page(b,p){var k=b+p;if(cache[k])return cache[k];
+  cache[k]=fetch("../text/"+BN[b]+"/"+("000"+p).slice(-4)+".txt").then(function(r){return r.ok?r.text():""}).then(function(t){
+    t=t.normalize("NFC").split("\n").filter(function(l){var s=l.trim();return !/TRUNG CHÂU|KHÂM THIÊN BÍ|THIÊN CƠ LUẬN/.test(s)&&!/^\d{1,3}$/.test(s)}).join("\n");return t}).catch(function(){return ""});
+  return cache[k]}
+function re(n){return new RegExp("(^|\\n)[ \\t`'“]*"+n.replace(/\./g,"\\.")+"\\.?[ \\t]")}
+/* tải một đoạn trang [p0,p1] đã cắt đầu/đuôi theo số mục */
+function section(b,e,from,limit){
+  var nb=bound(b,e),p0=Math.max(e.p,from||e.p),p1=nb?nb.p:Math.min(NPAGES[BN[b]],e.p+3);
+  if(p1<p0)p1=p0;
+  var cut=false;if(p1-p0+1>limit){p1=p0+limit-1;cut=true}
+  var ps=[];for(var p=p0;p<=p1;p++)ps.push(page(b,p));
+  return Promise.all(ps).then(function(tx){
+    var out=[];
+    tx.forEach(function(t,i){var pg=p0+i;
+      if(pg===e.p&&e.n&&!from){var m=re(e.n).exec(t);if(m){t=t.slice(m.index+(m[1]?m[1].length:0));t=t.replace(/^[^\n]*\n?/,"")}}
+      if(!cut&&nb&&nb.n&&pg===nb.p){var m2=re(nb.n).exec(t);if(m2&&m2.index>=0)t=t.slice(0,m2.index)}
+      out.push({p:pg,t:t});
+    });
+    return {parts:out,last:p1,more:cut,nb:nb};
+  });
+}
+function paras(parts,b){
+  var h="";
+  parts.forEach(function(x){
+    var lines=x.t.split("\n"),cur=[],first=true;
+    function flush(){if(!cur.length)return;var s=cur.join(" ").replace(/\s+/g," ").trim();if(!s){cur=[];return}
+      var bl=/^[-–•]\s|^\(\d+\)\s/.test(s);
+      h+='<p'+(bl?' class="b"':'')+'>'+(first?'<a class="pg" href="../#'+BN[b]+'-'+x.p+'" target="_blank" rel="noopener">tr.'+x.p+'</a>':'')+esc(s)+'</p>';first=false;cur=[]}
+    lines.forEach(function(l){if(!l.trim()){flush();return}if(/^[-–•]\s|^\(\d+\)\s/.test(l.trim()))flush();cur.push(l.trim())});flush();
+  });
+  return h}
+function crumb(b,e){
+  var a=E[b],parts=[],l=e.syn?e.l:e.l,k=(e.syn?e.child:e.i)-1;
+  for(;k>=0&&l>1;k--)if(a[k].l<l){parts.unshift('<a href="'+link(b,a[k])+'">'+esc(a[k].t)+'</a>');l=a[k].l}
+  return '<div class="crumb">'+BL[b]+(parts.length?' › '+parts.join(" › "):"")+'</div>'}
+
+/* ---------- trang bài ---------- */
+function article(b,id){
+  var e=find(b,id),v=$("view");
+  if(!e){v.innerHTML='<p>Không tìm thấy mục này. <a href="#">Về trang đầu</a></p>';return}
+  document.title=e.t+" · Thư viện Tứ Hóa phái";
+  var kids=childrenOf(b,e),h='<article>'+crumb(b,e)+'<h1>'+esc(e.t)+'</h1><div class="note">'+BL[b]+', trang '+e.p+' · <a href="../#'+BN[b]+'-'+e.p+'" style="color:var(--ac)" target="_blank" rel="noopener">mở trang gốc</a></div><div id="body" style="margin-top:14px">Đang tải…</div><div id="more"></div>';
+  if(kids.length)h+='<div class="sub"><div class="note" style="margin-top:8px">Các mục con</div><div class="list">'+kids.map(function(c){return '<a href="'+link(b,c)+'"><span>'+esc(c.t)+'</span><i>tr.'+c.p+'</i></a>'}).join("")+'</div></div>';
+  h+='<div class="nav" id="nav"></div></article>';
+  v.innerHTML=h;window.scrollTo(0,0);
+  var shown=0;
+  function go(from){
+    section(b,e,from,10).then(function(s){
+      var html=paras(s.parts,b);
+      if(!from)$("body").innerHTML=html||'<p class="note">Mục này chỉ có tiêu đề; xem các mục con bên dưới.</p>';else $("body").insertAdjacentHTML("beforeend",html);
+      $("more").innerHTML=s.more?'<div class="nav"><button id="mb">Đọc tiếp (từ trang '+(s.last+1)+')</button></div>':"";
+      if(s.more)$("mb").onclick=function(){go(s.last+1)};
+    });
+  }
+  go(0);
+  var a=E[b],pi=e.syn?e.child-1:e.i-1,ni=e.syn?e.child:e.i+1,nv="";
+  if(a[pi])nv+='<a href="'+link(b,a[pi])+'">‹ '+esc(a[pi].t)+'</a>';
+  if(a[ni])nv+='<a href="'+link(b,a[ni])+'">'+esc(a[ni].t)+' ›</a>';
+  $("nav").innerHTML=nv;
+}
+
+/* ---------- trang đầu ---------- */
+var STAR=[["Tử Vi","4.1"],["Thiên Cơ","4.2"],["Thái Dương","4.3"],["Vũ Khúc","4.4"],["Thiên Đồng","4.5"],["Liêm Trinh","4.6"],["Thiên Phủ","4.7"],["Thái Âm","4.8"],["Tham Lang","4.9"],["Cự Môn","4.10"],["Thiên Tướng","4.11"],["Thiên Lương","4.12"],["Thất Sát","4.13"],["Phá Quân","4.14"]];
+var PHU=[["Văn Xương","4.15"],["Văn Khúc","4.16"],["Tả Phụ, Hữu Bật","4.17"],["Lộc Tồn","4.18"],["Lục sát tinh (Đà La, Kình Dương, Hỏa, Linh, Kiếp, Không)","4.19"],["Tuần, Triệt và các sao không","4.20"],["Thiên Hình, Thiên Diêu","4.22"],["Hồng Loan, Thiên Hỷ","4.23"],["Thiên Khốc, Thiên Hư","4.24"]];
+var CUNG=["Mệnh","Huynh đệ","Phu thê","Tử nữ","Tài bạch","Tật ách","Thiên di","Nô bộc","Quan lộc","Điền trạch","Phúc đức","Phụ mẫu"];
+function chips(b,arr,fn){return '<div class="chips">'+arr.map(function(x){var e=find(b,x[1]);return e?'<a href="#'+b+'-'+x[1]+'">'+esc(x[0])+'</a>':""}).join("")+'</div>'}
+function secList(b,pref){var a=E[b];return '<div class="list">'+a.filter(function(e){return e.l===2&&e.n&&e.n.indexOf(pref+".")===0&&e.n.split(".").length===2}).map(function(e){return '<a href="'+link(b,e)+'"><span>'+esc(e.t)+'</span><i>tr.'+e.p+'</i></a>'}).join("")+'</div>'}
+function chapters(b){var a=E[b];return '<div class="list">'+a.filter(function(e){return e.l===1}).map(function(e){return '<a href="'+link(b,e)+'"><span>'+esc(e.t)+'</span><i>tr.'+e.p+'</i></a>'}).join("")+'</div>'}
+function home(){
+  document.title="Thư viện Tứ Hóa phái";
+  var h='<div class="eyebrow">Trung Châu Tử Vi Đẩu Số · Tứ Hóa phái</div><h1>Thư viện, <em>đọc từng đề mục</em></h1><p class="note">Toàn bộ hai quyển sách, chia thành bài theo từng sao, từng cung, từng chủ đề. Chữ là bản OCR đã sửa lỗi nên còn vài chỗ sai; mỗi đoạn có số trang để đối chiếu với ảnh gốc.</p>';
+  h+='<h2>Chính tinh</h2>'+chips("q2",STAR);
+  h+='<h2>Phụ tinh</h2>'+chips("q2",PHU);
+  h+='<h2>Mười hai cung</h2>'+chips("q2",CUNG.map(function(c,i){return [c,"2."+(i+1)]}));
+  h+='<h2>Chủ đề thực tế</h2><p class="note">Quyển 2, chương 6: sự nghiệp, tài phú, học hành, thi cử và các chuyên đề khác.</p>'+secList("q2","6");
+  h+='<h2>Tứ Hóa năm sinh</h2>'+secList("q1","4");
+  h+='<h2>Phi hóa và tự hóa</h2>'+secList("q1","5")+secList("q1","6");
+  h+='<h2>Vận hạn: đại vận, lưu niên</h2>'+secList("q1","9");
+  h+='<h2>Nền tảng</h2>'+secList("q1","1")+secList("q1","2")+secList("q2","1");
+  h+='<h2>Ví dụ lá số thực tế</h2>'+secList("q1","11");
+  h+='<h2>Toàn bộ mục lục</h2><div class="note">Quyển 1</div>'+chapters("q1")+'<div class="note" style="margin-top:12px">Quyển 2</div>'+chapters("q2");
+  $("view").innerHTML=h;window.scrollTo(0,0);
+}
+
+/* ---------- tìm kiếm ---------- */
+var idx={};
+function loadIdx(b){if(idx[b])return Promise.resolve(idx[b]);return fetch("../index-"+BN[b]+".json").then(function(r){return r.json()}).then(function(a){idx[b]=a.map(function(t){return {t:t,n:flat(t)}});return idx[b]})}
+function entryOfPage(b,p){var a=E[b],best=null;for(var k=0;k<a.length;k++){if(a[k].p<=p)best=a[k];else break}return best}
+var tm;
+$("q").oninput=function(){clearTimeout(tm);tm=setTimeout(search,250)};
+function search(){
+  var q=$("q").value.trim(),r=$("res");
+  if(q.length<2){r.hidden=true;r.innerHTML="";return}
+  var nq=flat(q);r.hidden=false;r.innerHTML='<h2>Kết quả cho “'+esc(q)+'”</h2><div class="note">Đang tìm…</div>';
+  load().then(function(){
+    var h="",titles=[];
+    ["q1","q2"].forEach(function(b){E[b].forEach(function(e){if(flat(e.t).indexOf(nq)>=0)titles.push([b,e])})});
+    if(titles.length)h+='<div class="note">Tên mục</div><div class="list">'+titles.slice(0,25).map(function(x){return '<a href="'+link(x[0],x[1])+'"><span>'+esc(x[1].t)+'</span><i>'+x[0].toUpperCase()+' tr.'+x[1].p+'</i></a>'}).join("")+'</div>';
+    return Promise.all([loadIdx("q1"),loadIdx("q2")]).then(function(ix){
+      var body="",n=0;
+      ["q1","q2"].forEach(function(b,j){var a=ix[j];for(var i=0;i<a.length&&n<40;i++){var m=a[i].n.indexOf(nq);if(m>=0){n++;var s=Math.max(0,m-45),en=entryOfPage(b,i+1);
+        body+='<a href="'+(en?link(b,en):"#")+'" data-p="'+(i+1)+'"><span>'+esc(a[i].t.slice(s,m))+'<mark>'+esc(a[i].t.slice(m,m+q.length))+'</mark>'+esc(a[i].t.slice(m+q.length,m+q.length+60))+'<br><small class="note">'+(en?esc(en.t):"")+'</small></span><i>'+b.toUpperCase()+' tr.'+(i+1)+'</i></a>'}}});
+      h+='<div class="note" style="margin-top:12px">Trong nội dung (tối đa 40 chỗ)</div><div class="list">'+(body||'<div class="note">Không thấy.</div>')+'</div>';
+      r.innerHTML='<h2>Kết quả cho “'+esc(q)+'”</h2>'+h});
+  });
+}
+$("res").onclick=function(e){if(e.target.closest("a")){$("res").hidden=true}};
+
+/* ---------- định tuyến ---------- */
+function route(){
+  var h=(location.hash||"").replace(/^#/,""),m=h.match(/^(q[12])-([\d.]+|i\d+)$/);
+  load().then(function(){if(m)article(m[1],m[2]);else home()});
+}
+window.addEventListener("hashchange",route);route();
+})();
+</script>
+</body>
+</html>

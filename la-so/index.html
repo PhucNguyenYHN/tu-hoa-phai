@@ -69,7 +69,7 @@ details summary{cursor:pointer;color:var(--ac);font-size:13px}
 <div class="wrap">
 <div class="eyebrow">Tử Vi Đẩu Số · Tứ Hóa phái</div>
 <h1>Lá số, <em>đọc theo sách</em></h1>
-<p class="note">Nhập ngày giờ sinh, lá số được tính ngay trên máy bạn; <b>không gửi đi đâu</b>. Mỗi ý đều kèm đoạn trích và số trang trong bộ sách Trung Châu Tử Vi Đẩu Số (Tứ Hóa phái). Đây là phần sách nhắc tới, không phải lời phán về một con người. <a href="../">Đọc sách</a></p>
+<p class="note">Nhập ngày giờ sinh, lá số được tính ngay trên máy bạn; <b>không gửi đi đâu</b>. Mỗi ý đều kèm đoạn trích và số trang trong bộ sách Trung Châu Tử Vi Đẩu Số (Tứ Hóa phái). Đây là phần sách nhắc tới, không phải lời phán về một con người. <a href="../thu-vien/">Thư viện bài viết</a> · <a href="../">Đọc sách</a></p>
 
 <details class="g"><summary>Cách đọc một lá số (tóm tắt theo sách)</summary>
 <ol>
@@ -189,6 +189,8 @@ function anSao(canNam,chiNam,thang,gio,ngay,n){
 
 /* ---------- dựng lá số ---------- */
 var TH=null,LG=null,R=null,selCung=null;
+var TV_STAR={"Tử Vi":"4.1","Thiên Cơ":"4.2","Thái Dương":"4.3","Vũ Khúc":"4.4","Thiên Đồng":"4.5","Liêm Trinh":"4.6","Thiên Phủ":"4.7","Thái Âm":"4.8","Tham Lang":"4.9","Cự Môn":"4.10","Thiên Tướng":"4.11","Thiên Lương":"4.12","Thất Sát":"4.13","Phá Quân":"4.14","Văn Xương":"4.15","Văn Khúc":"4.16","Tả Phụ":"4.17","Hữu Bật":"4.17","Lộc Tồn":"4.18","Đà La":"4.19","Kình Dương":"4.19","Linh Tinh":"4.19","Hỏa Tinh":"4.19","Địa Kiếp":"4.19","Địa Không":"4.19","Thiên Hình":"4.22","Thiên Diêu":"4.22","Hồng Loan":"4.23","Thiên Hỷ":"4.23"};
+function tvLink(label,id){return '<a href="../thu-vien/#q2-'+id+'" target="_blank" rel="noopener">'+label+'</a>'}
 function build(gt,L,gio){
   var canNam=CAN[(L.y+6)%10],chiNam=CHI[(L.y+8)%12];
   var cc=canCung(canNam),ti=mod(2+L.m-1),menh=mod(ti-gio),than=mod(ti+gio);
@@ -267,6 +269,7 @@ function selectCung(i){
   h.push('<h3>Tam phương tứ chính</h3><div class="note">Ba cung chiếu về cung này (tô nền trên lá số): xung chiếu và hai cung tam hợp (Q2 tr.79).</div><ul style="margin:4px 0;padding-left:18px">'+
     [[i,"Bản cung"],[mod(i+6),"Xung chiếu"],[mod(i+4),"Tam hợp"],[mod(i+8),"Tam hợp"]].map(function(a){return '<li><b>'+a[1]+':</b> '+esc(cungName(Rr,a[0]))+' — '+(Rr.by[a[0]].map(esc).join(", ")||'<i>vô chính diệu</i>')+'</li>'}).join("")+'</ul>');
   var ov=LG.cung_chuc&&LG.cung_chuc[chuc];if(ov)h.push('<h3>Tổng quan về cung '+esc(chuc)+'</h3>'+ex(ov));
+  h.push('<div class="note">Đọc bài đầy đủ: '+tvLink('Cung '+esc(chuc)+' biệt luận','2.'+(CUNG.indexOf(chuc)+1))+'</div>');
   var nh=Rr.nam.filter(function(x){return x.pos===i});
   if(nh.length){h.push('<h3>Tứ Hóa năm sinh ở cung này</h3>');nh.forEach(function(x){h.push('<div><b>'+esc(x.sao)+' '+esc(x.ten)+'</b></div>'+ex(LG.tuhoa_nam[x.h][chuc]))})}
   var out=Rr.phi.filter(function(f){return f.src===chuc});
@@ -274,6 +277,8 @@ function selectCung(i){
   var inn=Rr.phi.filter(function(f){return f.pos===i&&f.srcPos!==i});
   h.push('<h3>Hóa từ cung khác phi nhập cung '+esc(chuc)+'</h3>'+(inn.length?'<table><tr><th>Từ cung</th><th>Hóa</th><th>Sách</th></tr>'+inn.map(function(f){return '<tr><td>'+esc(f.src)+' <small>('+esc(f.can)+')</small></td><td>'+esc(f.ten)+' ('+esc(f.sao)+')</td><td>'+det(LG.phi_hoa[f.src+"|"+f.h+"|"+f.tgt])+'</td></tr>'}).join("")+'</table>':'<div class="note">Không có cung nào khác phi Hóa nhập cung này.</div>'));
   var ss=Rr.by[i].filter(function(s){return LG.sao[s]&&LG.sao[s].x});
+  var sl=[];Rr.by[i].forEach(function(s){var k=TV_STAR[s];if(k&&sl.indexOf(k)<0){sl.push(k);}});
+  if(sl.length)h.push('<div class="note">Bài về sao: '+Rr.by[i].filter(function(s){return TV_STAR[s]}).map(function(s){return tvLink(esc(s),TV_STAR[s])}).join(' · ')+'</div>');
   if(ss.length){h.push('<h3>Sao trong cung</h3>');ss.forEach(function(s){var e=LG.sao[s];h.push(det({b:e.b,p:e.p,t:e.t,x:e.x,},s+" – "+e.t))})}
   h.push('</div>');
   $("detail").innerHTML=h.join("");
