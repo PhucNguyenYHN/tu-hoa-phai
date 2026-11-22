@@ -352,6 +352,7 @@ $("r").addEventListener("click",function(e){var c=e.target.closest&&e.target.clo
 $("r").addEventListener("keydown",function(e){if(e.key!=="Enter"&&e.key!==" ")return;var c=e.target.closest&&e.target.closest(".cell");if(c){e.preventDefault();selectCung(+c.getAttribute("data-i"))}});
 /* khởi tạo */
 (function(){var s=$("gio"),h="";for(var i=0;i<12;i++)h+='<option value="'+i+'">'+CHI[i]+' ('+GIOHOUR[i]+')</option>';s.innerHTML=h;fillPf("");syncCal()})();
+(function(){try{var q=new URLSearchParams(location.search);if(!q.get("d"))return;$("gt").value=q.get("gt")==="nu"?"nu":"nam";$("cal").value=q.get("cal")==="a"?"a":"d";syncCal();$("d").value=+q.get("d");$("m").value=+q.get("m");$("y").value=+q.get("y");$("gio").value=+q.get("gio")||0;compute()}catch(e){}})();
 window.__tv={build:build,render:render,load:load,compute:compute,setR:function(r){R=r}};
 })();
 </script>
