@@ -2,7 +2,7 @@
 (function(){
 "use strict";
 var me=document.currentScript,src=me&&me.src||"",base=src.replace(/js\/site\.js.*$/,"");
-var NAV=[["trang-chu/","Trang chủ","home"],["la-so/","Lá số","laso"],["lich/","Lịch vạn niên","lich"],["thu-vien/","Thư viện","thuvien"],["","Đọc sách","sach"]];
+var NAV=[["trang-chu/","Trang chủ","home"],["la-so/","Lá số","laso"],["lich/","Lịch vạn niên","lich"],["tuoi/","Xem tuổi","tuoi"],["chon-ngay/","Chọn ngày","chonngay"],["thu-vien/","Thư viện","thuvien"],["","Đọc sách","sach"]];
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function mount(){
   var act=document.body.getAttribute("data-active")||"";

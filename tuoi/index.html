@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Xem tuổi · Tứ Hóa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="../css/site.css">
+<style>
+.form{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;align-items:end}
+label{display:block;font-size:12.5px;color:var(--mut);margin-bottom:4px}
+input,select,button{font:inherit;width:100%;padding:10px 11px;border-radius:9px;border:1px solid var(--line);background:var(--card2);color:var(--fg)}
+input:focus,select:focus{outline:2px solid var(--ac)}
+button.go{background:var(--ac);color:#1a1408;border:0;font-weight:700}
+.sub{grid-column:1/-1;color:var(--ac2);font-weight:700;margin-top:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px 16px}.kv div{font-size:15px}.kv span{display:block;color:var(--mut);font-size:12px}
+.hd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}.hd div{border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center;font-size:14px}.hd small{display:block;color:var(--mut);font-size:11.5px}.hd b{color:var(--ac2)}
+table{width:100%;border-collapse:collapse;font-size:14.5px}td,th{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{background:var(--card2);color:var(--ac2)}
+.pill{display:inline-block;border-radius:99px;padding:1px 10px;font-size:12.5px;border:1px solid var(--line)}.pill.g{border-color:var(--grn);color:var(--grn)}.pill.r{border-color:var(--red);color:var(--red)}.pill.n{border-color:var(--ac);color:var(--ac2)}
+.score{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.score .n{font-size:44px;color:var(--ac2);line-height:1}
+.bar{height:8px;background:var(--card2);border-radius:99px;overflow:hidden;flex:1;min-width:140px}.bar i{display:block;height:100%;background:var(--ac)}
+@media(max-width:640px){.hd{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body data-active="tuoi">
+<div class="tv-wrap">
+<div class="tv-eyebrow">Xem tuổi</div>
+<h1 class="tv-h1">Tuổi của bạn, <em>tuổi vợ chồng</em></h1>
+<p class="tv-note">Can chi, mệnh nạp âm, cung phi bát trạch, hướng tốt theo cung phi, và độ hợp của hai tuổi theo thiên can, địa chi, ngũ hành, cung phi. Nhập ngày sinh dương lịch để app tự đổi sang năm âm lịch (người sinh đầu năm trước Tết thuộc năm cũ). Chỉ biết năm âm lịch thì để trống ô ngày, tháng.</p>
+
+<h2 class="tv-h2">Tuổi một người</h2>
+<div class="form" id="f1">
+  <div><label for="g1">Giới tính</label><select id="g1"><option value="1">Nam</option><option value="0">Nữ</option></select></div>
+  <div><label for="d1">Ngày</label><input id="d1" type="number" inputmode="numeric" min="1" max="31"></div>
+  <div><label for="m1">Tháng</label><input id="m1" type="number" inputmode="numeric" min="1" max="12"></div>
+  <div><label for="y1">Năm</label><input id="y1" type="number" inputmode="numeric" min="1900" max="2100" placeholder="1993"></div>
+  <div><button class="go" id="b1" type="button">Xem</button></div>
+</div>
+<div id="o1"></div>
+
+<h2 class="tv-h2">Tuổi vợ chồng</h2>
+<div class="form" id="f2">
+  <div class="sub">Chồng (nam)</div>
+  <div><label for="d2">Ngày</label><input id="d2" type="number" inputmode="numeric" min="1" max="31"></div>
+  <div><label for="m2">Tháng</label><input id="m2" type="number" inputmode="numeric" min="1" max="12"></div>
+  <div><label for="y2">Năm</label><input id="y2" type="number" inputmode="numeric" min="1900" max="2100" placeholder="1990"></div>
+  <div class="sub">Vợ (nữ)</div>
+  <div><label for="d3">Ngày</label><input id="d3" type="number" inputmode="numeric" min="1" max="31"></div>
+  <div><label for="m3">Tháng</label><input id="m3" type="number" inputmode="numeric" min="1" max="12"></div>
+  <div><label for="y3">Năm</label><input id="y3" type="number" inputmode="numeric" min="1900" max="2100" placeholder="1993"></div>
+  <div><button class="go" id="b2" type="button">Xem độ hợp</button></div>
+</div>
+<div id="o2"></div>
+<p class="tv-note" style="margin-top:20px">Đây là quy tắc xem tuổi dân gian phổ biến (thiên can hợp xung, địa chi tam hợp, lục hợp, lục xung, lục hại, ngũ hành nạp âm sinh khắc, bát trạch), không thuộc bộ sách Tứ Hóa phái. Sách này luận hôn nhân qua cung Phu Thê và phi hóa trên lá số: hãy <a href="../la-so/">lập lá số</a> rồi bấm cung Phu Thê để đọc.</p>
+</div>
+<script src="../js/lich.js"></script>
+<script src="../js/tuoi.js"></script>
+<script src="../js/site.js"></script>
+<script>
+(function(){
+"use strict";
+var T=window.Tuoi,$=function(i){return document.getElementById(i)};
+function val(i){var v=parseInt($(i).value,10);return isNaN(v)?0:v}
+function year(sfx){var y=val("y"+sfx);if(!(y>=1900&&y<=2100))return null;var ly=T.lunarYear(val("d"+sfx),val("m"+sfx),y);return ly}
+function card(t,x){return '<div class="card"><div class="ti" style="font-weight:700;color:var(--ac2);margin-bottom:8px">'+t+'</div>'+x+'</div>'}
+function one(t,gt){return '<div class="kv"><div><span>Năm âm lịch</span>'+t.y+'</div><div><span>Can chi</span>'+t.can+' '+t.chi+' ('+t.con+')</div><div><span>Mệnh nạp âm</span>'+t.napAm+' ('+t.hanh+')</div><div><span>Cung phi</span>'+t.cungPhi+' · '+t.nhom+'</div></div>'+
+  '<div style="margin-top:12px" class="tv-note">Bốn hướng tốt theo cung phi (bát trạch)</div><div class="hd">'+t.huong.map(function(h,k){return '<div><small>'+T.HUONG_TEN[k]+'</small><b>'+h+'</b></div>'}).join("")+'</div>'}
+$("b1").onclick=function(){var y=year("1"),o=$("o1");if(y==null){o.innerHTML='<p class="tv-note" style="color:var(--red)">Hãy nhập năm sinh hợp lệ (và ngày tháng nếu có).</p>';return}
+  var gt=$("g1").value==="1",t=T.tuoi(y,gt);o.innerHTML=card((gt?"Nam":"Nữ")+" · "+t.can+" "+t.chi,one(t,gt))};
+$("b2").onclick=function(){var a=year("2"),b=year("3"),o=$("o2");
+  if(a==null||b==null){o.innerHTML='<p class="tv-note" style="color:var(--red)">Hãy nhập năm sinh hợp lệ của cả hai người.</p>';return}
+  var ta=T.tuoi(a,true),tb=T.tuoi(b,false),r=T.vochong(ta,tb);
+  var rows=r.rows.map(function(x){var c=x[1].k>=3?"g":x[1].k===0?"r":"n";return '<tr><td>'+x[0]+'</td><td>'+x[1].t+'</td><td><span class="pill '+c+'">'+(x[1].k>=3?'Hợp':x[1].k===0?'Xung':'Bình thường')+'</span></td></tr>'}).join("");
+  o.innerHTML='<div class="card"><div class="score"><div class="n">'+r.score+'/'+r.max+'</div><div style="flex:1"><b style="color:var(--ac2);font-size:18px">'+r.verdict+'</b><div class="bar"><i style="width:'+r.pct+'%"></i></div></div></div></div>'+
+   '<div class="card"><table><tr><th>Chồng</th><th>Vợ</th></tr><tr><td>'+ta.can+' '+ta.chi+' · '+ta.napAm+' ('+ta.hanh+') · cung phi '+ta.cungPhi+'</td><td>'+tb.can+' '+tb.chi+' · '+tb.napAm+' ('+tb.hanh+') · cung phi '+tb.cungPhi+'</td></tr></table></div>'+
+   '<div class="card"><table><tr><th>Tiêu chí</th><th>Nhận xét</th><th></th></tr>'+rows+'</table><p class="tv-note" style="margin:10px 0 0">Điểm: mỗi tiêu chí hợp 3 điểm, bình thường 1, xung 0 (riêng ngũ hành cùng hành 2). Điểm thấp không có nghĩa là không nên; hai người có thể bổ khuyết bằng cách khác.</p></div>'};
+})();
+</script>
+</body>
+</html>

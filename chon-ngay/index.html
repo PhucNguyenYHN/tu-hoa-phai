@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Chọn ngày tốt · Tứ Hóa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="../css/site.css">
+<style>
+.form{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;align-items:end}
+label{display:block;font-size:12.5px;color:var(--mut);margin-bottom:4px}
+input,select,button{font:inherit;width:100%;padding:10px 11px;border-radius:9px;border:1px solid var(--line);background:var(--card2);color:var(--fg)}
+input:focus,select:focus{outline:2px solid var(--ac)}
+button.go{background:var(--ac);color:#1a1408;border:0;font-weight:700}
+.day{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 10px;display:grid;grid-template-columns:78px 1fr;gap:14px}
+.day.bad{opacity:.55}
+.day .dn{text-align:center;color:var(--ac2);font-size:34px;line-height:1}.day .dn small{display:block;color:var(--mut);font-size:12px;margin-top:4px}
+.day b{color:var(--ac2)}.day .why{font-size:14px;color:var(--fg)}.day .why i{font-style:normal;color:var(--grn)}.day .why u{text-decoration:none;color:var(--red)}
+.pill{display:inline-block;border-radius:99px;padding:1px 10px;font-size:12.5px;border:1px solid var(--ac);color:var(--ac2);margin-left:6px}
+.gio{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.gio span{border:1px solid var(--ac);border-radius:8px;padding:0 8px;font-size:12.5px;color:var(--ac2)}
+</style>
+</head>
+<body data-active="chonngay">
+<div class="tv-wrap">
+<div class="tv-eyebrow">Chọn ngày tốt</div>
+<h1 class="tv-h1">Việc lớn, <em>chọn ngày</em></h1>
+<p class="tv-note">Chọn việc, khoảng thời gian và (nếu muốn) ngày sinh của người chủ sự. App chấm từng ngày theo hoàng đạo hay hắc đạo, trực, các ngày kỵ (Tam nương, Nguyệt kỵ, Dương công kỵ) và xung hợp với tuổi, rồi xếp từ ngày tốt nhất.</p>
+<div class="form">
+  <div><label for="v">Việc</label><select id="v"></select></div>
+  <div><label for="r">Khoảng thời gian</label><select id="r"><option value="0">Tháng này</option><option value="1">Tháng sau</option><option value="3" selected>3 tháng tới</option><option value="6">6 tháng tới</option></select></div>
+  <div><label for="d">Ngày sinh (không bắt buộc)</label><input id="d" type="number" inputmode="numeric" min="1" max="31" placeholder="ngày"></div>
+  <div><label for="m">&nbsp;</label><input id="m" type="number" inputmode="numeric" min="1" max="12" placeholder="tháng"></div>
+  <div><label for="y">&nbsp;</label><input id="y" type="number" inputmode="numeric" min="1900" max="2100" placeholder="năm"></div>
+  <div><button class="go" id="go" type="button">Chọn ngày</button></div>
+</div>
+<div id="err" class="tv-note" style="color:var(--red);min-height:18px;margin-top:8px"></div>
+<div id="out"></div>
+<p class="tv-note" style="margin-top:20px">Quy tắc chọn ngày dân gian phổ biến; các sách lịch có thể xếp trực tốt xấu hơi khác nhau, và không thuộc bộ sách Tứ Hóa phái. Việc lớn như cưới hỏi, làm nhà nên bàn với gia đình và người có chuyên môn. Bấm một ngày để xem đủ chi tiết trong <a href="../lich/">lịch vạn niên</a>.</p>
+</div>
+<script src="../js/lich.js"></script>
+<script src="../js/tuoi.js"></script>
+<script src="../js/site.js"></script>
+<script>
+(function(){
+"use strict";
+var T=window.Tuoi,L=window.Lich,$=function(i){return document.getElementById(i)};
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+$("v").innerHTML=Object.keys(T.VIEC).map(function(k){return '<option value="'+k+'">'+T.VIEC[k].ten+'</option>'}).join("");
+var by=ls("tv_by");if(by){$("y").value=by}
+function pad(n){return ("0"+n).slice(-2)}
+$("go").onclick=function(){
+  var er=$("err"),o=$("out");er.textContent="";
+  var viec=$("v").value,n=+$("r").value,d=parseInt($("d").value,10)||0,m=parseInt($("m").value,10)||0,y=parseInt($("y").value,10)||0,chi=null;
+  if(y){if(!(y>=1900&&y<=2100)){er.textContent="Năm sinh không hợp lệ.";return}var ly=T.lunarYear(d,m,y);if(ly==null){er.textContent="Ngày sinh không hợp lệ.";return}chi=L.mod(ly+8);ls("tv_by",ly)}
+  var t=new Date(),y0=t.getFullYear(),m0=t.getMonth()+1,days=[],cy=y0,cm=m0;
+  var end=new Date(y0,m0-1+n+1,0);
+  for(var dt=new Date(y0,m0-1,t.getDate());dt<=end;dt.setDate(dt.getDate()+1)){
+    var i=L.dayInfo(dt.getDate(),dt.getMonth()+1,dt.getFullYear()),s=T.chamNgay(i,viec,chi);days.push({i:i,s:s})}
+  var good=days.filter(function(x){return !x.s.xung&&x.s.pts>=3}).sort(function(a,b){return b.s.pts-a.s.pts||a.i.jd-b.i.jd});
+  var R=["23–1","1–3","3–5","5–7","7–9","9–11","11–13","13–15","15–17","17–19","19–21","21–23"];
+  function row(x,bad){var i=x.i,gio=L.CHI.map(function(c,k){return i.gio[k]?'<span>'+c+' '+R[k]+'h</span>':''}).join("");
+    return '<div class="day'+(bad?' bad':'')+'"><div class="dn">'+i.d+'<small>'+pad(i.m)+'/'+i.y+'<br>'+i.thu+'</small></div><div><div><b>'+i.canNgay+' '+i.chiNgay+'</b> · âm '+i.lunar.d+'/'+i.lunar.m+' · trực '+i.truc+'<span class="pill">'+x.s.pts+' điểm</span></div><div class="why">'+x.s.ly.map(function(z){return '<i>+ '+z+'</i>'}).join("<br>")+(x.s.ly.length&&x.s.xau.length?"<br>":"")+x.s.xau.map(function(z){return '<u>− '+z+'</u>'}).join("<br>")+'</div>'+(i.hoangDao?'<div class="gio">'+gio+'</div>':'')+'<a class="tv-note" href="../lich/#'+i.y+'-'+pad(i.m)+'-'+pad(i.d)+'">Xem chi tiết ngày</a></div></div>'}
+  o.innerHTML='<h2 class="tv-h2">Ngày tốt cho '+T.VIEC[viec].ten.toLowerCase()+(chi!=null?' (tuổi '+L.CHI[chi]+')':'')+'</h2>'+(good.length?good.slice(0,30).map(function(x){return row(x,false)}).join(""):'<p class="tv-note">Không có ngày nào đạt từ 3 điểm trong khoảng này. Thử mở rộng thời gian.</p>')+
+    (good.length>30?'<p class="tv-note">Còn '+(good.length-30)+' ngày khác, thu hẹp khoảng thời gian để xem.</p>':'')};
+})();
+</script>
+</body>
+</html>
