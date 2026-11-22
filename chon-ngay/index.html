@@ -10,61 +10,140 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;display=swap">
 <link rel="stylesheet" href="../css/site.css">
 <style>
-.form{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;align-items:end}
+.form{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;align-items:end}
 label{display:block;font-size:12.5px;color:var(--mut);margin-bottom:4px}
 input,select,button{font:inherit;width:100%;padding:10px 11px;border-radius:9px;border:1px solid var(--line);background:var(--card2);color:var(--fg)}
-input:focus,select:focus{outline:2px solid var(--ac)}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--ac)}
 button.go{background:var(--ac);color:#1a1408;border:0;font-weight:700}
-.day{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 10px;display:grid;grid-template-columns:78px 1fr;gap:14px}
-.day.bad{opacity:.55}
-.day .dn{text-align:center;color:var(--ac2);font-size:34px;line-height:1}.day .dn small{display:block;color:var(--mut);font-size:12px;margin-top:4px}
-.day b{color:var(--ac2)}.day .why{font-size:14px;color:var(--fg)}.day .why i{font-style:normal;color:var(--grn)}.day .why u{text-decoration:none;color:var(--red)}
-.pill{display:inline-block;border-radius:99px;padding:1px 10px;font-size:12.5px;border:1px solid var(--ac);color:var(--ac2);margin-left:6px}
-.gio{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.gio span{border:1px solid var(--ac);border-radius:8px;padding:0 8px;font-size:12.5px;color:var(--ac2)}
+.sub{grid-column:1/-1;color:var(--ac2);font-weight:700}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.chips button{width:auto;padding:7px 14px;border-radius:99px;font-size:14px;cursor:pointer}
+.chips button.on{background:var(--ac);color:#1a1408;border-color:var(--ac);font-weight:700}
+.banner{border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:10px 0;font-size:14.5px;background:var(--card)}
+.banner.r{border-color:var(--red)}.banner.g{border-color:var(--grn)}
+.mh{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:18px 0 6px}
+.mh h2{margin:0;font-size:20px;color:var(--ac2)}.mh button{width:44px;padding:8px}
+.sum{font-size:16px;margin:4px 0 12px}.sum b{color:var(--ac2);font-size:20px}
+.opts{display:flex;gap:16px;flex-wrap:wrap;font-size:13.5px;color:var(--mut);margin:6px 0 10px}.opts label{display:flex;gap:6px;align-items:center;margin:0;color:var(--mut);font-size:13.5px}.opts input{width:auto}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal .h{text-align:center;color:var(--mut);font-size:12.5px;padding:4px 0}
+.c{border:1px solid var(--line);border-radius:10px;padding:5px 3px;text-align:center;background:var(--card);cursor:pointer;min-height:68px;font:inherit;color:var(--fg);width:auto}
+.c.e{visibility:hidden}
+.c .n{font-size:17px;font-weight:700;line-height:1.1}.c .a{font-size:10.5px;color:var(--mut)}.c .p{font-size:12.5px;font-weight:700;margin-top:2px}
+.c.dai{background:rgba(127,181,138,.28);border-color:var(--grn)}.c.dai .p{color:var(--grn)}
+.c.tot{background:rgba(127,181,138,.13);border-color:rgba(127,181,138,.6)}.c.tot .p{color:var(--grn)}
+.c.tb{background:var(--card)}.c.tb .p{color:var(--ac2)}
+.c.tranh{background:rgba(217,117,95,.1)}.c.tranh .p{color:var(--red)}
+.c.dim{opacity:.35}.c.today{outline:2px solid var(--ac2)}.c.sel{outline:2px solid #fff}
+.leg{display:flex;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--mut);margin:10px 0}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:4px}
+.det{background:var(--card);border:1px solid var(--ac);border-radius:14px;padding:14px 16px;margin:14px 0}
+.det h3{margin:0 0 2px;color:var(--ac2);font-size:19px}
+.det .big{font-size:34px;font-weight:700;line-height:1}
+.det .gr{display:inline-block;border-radius:99px;padding:1px 12px;font-size:13px;border:1px solid var(--ac);margin-left:8px;vertical-align:middle}
+.det .why div{display:flex;gap:10px;padding:5px 0;border-top:1px solid var(--line);font-size:14.5px}.det .why b{width:38px;flex:none;text-align:right}
+.g{color:var(--grn)}.r{color:var(--red)}
+.gio{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.gio span{border:1px solid var(--ac);border-radius:8px;padding:0 8px;font-size:12.5px;color:var(--ac2)}
+.top{margin:6px 0}.top button{display:grid;grid-template-columns:62px 1fr auto;gap:10px;text-align:left;align-items:center;margin:0 0 6px;border-radius:10px;background:var(--card);cursor:pointer}
+.top .tn{font-size:22px;color:var(--ac2);font-weight:700}.top .ts{font-size:12.5px;color:var(--mut)}.top .tp{color:var(--grn);font-weight:700}
+@media(max-width:520px){.c{min-height:58px}.c .a{display:none}.cal{gap:3px}}
 </style>
 </head>
 <body data-active="chonngay">
 <div class="tv-wrap">
 <div class="tv-eyebrow">Chọn ngày tốt</div>
-<h1 class="tv-h1">Việc lớn, <em>chọn ngày</em></h1>
-<p class="tv-note">Chọn việc, khoảng thời gian và (nếu muốn) ngày sinh của người chủ sự. App chấm từng ngày theo hoàng đạo hay hắc đạo, trực, các ngày kỵ (Tam nương, Nguyệt kỵ, Dương công kỵ) và xung hợp với tuổi, rồi xếp từ ngày tốt nhất.</p>
+<h1 class="tv-h1">Mỗi việc một cách xem, <em>mỗi ngày một điểm</em></h1>
+<p class="tv-note">Chọn việc cần làm rồi chọn tháng. Mỗi ngày được chấm theo hoàng đạo, trực, sao 28 tú, các ngày kỵ (Thọ tử, Sát chủ, Tam nương, Nguyệt kỵ, Tứ ly, Tứ tuyệt…), Thiên đức, Nguyệt đức và xung hợp tuổi. Mỗi việc dùng bảng trực và sao riêng, nên một ngày hoàng đạo vẫn có thể bị chấm thấp cho việc này mà cao cho việc khác.</p>
+<div class="chips" id="vs" role="group" aria-label="Việc cần làm"></div>
 <div class="form">
-  <div><label for="v">Việc</label><select id="v"></select></div>
-  <div><label for="r">Khoảng thời gian</label><select id="r"><option value="0">Tháng này</option><option value="1">Tháng sau</option><option value="3" selected>3 tháng tới</option><option value="6">6 tháng tới</option></select></div>
-  <div><label for="d">Ngày sinh (không bắt buộc)</label><input id="d" type="number" inputmode="numeric" min="1" max="31" placeholder="ngày"></div>
-  <div><label for="m">&nbsp;</label><input id="m" type="number" inputmode="numeric" min="1" max="12" placeholder="tháng"></div>
-  <div><label for="y">&nbsp;</label><input id="y" type="number" inputmode="numeric" min="1900" max="2100" placeholder="năm"></div>
-  <div><button class="go" id="go" type="button">Chọn ngày</button></div>
+  <div class="sub" id="t1">Tuổi người đứng việc</div>
+  <div><label for="d1">Ngày sinh</label><input id="d1" type="number" inputmode="numeric" min="1" max="31" placeholder="ngày"></div>
+  <div><label for="m1">Tháng sinh</label><input id="m1" type="number" inputmode="numeric" min="1" max="12" placeholder="tháng"></div>
+  <div><label for="y1">Năm sinh</label><input id="y1" type="number" inputmode="numeric" min="1900" max="2100" placeholder="năm"></div>
+  <div id="w2" hidden class="sub">Chú rể (cô dâu nhập ở trên)</div>
+  <div class="w2" hidden><label for="d2">Ngày sinh</label><input id="d2" type="number" inputmode="numeric" min="1" max="31" placeholder="ngày"></div>
+  <div class="w2" hidden><label for="m2">Tháng sinh</label><input id="m2" type="number" inputmode="numeric" min="1" max="12" placeholder="tháng"></div>
+  <div class="w2" hidden><label for="y2">Năm sinh</label><input id="y2" type="number" inputmode="numeric" min="1900" max="2100" placeholder="năm"></div>
+  <div><button class="go" id="go" type="button">Xem tháng</button></div>
 </div>
-<div id="err" class="tv-note" style="color:var(--red);min-height:18px;margin-top:8px"></div>
-<div id="out"></div>
-<p class="tv-note" style="margin-top:20px">Quy tắc chọn ngày dân gian phổ biến; các sách lịch có thể xếp trực tốt xấu hơi khác nhau, và không thuộc bộ sách Tứ Hóa phái. Việc lớn như cưới hỏi, làm nhà nên bàn với gia đình và người có chuyên môn. Bấm một ngày để xem đủ chi tiết trong <a href="../lich/">lịch vạn niên</a>.</p>
+<p class="tv-note" style="margin:6px 0 0">Không bắt buộc nhập tuổi; không nhập thì chỉ chấm theo ngày. Chỉ biết năm âm lịch thì để trống ngày, tháng sinh.</p>
+<div id="err" class="tv-note r" style="min-height:18px"></div>
+<div id="yr"></div>
+<div class="mh"><button id="pm" type="button" aria-label="Tháng trước">‹</button><h2 id="mt"></h2><button id="nm" type="button" aria-label="Tháng sau">›</button></div>
+<div class="sum" id="sum"></div>
+<div class="opts"><label><input type="checkbox" id="wk"> Chỉ thứ bảy, chủ nhật</label><label><input type="checkbox" id="dm" checked> Làm mờ ngày nên tránh</label></div>
+<div class="leg"><span><i style="background:rgba(127,181,138,.6)"></i>Đại cát (85% trở lên)</span><span><i style="background:rgba(127,181,138,.3)"></i>Tốt (70%)</span><span><i style="background:var(--card2)"></i>Bình thường</span><span><i style="background:rgba(217,117,95,.4)"></i>Nên tránh</span></div>
+<div class="cal" id="cal"></div>
+<div id="det"></div>
+<h2 class="tv-h2" id="toph" hidden>Các ngày đẹp nhất tháng này</h2>
+<div class="top" id="top"></div>
+<p class="tv-note" style="margin-top:20px"><b>Cách chấm.</b> Điểm gốc 50%; cộng hoặc trừ theo từng điều ghi trong phần lý do của ngày. Ngày phạm kỵ nặng (Thọ tử, Sát chủ, Tam nương, Nguyệt kỵ, Dương công kỵ, Nguyệt phá, Tứ ly, Tứ tuyệt) không được xếp lên mức Tốt dù điểm cao; ngày xung tuổi bị xếp "Nên tránh". Đây là quy tắc lịch dân gian theo các sách chọn ngày phổ biến (Ngọc Hạp), các sách có thể lệch nhau, không thuộc bộ sách Tứ Hóa phái; việc lớn nên bàn với gia đình và người có chuyên môn. Xem thêm <a href="../lich/">lịch vạn niên</a> và <a href="../han-nam/">hạn năm</a>.</p>
 </div>
 <script src="../js/lich.js"></script>
 <script src="../js/tuoi.js"></script>
+<script src="../js/han.js"></script>
+<script src="../js/ngay.js"></script>
 <script src="../js/site.js"></script>
 <script>
 (function(){
 "use strict";
-var T=window.Tuoi,L=window.Lich,$=function(i){return document.getElementById(i)};
+var L=window.Lich,T=window.Tuoi,H=window.Han,N=window.Ngay,mod=L.mod,$=function(i){return document.getElementById(i)};
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
-$("v").innerHTML=Object.keys(T.VIEC).map(function(k){return '<option value="'+k+'">'+T.VIEC[k].ten+'</option>'}).join("");
-var by=ls("tv_by");if(by){$("y").value=by}
 function pad(n){return ("0"+n).slice(-2)}
-$("go").onclick=function(){
-  var er=$("err"),o=$("out");er.textContent="";
-  var viec=$("v").value,n=+$("r").value,d=parseInt($("d").value,10)||0,m=parseInt($("m").value,10)||0,y=parseInt($("y").value,10)||0,chi=null;
-  if(y){if(!(y>=1900&&y<=2100)){er.textContent="Năm sinh không hợp lệ.";return}var ly=T.lunarYear(d,m,y);if(ly==null){er.textContent="Ngày sinh không hợp lệ.";return}chi=L.mod(ly+8);ls("tv_by",ly)}
-  var t=new Date(),y0=t.getFullYear(),m0=t.getMonth()+1,days=[],cy=y0,cm=m0;
-  var end=new Date(y0,m0-1+n+1,0);
-  for(var dt=new Date(y0,m0-1,t.getDate());dt<=end;dt.setDate(dt.getDate()+1)){
-    var i=L.dayInfo(dt.getDate(),dt.getMonth()+1,dt.getFullYear()),s=T.chamNgay(i,viec,chi);days.push({i:i,s:s})}
-  var good=days.filter(function(x){return !x.s.xung&&x.s.pts>=3}).sort(function(a,b){return b.s.pts-a.s.pts||a.i.jd-b.i.jd});
-  var R=["23–1","1–3","3–5","5–7","7–9","9–11","11–13","13–15","15–17","17–19","19–21","21–23"];
-  function row(x,bad){var i=x.i,gio=L.CHI.map(function(c,k){return i.gio[k]?'<span>'+c+' '+R[k]+'h</span>':''}).join("");
-    return '<div class="day'+(bad?' bad':'')+'"><div class="dn">'+i.d+'<small>'+pad(i.m)+'/'+i.y+'<br>'+i.thu+'</small></div><div><div><b>'+i.canNgay+' '+i.chiNgay+'</b> · âm '+i.lunar.d+'/'+i.lunar.m+' · trực '+i.truc+'<span class="pill">'+x.s.pts+' điểm</span></div><div class="why">'+x.s.ly.map(function(z){return '<i>+ '+z+'</i>'}).join("<br>")+(x.s.ly.length&&x.s.xau.length?"<br>":"")+x.s.xau.map(function(z){return '<u>− '+z+'</u>'}).join("<br>")+'</div>'+(i.hoangDao?'<div class="gio">'+gio+'</div>':'')+'<a class="tv-note" href="../lich/#'+i.y+'-'+pad(i.m)+'-'+pad(i.d)+'">Xem chi tiết ngày</a></div></div>'}
-  o.innerHTML='<h2 class="tv-h2">Ngày tốt cho '+T.VIEC[viec].ten.toLowerCase()+(chi!=null?' (tuổi '+L.CHI[chi]+')':'')+'</h2>'+(good.length?good.slice(0,30).map(function(x){return row(x,false)}).join(""):'<p class="tv-note">Không có ngày nào đạt từ 3 điểm trong khoảng này. Thử mở rộng thời gian.</p>')+
-    (good.length>30?'<p class="tv-note">Còn '+(good.length-30)+' ngày khác, thu hẹp khoảng thời gian để xem.</p>':'')};
+var R=["23–1","1–3","3–5","5–7","7–9","9–11","11–13","13–15","15–17","17–19","19–21","21–23"];
+var now=new Date(),cur={y:now.getFullYear(),m:now.getMonth()+1},viec=ls("tv_viec")||"cuoi",sel=null;
+if(!N.VIEC[viec])viec="cuoi";
+var q=(location.hash||"").match(/^#(\w+)$/);if(q&&N.VIEC[q[1]])viec=q[1];
+var by=ls("tv_by");if(by)$("y1").value=by;
+function renderChips(){$("vs").innerHTML=Object.keys(N.VIEC).map(function(k){return '<button type="button" data-v="'+k+'" class="'+(k===viec?'on':'')+'" aria-pressed="'+(k===viec)+'">'+N.VIEC[k].ten+'</button>'}).join("");
+  var c=viec==="cuoi";$("t1").textContent=c?"Cô dâu":"Tuổi người đứng việc";$("w2").hidden=!c;[].forEach.call(document.querySelectorAll(".w2"),function(e){e.hidden=!c})}
+$("vs").onclick=function(e){var b=e.target.closest("button[data-v]");if(!b)return;viec=b.getAttribute("data-v");ls("tv_viec",viec);sel=null;renderChips();render()};
+function yearOf(sfx){var y=parseInt($("y"+sfx).value,10);if(!(y>=1900&&y<=2100))return null;var d=parseInt($("d"+sfx).value,10)||0,m=parseInt($("m"+sfx).value,10)||0;return T.lunarYear(d,m,y)}
+function people(){var a=yearOf("1"),b=viec==="cuoi"?yearOf("2"):null;return {a:a,b:b}}
+function chis(p){var r=[];if(p.a!=null)r.push(mod(p.a+8));if(viec==="cuoi"&&p.b!=null){if(p.a==null)r.push(null);r.push(mod(p.b+8))}return r}
+function yearBanner(p){
+  var ly=L.toLunar(15,cur.m,cur.y).y,h="";
+  if(p.a==null)return "";
+  var age=ly-p.a+1;
+  if(viec==="cuoi"){var kl=H.kimLau(age);h='<div class="banner '+(kl.xau?'r':'g')+'">Năm âm lịch '+ly+': cô dâu '+age+' tuổi mụ. '+(kl.xau?'<b>Phạm '+kl.ten+'</b>: theo tục nên cưới sang năm khác hoặc chọn tháng đại lợi, cưới sau Đông chí.':'Không phạm Kim lâu.')+'</div>'}
+  else if(viec==="dongtho"||viec==="nhaptrach"){var r=H.nam(p.a,ly,true),ok=H.lamNha(r),bad=[];if(r.kimLau.xau)bad.push(r.kimLau.ten);if(r.tamTai)bad.push(r.tamTai.ten);if(r.hoangOc.k<0)bad.push(r.hoangOc.ten);
+    h='<div class="banner '+(ok?'g':'r')+'">Năm âm lịch '+ly+': chủ nhà '+age+' tuổi mụ. '+(ok?'Không phạm Kim lâu, Hoang ốc, Tam tai.':'<b>Phạm: '+bad.join(", ")+'.</b> Theo tục nên mượn tuổi người khác không phạm đứng làm lễ, hoặc chọn năm khác.')+'</div>'}
+  return h}
+function monthDays(){var n=new Date(cur.y,cur.m,0).getDate(),a=[],ch=chis(people());
+  for(var d=1;d<=n;d++){var i=L.dayInfo(d,cur.m,cur.y);a.push({d:d,i:i,s:N.cham(i,viec,ch)})}return a}
+function render(){
+  var p=people(),days=monthDays(),first=new Date(cur.y,cur.m-1,1).getDay(),lead=(first+6)%7,wk=$("wk").checked,dm=$("dm").checked;
+  $("mt").textContent="Tháng "+cur.m+" · "+cur.y;$("yr").innerHTML=yearBanner(p);
+  var good=days.filter(function(x){return x.s.grade.k==="dai"||x.s.grade.k==="tot"});
+  var upcoming=cur.y===now.getFullYear()&&cur.m===now.getMonth()+1?" (còn "+good.filter(function(x){return x.d>=now.getDate()}).length+" ngày từ hôm nay)":"";
+  $("sum").innerHTML='<b>'+good.length+'</b> ngày tốt cho '+N.VIEC[viec].ten.toLowerCase()+' trong tháng'+upcoming;
+  var h="";["T2","T3","T4","T5","T6","T7","CN"].forEach(function(x){h+='<div class="h">'+x+'</div>'});
+  for(var k=0;k<lead;k++)h+='<div class="c e"></div>';
+  days.forEach(function(x){var hide=wk&&x.i.wd!==0&&x.i.wd!==6,dim=(dm&&x.s.grade.k==="tranh")||hide;
+    var t=cur.y===now.getFullYear()&&cur.m===now.getMonth()+1&&x.d===now.getDate();
+    h+='<button type="button" class="c '+x.s.grade.k+(dim?' dim':'')+(t?' today':'')+(sel===x.d?' sel':'')+'" data-d="'+x.d+'" aria-label="Ngày '+x.d+', '+x.s.pct+' phần trăm, '+x.s.grade.t+'"><div class="n">'+x.d+'</div><div class="a">'+(x.i.lunar.d===1?x.i.lunar.d+'/'+x.i.lunar.m:x.i.lunar.d)+' âm</div><div class="p">'+x.s.pct+'%</div></button>'});
+  $("cal").innerHTML=h;
+  var top=good.slice().sort(function(a,b){return b.s.pct-a.s.pct||a.d-b.d}).slice(0,8);
+  $("toph").hidden=!top.length;
+  $("top").innerHTML=top.map(function(x){return '<button type="button" data-d="'+x.d+'"><span class="tn">'+pad(x.d)+'/'+pad(cur.m)+'</span><span><b>'+x.i.thu+' · '+x.i.canNgay+' '+x.i.chiNgay+'</b><br><span class="ts">âm '+x.i.lunar.d+'/'+x.i.lunar.m+' · trực '+x.i.truc+' · sao '+x.i.tu+'</span></span><span class="tp">'+x.s.pct+'%</span></button>'}).join("");
+  if(!top.length&&days.length)$("top").innerHTML='<p class="tv-note">Tháng này chưa có ngày đạt mức Tốt cho việc đã chọn. Thử tháng khác, hoặc xem các ngày "Bình thường" kèm lý do.</p>';
+  if(sel)detail(sel)}
+function detail(d){sel=d;var x=monthDays()[d-1],i=x.i,s=x.s,gio=L.CHI.map(function(c,k){return i.gio[k]?'<span>'+c+' '+R[k]+'h</span>':''}).join("");
+  var rows=s.cong.concat(s.tru).map(function(r){return '<div><b class="'+(r[0]>0?'g':'r')+'">'+(r[0]>0?'+':'')+r[0]+'</b><span>'+r[1]+'</span></div>'}).join("");
+  $("det").innerHTML='<div class="det"><h3>'+i.thu+' '+pad(i.d)+'/'+pad(i.m)+'/'+i.y+' · âm '+i.lunar.d+'/'+i.lunar.m+' · '+i.canNgay+' '+i.chiNgay+'</h3><div><span class="big '+(s.grade.k==="tranh"?'r':s.grade.k==="tb"?'':'g')+'">'+s.pct+'%</span><span class="gr">'+s.grade.t+' cho '+N.VIEC[viec].ten.toLowerCase()+'</span></div>'+
+    '<p class="tv-note" style="margin:6px 0">Trực '+i.truc+' · sao '+i.tu+' · '+i.napAm+(s.heavy?' · <span class="r">phạm ngày kỵ nặng nên không lên mức Tốt</span>':'')+(s.xung?' · <span class="r">xung tuổi</span>':'')+'</p><div class="why"><div><b>50</b><span>Điểm gốc</span></div>'+rows+'</div>'+
+    '<div class="tv-note" style="margin-top:10px">Giờ hoàng đạo</div><div class="gio">'+gio+'</div><p style="margin:10px 0 0"><a href="../lich/#'+i.y+'-'+pad(i.m)+'-'+pad(i.d)+'">Xem đủ chi tiết ngày trong lịch vạn niên</a></p></div>';
+  [].forEach.call(document.querySelectorAll(".c.sel"),function(e){e.classList.remove("sel")});
+  var c=document.querySelector('.c[data-d="'+d+'"]');if(c)c.classList.add("sel");
+  $("det").scrollIntoView({behavior:"smooth",block:"nearest"})}
+$("cal").onclick=function(e){var b=e.target.closest("[data-d]");if(b)detail(+b.getAttribute("data-d"))};
+$("top").onclick=function(e){var b=e.target.closest("[data-d]");if(b)detail(+b.getAttribute("data-d"))};
+function shift(n){cur.m+=n;if(cur.m>12){cur.m=1;cur.y++}if(cur.m<1){cur.m=12;cur.y--}sel=null;$("det").innerHTML="";render()}
+$("pm").onclick=function(){shift(-1)};$("nm").onclick=function(){shift(1)};
+$("wk").onchange=render;$("dm").onchange=render;
+$("go").onclick=function(){var er=$("err");er.textContent="";
+  [["1","tuổi người đứng việc"],["2","tuổi chú rể"]].forEach(function(z){if(z[0]==="2"&&viec!=="cuoi")return;var v=$("y"+z[0]).value;if(v&&!(+v>=1900&&+v<=2100))er.textContent="Năm sinh không hợp lệ ("+z[1]+").";else if(v&&$("d"+z[0]).value&&$("m"+z[0]).value){var t=new Date(+v,+$("m"+z[0]).value-1,+$("d"+z[0]).value);if(t.getMonth()!==+$("m"+z[0]).value-1)er.textContent="Ngày sinh không tồn tại ("+z[1]+")."}});
+  if(er.textContent)return;var a=yearOf("1");if(a!=null)ls("tv_by",a);sel=null;$("det").innerHTML="";render()};
+renderChips();render();
 })();
 </script>
 </body>
