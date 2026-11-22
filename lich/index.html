@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Lịch vạn niên · Tứ Hóa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="../css/site.css">
+<style>
+.ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:end;margin:12px 0}
+.ctl>div{display:flex;flex-direction:column}
+label{font-size:12.5px;color:var(--mut);margin-bottom:3px}
+input,select,button{font:inherit;padding:9px 11px;border-radius:9px;border:1px solid var(--line);background:var(--card2);color:var(--fg)}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+button.nv{width:42px;padding:9px 0}
+input.n{width:84px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal .wh{text-align:center;color:var(--mut);font-size:13px;padding:6px 0}.cal .wh.w{color:var(--red)}
+.dc{background:var(--card);border:1px solid var(--line);border-radius:6px;min-height:76px;padding:5px 6px;cursor:pointer;position:relative;text-align:left;color:var(--fg);display:block;width:100%}
+.dc:hover{border-color:var(--ac)}
+.dc .s{font-size:19px;line-height:1.1}.dc .l{font-size:12px;color:var(--mut);margin-top:2px}
+.dc .l.f{color:var(--ac2)}
+.dc .t{font-size:10.5px;color:var(--ac);margin-top:2px;line-height:1.2}
+.dc.sun .s,.dc.sat .s{color:var(--red)}
+.dc.hd::after{content:"";position:absolute;right:6px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--ac)}
+.dc.out{opacity:.35}
+.dc.today{box-shadow:inset 0 0 0 2px var(--ac)}
+.dc.sel{background:var(--card2);border-color:var(--ac2)}
+.dc.xung{border-color:var(--red);background:rgba(217,117,95,.1)}
+.dc.hop{border-color:var(--grn);background:rgba(127,181,138,.1)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0}
+.big{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.bd{font-size:64px;line-height:1;color:var(--ac2);min-width:90px;text-align:center}
+.bd small{display:block;font-size:13px;color:var(--mut);margin-top:6px}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px 16px;flex:1}
+.kv div{font-size:14px}.kv span{display:block;color:var(--mut);font-size:12px}
+.gio{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-top:12px}
+.gio div{border:1px solid var(--line);border-radius:8px;padding:5px 2px;text-align:center;font-size:13px;color:var(--mut)}
+.gio div.h{border-color:var(--ac);color:var(--ac2);background:var(--hl)}
+.gio small{display:block;font-size:11px}
+.badge{display:inline-block;border-radius:99px;padding:1px 10px;font-size:12.5px;border:1px solid var(--line);margin-right:6px}
+.badge.g{border-color:var(--ac);color:var(--ac2)}.badge.r{border-color:var(--red);color:var(--red)}.badge.v{border-color:var(--grn);color:var(--grn)}
+.cv{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.cv .row{display:flex;gap:8px;flex-wrap:wrap;align-items:end}.cv input.n{width:70px}.cv input.y{width:90px}
+.out{margin-top:10px;font-size:15px;min-height:24px}
+@media(max-width:640px){.dc{min-height:62px;padding:4px}.dc .s{font-size:16px}.dc .t{display:none}.bd{font-size:48px}.gio{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body data-active="lich">
+<div class="tv-wrap">
+<div class="tv-eyebrow">Lịch vạn niên</div>
+<h1 class="tv-h1">Âm lịch, can chi, <em>giờ hoàng đạo</em></h1>
+<p class="tv-note">Âm lịch Việt Nam (múi giờ +7), can chi ngày tháng năm, nạp âm, trực, sao nhị thập bát tú, thần trực hoàng đạo hay hắc đạo, tiết khí và mười hai canh giờ. Tính ngay trên máy bạn.</p>
+
+<div class="card" id="today"></div>
+
+<div class="ctl">
+  <div><label>&nbsp;</label><button class="nv" id="pm" aria-label="Tháng trước">‹</button></div>
+  <div><label for="mm">Tháng</label><select id="mm"></select></div>
+  <div><label for="yy">Năm</label><input class="n" id="yy" type="number" inputmode="numeric" min="1900" max="2100"></div>
+  <div><label>&nbsp;</label><button class="nv" id="nm" aria-label="Tháng sau">›</button></div>
+  <div><label>&nbsp;</label><button id="td">Hôm nay</button></div>
+  <div style="margin-left:auto"><label for="by">Năm sinh âm lịch của bạn (để đánh dấu ngày hợp, xung)</label><input class="n" id="by" type="number" inputmode="numeric" placeholder="1993"></div>
+</div>
+<div id="mtitle" class="tv-note" style="margin:0 0 8px"></div>
+<div class="cal" id="cal"></div>
+<p class="tv-note">Chấm vàng: ngày hoàng đạo. Viền xanh: ngày hợp tuổi bạn (lục hợp hoặc tam hợp). Viền đỏ: ngày xung tuổi bạn.</p>
+
+<div id="detail"></div>
+
+<h2 class="tv-h2" id="doi-ngay">Đổi ngày dương lịch và âm lịch</h2>
+<div class="cv">
+  <div class="card"><b>Dương → âm</b>
+    <div class="row"><div><label>Ngày</label><input class="n" id="sd" type="number" inputmode="numeric"></div><div><label>Tháng</label><input class="n" id="sm" type="number" inputmode="numeric"></div><div><label>Năm</label><input class="y" id="sy" type="number" inputmode="numeric"></div><button id="s2l">Đổi</button></div>
+    <div class="out" id="so"></div></div>
+  <div class="card"><b>Âm → dương</b>
+    <div class="row"><div><label>Ngày</label><input class="n" id="ld" type="number" inputmode="numeric"></div><div><label>Tháng</label><input class="n" id="lm" type="number" inputmode="numeric"></div><div><label>Năm</label><input class="y" id="ly" type="number" inputmode="numeric"></div><div><label>&nbsp;</label><label style="display:flex;gap:6px;align-items:center;margin:0;color:var(--fg)"><input id="lleap" type="checkbox" style="width:auto"> nhuận</label></div><button id="l2s">Đổi</button></div>
+    <div class="out" id="lo"></div></div>
+</div>
+<h2 class="tv-h2">Cách tính</h2>
+<p class="tv-note">Âm lịch theo thuật toán Hồ Ngọc Đức (múi giờ Việt Nam). Can chi ngày tính từ số ngày Julius. Can chi tháng theo tháng âm lịch (tháng Giêng năm Giáp, Kỷ là tháng Bính Dần). Trực tính theo tiết khí (tháng chi đổi ở các tiết Lập xuân, Kinh trập, Thanh minh...). Thần trực hoàng đạo tính theo tháng âm lịch và chi của ngày. Sao nhị thập bát tú xoay vòng 28 ngày, đối chiếu một ngày mẫu. Ngày xung là ngày có chi đối xung với chi của tuổi.</p>
+</div>
+<script src="../js/lich.js"></script>
+<script src="../js/site.js"></script>
+<script>
+(function(){
+"use strict";
+var $=function(i){return document.getElementById(i)},L=window.Lich,CHI=L.CHI;
+function pad(n){return ("0"+n).slice(-2)}
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+var now=new Date(),T={d:now.getDate(),m:now.getMonth()+1,y:now.getFullYear()};
+var cur={m:T.m,y:T.y},sel={d:T.d,m:T.m,y:T.y},by=parseInt(ls("tv_by"),10)||null;
+(function(){var h="";for(var i=1;i<=12;i++)h+='<option value="'+i+'">Tháng '+i+'</option>';$("mm").innerHTML=h})();
+
+function relation(i){
+  if(by==null)return "";
+  var p=L.mod(by+8),c=i.chiIdx;
+  if(c===L.mod(p+6))return "xung";
+  if(c===L.LUC_HOP[p]||c===L.mod(p+4)||c===L.mod(p+8))return "hop";
+  return "";
+}
+function gioHtml(i){
+  var R=["23–1","1–3","3–5","5–7","7–9","9–11","11–13","13–15","15–17","17–19","19–21","21–23"];
+  return '<div class="gio">'+CHI.map(function(c,k){return '<div class="'+(i.gio[k]?'h':'')+'">'+c+'<small>'+R[k]+'h</small></div>'}).join("")+'</div>'}
+function kv(i){
+  var l=i.lunar;
+  return '<div class="kv">'+
+  '<div><span>Âm lịch</span>'+l.d+'/'+l.m+(l.leap?' (nhuận)':'')+'/'+l.y+', tháng '+(i.monthLen===30?'đủ':'thiếu')+'</div>'+
+  '<div><span>Năm</span>'+i.canNam+' '+i.chiNam+'</div>'+
+  '<div><span>Tháng</span>'+i.canThang+' '+i.chiThang+'</div>'+
+  '<div><span>Ngày</span>'+i.canNgay+' '+i.chiNgay+'</div>'+
+  '<div><span>Nạp âm ngày</span>'+i.napAm+' ('+i.nguHanh+')</div>'+
+  '<div><span>Trực</span>'+i.truc+'</div>'+
+  '<div><span>Sao (nhị thập bát tú)</span>'+i.tu+'</div>'+
+  '<div><span>Thần trực ngày</span>'+i.than+' · '+(i.hoangDao?'<span style="display:inline;color:var(--ac2)">hoàng đạo</span>':'<span style="display:inline;color:var(--red)">hắc đạo</span>')+'</div>'+
+  '<div><span>Tiết khí</span>'+i.tietKhi+(i.tietBatDau?' (bắt đầu hôm nay)':'')+'</div>'+
+  '<div><span>Tuổi xung với ngày</span>'+i.xung+'</div>'+
+  '</div>'}
+function renderToday(){
+  var i=L.dayInfo(T.d,T.m,T.y);
+  $("today").innerHTML='<div class="tv-eyebrow" style="margin:0 0 8px">Hôm nay</div><div class="big"><div class="bd">'+T.d+'<small>Tháng '+T.m+' · '+i.thu+'</small></div>'+kv(i)+'</div><div class="tv-note" style="margin:12px 0 0">Mười hai canh giờ (ô vàng là giờ hoàng đạo)</div>'+gioHtml(i)}
+function renderDetail(){
+  var i=L.dayInfo(sel.d,sel.m,sel.y),r=relation(i);
+  $("detail").innerHTML='<div class="card"><div class="tv-eyebrow" style="margin:0 0 8px">'+i.thu+', '+pad(sel.d)+'/'+pad(sel.m)+'/'+sel.y+'</div><div class="big"><div class="bd">'+sel.d+'<small>âm '+i.lunar.d+'/'+i.lunar.m+'</small></div>'+kv(i)+'</div>'+
+    '<div style="margin-top:12px">'+(i.hoangDao?'<span class="badge g">Ngày hoàng đạo</span>':'<span class="badge r">Ngày hắc đạo</span>')+(i.mung1?'<span class="badge">Mùng một</span>':'')+(i.ram?'<span class="badge">Rằm</span>':'')+(r==="xung"?'<span class="badge r">Xung tuổi '+CHI[L.mod(by+8)]+' của bạn</span>':'')+(r==="hop"?'<span class="badge v">Hợp tuổi '+CHI[L.mod(by+8)]+' của bạn</span>':'')+'</div>'+
+    '<div class="tv-note" style="margin:12px 0 0">Giờ hoàng đạo trong ngày</div>'+gioHtml(i)+'</div>'}
+function renderCal(){
+  $("mm").value=cur.m;$("yy").value=cur.y;
+  var first=L.jdFrom(1,cur.m,cur.y),dow=(L.mod(first+1,7)+6)%7,
+      nd=L.jdFrom(1,cur.m===12?1:cur.m+1,cur.m===12?cur.y+1:cur.y)-first,li=L.dayInfo(1,cur.m,cur.y).lunar;
+  $("mtitle").textContent="Tháng "+cur.m+" năm "+cur.y+" · âm lịch từ "+li.d+"/"+li.m+" năm "+L.dayInfo(1,cur.m,cur.y).canNam+" "+L.dayInfo(1,cur.m,cur.y).chiNam;
+  var h=["T2","T3","T4","T5","T6","T7","CN"].map(function(x,k){return '<div class="wh'+(k>=5?' w':'')+'">'+x+'</div>'}).join("");
+  for(var k=0;k<dow;k++)h+='<div></div>';
+  for(var d=1;d<=nd;d++){
+    var i=L.dayInfo(d,cur.m,cur.y),r=relation(i),isT=(d===T.d&&cur.m===T.m&&cur.y===T.y),isS=(d===sel.d&&cur.m===sel.m&&cur.y===sel.y);
+    var lt=i.lunar.d===1?i.lunar.d+'/'+i.lunar.m:String(i.lunar.d);
+    h+='<button class="dc'+(i.wd===0?' sun':'')+(i.wd===6?' sat':'')+(i.hoangDao?' hd':'')+(isT?' today':'')+(isS?' sel':'')+(r?' '+r:'')+'" data-d="'+d+'" aria-label="'+i.thu+' '+d+'/'+cur.m+', âm '+i.lunar.d+'/'+i.lunar.m+'"><div class="s">'+d+'</div><div class="l'+(i.lunar.d===1||i.lunar.d===15?' f':'')+'">'+lt+'</div>'+(i.tietBatDau?'<div class="t">'+i.tietBatDau+'</div>':'')+'</button>';
+  }
+  $("cal").innerHTML=h;
+}
+function go(m,y){if(m<1){m=12;y--}if(m>12){m=1;y++}if(y<1900||y>2100)return;cur.m=m;cur.y=y;renderCal()}
+$("pm").onclick=function(){go(cur.m-1,cur.y)};$("nm").onclick=function(){go(cur.m+1,cur.y)};
+$("mm").onchange=function(){go(+this.value,cur.y)};$("yy").onchange=function(){var v=parseInt(this.value,10);if(v>=1900&&v<=2100)go(cur.m,v)};
+$("td").onclick=function(){sel={d:T.d,m:T.m,y:T.y};cur={m:T.m,y:T.y};renderCal();renderDetail();history.replaceState(null,"","#")};
+$("cal").onclick=function(e){var b=e.target.closest(".dc");if(!b)return;sel={d:+b.getAttribute("data-d"),m:cur.m,y:cur.y};renderCal();renderDetail();history.replaceState(null,"","#"+sel.y+"-"+pad(sel.m)+"-"+pad(sel.d))};
+$("by").value=by||"";
+$("by").onchange=function(){var v=parseInt(this.value,10);by=(v>=1900&&v<=2100)?v:null;ls("tv_by",by||"");renderCal();renderDetail()};
+/* đổi ngày */
+$("s2l").onclick=function(){var d=+$("sd").value,m=+$("sm").value,y=+$("sy").value,o=$("so");
+  var t=new Date(y,m-1,d);if(!(y>=1900&&y<=2100)||t.getMonth()!==m-1||t.getDate()!==d){o.textContent="Ngày dương lịch không hợp lệ.";return}
+  var i=L.dayInfo(d,m,y);o.innerHTML=i.thu+', âm lịch <b>'+i.lunar.d+'/'+i.lunar.m+(i.lunar.leap?' (nhuận)':'')+'/'+i.lunar.y+'</b> ('+i.canNam+' '+i.chiNam+'), ngày '+i.canNgay+' '+i.chiNgay+', tháng '+i.canThang+' '+i.chiThang+'.'};
+$("l2s").onclick=function(){var d=+$("ld").value,m=+$("lm").value,y=+$("ly").value,o=$("lo");
+  if(!(y>=1900&&y<=2099&&m>=1&&m<=12&&d>=1&&d<=30)){o.textContent="Ngày âm lịch không hợp lệ.";return}
+  var s=L.toSolar(d,m,y,$("lleap").checked);
+  if(!s){o.textContent="Không có ngày âm lịch này (kiểm tra tháng nhuận hoặc tháng thiếu 29 ngày).";return}
+  var i=L.dayInfo(s.d,s.m,s.y);o.innerHTML=i.thu+', dương lịch <b>'+pad(s.d)+'/'+pad(s.m)+'/'+s.y+'</b>, ngày '+i.canNgay+' '+i.chiNgay+'.'};
+/* khởi tạo */
+var hb=(location.hash||"").match(/^#by=(\d{4})$/);if(hb){by=+hb[1];ls("tv_by",by);$("by").value=by}
+var h=(location.hash||"").match(/^#(\d{4})-(\d{2})-(\d{2})$/);
+if(h){sel={y:+h[1],m:+h[2],d:+h[3]};cur={m:sel.m,y:sel.y}}
+renderToday();renderCal();renderDetail();
+window.__lich={go:go};
+})();
+</script>
+</body>
+</html>
