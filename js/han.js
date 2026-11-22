@@ -9,7 +9,8 @@ function tamTai(birthChi,yearChi){
   return null}
 function kimLau(age){var r=age%9;return {xau:[1,3,6,8].indexOf(r)>=0,ten:{1:"Kim lâu thân",3:"Kim lâu thê",6:"Kim lâu tử",8:"Kim lâu lục súc"}[r]||null}}
 var HOANGOC=[["Nhất cát",1],["Nhị nghi",0],["Tam địa sát",-1],["Tứ tấn tài",1],["Ngũ thọ tử",-1],["Lục hoang ốc",-1]];
-function hoangOc(age){var r=age%6||6,h=HOANGOC[r-1];return {ten:h[0],k:h[1]}}
+/* Hoang ốc: cộng các chữ số của tuổi mụ rồi đếm trên sáu cung (đối chiếu trang tuvivansu.com cho tuổi 34-39) */
+function hoangOc(age){var s=0,a=age;while(a>0){s+=a%10;a=Math.floor(a/10)}var r=((s-1)%6)+1,h=HOANGOC[r-1];return {ten:h[0],k:h[1]}}
 var SAO_NAM=["Mộc Đức","La Hầu","Thổ Tú","Thủy Diệu","Thái Bạch","Thái Dương","Vân Hán","Kế Đô","Thái Âm"];
 var SAO_NU=["Thủy Diệu","Kế Đô","Vân Hán","Mộc Đức","Thái Âm","Thổ Tú","La Hầu","Thái Dương","Thái Bạch"];
 var SAO_TXT={"La Hầu":[-2,"Xấu nhiều: dễ thị phi, kiện tụng, tai nạn; kỵ nhất với nam."],"Kế Đô":[-2,"Xấu nhiều: dễ bệnh, buồn phiền; kỵ nhất với nữ."],"Thái Bạch":[-1,"Xấu về tiền bạc, hao tài; cẩn thận giao dịch."],"Thổ Tú":[-1,"Xấu nhẹ: dễ trở ngại, tiểu nhân, nên giữ gìn súc vật, nhà cửa."],"Vân Hán":[-1,"Xấu nhẹ: dễ bệnh tật, thị phi nhỏ."],"Thủy Diệu":[1,"Khá: tài lộc tốt, nhưng cẩn thận sông nước."],"Thái Dương":[2,"Tốt: công việc hanh thông, nam hợp hơn nữ."],"Thái Âm":[2,"Tốt: được quý nhân, nữ hợp hơn nam."],"Mộc Đức":[2,"Tốt: vui vẻ, hôn nhân, tài lộc."]};
