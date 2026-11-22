@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Tiện ích · Tứ Hóa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="../css/site.css">
+<style>
+.form{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;align-items:end}
+label{display:block;font-size:12.5px;color:var(--mut);margin-bottom:4px}
+input,select,button{font:inherit;width:100%;padding:10px 11px;border-radius:9px;border:1px solid var(--line);background:var(--card2);color:var(--fg)}
+input[type=checkbox]{width:auto}
+input:focus,select:focus{outline:2px solid var(--ac)}
+button.go{background:var(--ac);color:#1a1408;border:0;font-weight:700}
+.toc{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.toc a{border:1px solid var(--line);border-radius:99px;padding:4px 12px;font-size:13.5px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:12px 0}
+table{width:100%;border-collapse:collapse;font-size:14.5px}td,th{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}th{color:var(--ac2)}
+.g{color:var(--grn)}.r{color:var(--red)}
+.big{font-size:22px;color:var(--ac2);margin:0 0 6px}
+.gh{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}.gh div{border:1px solid var(--line);border-radius:10px;padding:8px;font-size:13.5px}.gh b{display:block}
+h2.tv-h2{scroll-margin-top:70px}
+</style>
+</head>
+<body data-active="tienich">
+<div class="tv-wrap">
+<div class="tv-eyebrow">Tiện ích</div>
+<h1 class="tv-h1">Việc nhỏ hay dùng, <em>làm một chỗ</em></h1>
+<div class="toc"><a href="#gio">Ngày giỗ</a><a href="#le">Lễ, Tết, tiết khí</a><a href="#xh">Xuất hành</a><a href="#xong">Xông đất</a><a href="#tuoi">Tính tuổi</a><a href="#ngay">Đếm ngày</a></div>
+
+<h2 class="tv-h2" id="gio">Ngày giỗ, kỷ niệm theo âm lịch</h2>
+<p class="tv-note">Nhập ngày âm lịch (ngày mất, ngày cưới theo âm…), app đổi sang dương lịch cho nhiều năm liền.</p>
+<div class="form">
+  <div><label for="gd">Ngày âm</label><input id="gd" type="number" inputmode="numeric" min="1" max="30"></div>
+  <div><label for="gm">Tháng âm</label><input id="gm" type="number" inputmode="numeric" min="1" max="12"></div>
+  <div><label for="gy">Từ năm</label><input id="gy" type="number" inputmode="numeric" min="1900" max="2100"></div>
+  <div><label for="gl">Tháng nhuận</label><select id="gl"><option value="0">Không</option><option value="1">Có</option></select></div>
+  <div><button class="go" id="gb" type="button">Đổi</button></div>
+</div>
+<div id="go"></div>
+
+<h2 class="tv-h2" id="le">Lễ, Tết và tiết khí của một năm</h2>
+<div class="form">
+  <div><label for="ly">Năm dương lịch</label><input id="ly" type="number" inputmode="numeric" min="1900" max="2100"></div>
+  <div><button class="go" id="lb" type="button">Xem</button></div>
+</div>
+<div id="lo"></div>
+
+<h2 class="tv-h2" id="xh">Xuất hành theo Lục diệu Khổng Minh</h2>
+<p class="tv-note">Chọn ngày dương lịch, xem ngày và từng canh giờ thuộc cung nào (Đại An, Tốc Hỷ, Tiểu Cát tốt; Lưu Liên, Xích Khẩu, Không Vong xấu).</p>
+<div class="form">
+  <div><label for="xd">Ngày</label><input id="xd" type="date"></div>
+  <div><button class="go" id="xb" type="button">Xem</button></div>
+</div>
+<div id="xo"></div>
+
+<h2 class="tv-h2" id="xong">Chọn người xông đất</h2>
+<p class="tv-note">Nhập năm sinh âm lịch của chủ nhà. App gợi ý các tuổi hợp (tam hợp, lục hợp) nên xông đất, và các tuổi nên tránh (xung, hại). Nên chọn người vui vẻ, khỏe mạnh, làm ăn thuận lợi.</p>
+<div class="form">
+  <div><label for="ny">Năm sinh chủ nhà</label><input id="ny" type="number" inputmode="numeric" min="1900" max="2100"></div>
+  <div><button class="go" id="nb" type="button">Gợi ý</button></div>
+</div>
+<div id="no"></div>
+
+<h2 class="tv-h2" id="tuoi">Tính tuổi</h2>
+<div class="form">
+  <div><label for="td">Ngày</label><input id="td" type="number" inputmode="numeric" min="1" max="31"></div>
+  <div><label for="tm">Tháng</label><input id="tm" type="number" inputmode="numeric" min="1" max="12"></div>
+  <div><label for="ty">Năm sinh</label><input id="ty" type="number" inputmode="numeric" min="1900" max="2100"></div>
+  <div><button class="go" id="tb" type="button">Tính</button></div>
+</div>
+<div id="to"></div>
+
+<h2 class="tv-h2" id="ngay">Đếm ngày</h2>
+<div class="form">
+  <div><label for="n1">Từ ngày</label><input id="n1" type="date"></div>
+  <div><label for="n2">Đến ngày</label><input id="n2" type="date"></div>
+  <div><button class="go" id="nb1" type="button">Đếm khoảng cách</button></div>
+  <div><label for="n3">Cộng thêm (ngày)</label><input id="n3" type="number" inputmode="numeric" placeholder="100"></div>
+  <div><button class="go" id="nb2" type="button">Tìm ngày</button></div>
+</div>
+<div id="eo"></div>
+
+<p class="tv-note" style="margin-top:20px">Ngày lễ, xuất hành và xông đất là tập quán dân gian, không thuộc bộ sách Tứ Hóa phái, chỉ để tham khảo.</p>
+</div>
+<script src="../js/lich.js"></script>
+<script src="../js/tuoi.js"></script>
+<script src="../js/han.js"></script>
+<script src="../js/site.js"></script>
+<script>
+(function(){
+"use strict";
+var L=window.Lich,H=window.Han,mod=L.mod,$=function(i){return document.getElementById(i)};
+function pad(n){return ("0"+n).slice(-2)}
+function fmt(s){return pad(s.d)+"/"+pad(s.m)+"/"+s.y}
+function msg(m){return '<p class="tv-note r">'+m+'</p>'}
+function tbl(h,rows){return '<div class="card"><table><tr>'+h.map(function(x){return '<th>'+x+'</th>'}).join("")+'</tr>'+rows.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+c+'</td>'}).join("")+'</tr>'}).join("")+'</table></div>'}
+var now=new Date(),Y=now.getFullYear(),iso=Y+"-"+pad(now.getMonth()+1)+"-"+pad(now.getDate());
+$("gy").value=Y;$("ly").value=Y;$("xd").value=iso;$("n1").value=iso;$("n2").value=iso;
+function parseIso(s){var p=s.split("-");return p.length===3?{d:+p[2],m:+p[1],y:+p[0]}:null}
+
+/* ngày giỗ */
+$("gb").onclick=function(){var d=+$("gd").value,m=+$("gm").value,y=+$("gy").value,lp=$("gl").value==="1",rows=[];
+  if(!(d>=1&&d<=30&&m>=1&&m<=12&&y>=1900&&y<=2100)){$("go").innerHTML=msg("Hãy nhập ngày, tháng âm và năm hợp lệ.");return}
+  for(var k=0;k<12;k++){var s=L.toSolar(d,m,y+k,lp);
+    if(!s){rows.push([y+k+' (âm)','<span class="r">Năm này không có ngày này'+(lp?' (không nhuận)':' (tháng thiếu)')+'</span>','',''])}
+    else{var i=L.dayInfo(s.d,s.m,s.y);rows.push([(y+k)+' · '+L.CAN[mod(y+k+6,10)]+' '+L.CHI[mod(y+k+8)],'<b>'+fmt(s)+'</b>',i.thu,i.canNgay+' '+i.chiNgay])}}
+  $("go").innerHTML=tbl(["Năm âm","Dương lịch","Thứ","Can chi ngày"],rows)};
+
+/* lễ tiết */
+var LE_AM=[[1,1,"Tết Nguyên Đán"],[15,1,"Rằm tháng Giêng (Thượng nguyên)"],[3,3,"Tết Hàn Thực"],[10,3,"Giỗ Tổ Hùng Vương"],[15,4,"Phật Đản"],[5,5,"Tết Đoan Ngọ"],[15,7,"Vu Lan"],[15,8,"Tết Trung Thu"],[9,9,"Tết Trùng Cửu"],[23,12,"Ông Táo chầu trời"]];
+var LE_DL=[[1,1,"Tết Dương lịch"],[14,2,"Lễ Tình nhân"],[8,3,"Quốc tế Phụ nữ"],[30,4,"Giải phóng miền Nam"],[1,5,"Quốc tế Lao động"],[1,6,"Quốc tế Thiếu nhi"],[2,9,"Quốc khánh"],[20,10,"Phụ nữ Việt Nam"],[20,11,"Nhà giáo Việt Nam"],[25,12,"Giáng sinh"]];
+$("lb").onclick=function(){var y=+$("ly").value;if(!(y>=1900&&y<=2100)){$("lo").innerHTML=msg("Năm không hợp lệ.");return}
+  var ev=[];
+  LE_AM.forEach(function(e){var s=L.toSolar(e[0],e[1],y,false);if(s&&s.y===y)ev.push([L.jdFrom(s.d,s.m,s.y),s,e[2]+' (âm '+e[0]+'/'+e[1]+')']);
+    var s2=L.toSolar(e[0],e[1],y-1,false);if(s2&&s2.y===y&&(!s||s.y!==y))ev.push([L.jdFrom(s2.d,s2.m,s2.y),s2,e[2]+' (âm '+e[0]+'/'+e[1]+')'])});
+  LE_DL.forEach(function(e){ev.push([L.jdFrom(e[0],e[1],y),{d:e[0],m:e[1],y:y},e[2]])});
+  // ba mươi / hai chín Tết (giao thừa)
+  var t=L.toSolar(1,1,y+1,false);if(t){var jd=L.jdFrom(t.d,t.m,t.y)-1,s=L.jdToDate(jd);if(s.y===y)ev.push([jd,s,"Giao thừa (30 hoặc 29 tháng Chạp)"])}
+  var d0=L.jdFrom(1,1,y),d1=L.jdFrom(31,12,y);
+  for(var jd=d0;jd<=d1;jd++){var s=L.jdToDate(jd),i=L.dayInfo(s.d,s.m,s.y);if(i.tietBatDau)ev.push([jd,s,'Tiết '+i.tietBatDau])}
+  ev.sort(function(a,b){return a[0]-b[0]});
+  var seen={},rows=[];ev.forEach(function(e){var k=e[0]+e[2];if(seen[k])return;seen[k]=1;var i=L.dayInfo(e[1].d,e[1].m,e[1].y);rows.push([fmt(e[1]),i.thu,e[2]])});
+  $("lo").innerHTML=tbl(["Dương lịch","Thứ","Dịp"],rows)};
+
+/* xuất hành */
+var R=["23–1","1–3","3–5","5–7","7–9","9–11","11–13","13–15","15–17","17–19","19–21","21–23"];
+$("xb").onclick=function(){var p=parseIso($("xd").value);if(!p){$("xo").innerHTML=msg("Chọn ngày.");return}
+  var i=L.dayInfo(p.d,p.m,p.y),x=H.xuatHanh(i.lunar.m,i.lunar.d);
+  $("xo").innerHTML='<div class="card"><div class="big">'+i.thu+' '+fmt(p)+' · âm '+i.lunar.d+'/'+i.lunar.m+'</div><div class="'+(x.ngay.k>0?'g':'r')+'"><b>Ngày '+x.ngay.ten+'</b>: '+x.ngay.t+'</div></div>'+
+   '<div class="card"><div class="gh">'+x.gio.map(function(h,k){return '<div class="'+(h.k>0?'g':'r')+'"><b>'+h.chi+' ('+R[k]+'h)</b>'+h.ten+'</div>'}).join("")+'</div></div>'};
+
+/* xông đất */
+$("nb").onclick=function(){var y=+$("ny").value;if(!(y>=1900&&y<=2100)){$("no").innerHTML=msg("Năm sinh không hợp lệ.");return}
+  var c=mod(y+8),TH=[[8,0,4],[2,6,10],[5,9,1],[11,3,7]],good=[],bad=[],HAI={0:7,7:0,1:6,6:1,2:5,5:2,3:4,4:3,8:11,11:8,9:10,10:9};
+  for(var k=0;k<12;k++){if(k===c)continue;var tot=L.LUC_HOP[c]===k||TH.some(function(g){return g.indexOf(c)>=0&&g.indexOf(k)>=0});
+    if(tot)good.push(k);else if(mod(c+6)===k||HAI[c]===k)bad.push(k)}
+  function nm(a){return a.map(function(k){var ex=[];for(var b=y-30;b<=y+30;b++)if(mod(b+8)===k&&b>=1950&&b<=2010)ex.push(b);return '<b>'+L.CHI[k]+'</b> ('+ex.join(", ")+')'}).join("<br>")}
+  $("no").innerHTML='<div class="card"><div class="big">Chủ nhà tuổi '+L.CAN[mod(y+6,10)]+' '+L.CHI[c]+'</div><p class="g"><b>Nên chọn:</b><br>'+nm(good)+'</p><p class="r"><b>Nên tránh:</b><br>'+nm(bad)+'</p><p class="tv-note">Trong ngoặc là các năm sinh âm lịch tương ứng (1950–2010).</p></div>'};
+
+/* tính tuổi */
+$("tb").onclick=function(){var d=+$("td").value,m=+$("tm").value,y=+$("ty").value;if(!(y>=1900&&y<=2100)){$("to").innerHTML=msg("Năm sinh không hợp lệ.");return}
+  var o="",ly=window.Tuoi.lunarYear(d,m,y),age=Y-y;
+  if(d&&m){var b=new Date(y,m-1,d);if(b.getMonth()!==m-1||b.getDate()!==d){$("to").innerHTML=msg("Ngày sinh không hợp lệ.");return}
+    var a=now.getFullYear()-y;if(now.getMonth()<m-1||(now.getMonth()===m-1&&now.getDate()<d))a--;
+    var days=Math.floor((L.jdFrom(now.getDate(),now.getMonth()+1,now.getFullYear())-L.jdFrom(d,m,y)));
+    var lc=L.toLunar(d,m,y);age=a;o+='<p>Tuổi tròn: <b>'+a+'</b> · đã sống <b>'+days+'</b> ngày · sinh âm lịch <b>'+lc.d+'/'+lc.m+'/'+lc.y+'</b>'+(lc.leap?' (nhuận)':'')+'</p>'}
+  var lyNow=L.toLunar(now.getDate(),now.getMonth()+1,now.getFullYear()).y;
+  o+='<p>Tuổi mụ (năm âm lịch '+lyNow+'): <b>'+(lyNow-ly+1)+'</b> · tuổi <b>'+L.CAN[mod(ly+6,10)]+' '+L.CHI[mod(ly+8)]+'</b></p>';
+  $("to").innerHTML='<div class="card">'+o+'</div>'};
+
+/* đếm ngày */
+$("nb1").onclick=function(){var a=parseIso($("n1").value),b=parseIso($("n2").value);if(!a||!b){$("eo").innerHTML=msg("Chọn đủ hai ngày.");return}
+  var n=L.jdFrom(b.d,b.m,b.y)-L.jdFrom(a.d,a.m,a.y);
+  $("eo").innerHTML='<div class="card"><div class="big">'+Math.abs(n)+' ngày</div><p>'+Math.floor(Math.abs(n)/7)+' tuần '+Math.abs(n)%7+' ngày'+(n<0?' (ngày kết thúc sớm hơn)':'')+'</p></div>'};
+$("nb2").onclick=function(){var a=parseIso($("n1").value),k=parseInt($("n3").value,10);if(!a||isNaN(k)){$("eo").innerHTML=msg("Chọn ngày bắt đầu và số ngày.");return}
+  var s=L.jdToDate(L.jdFrom(a.d,a.m,a.y)+k),i=L.dayInfo(s.d,s.m,s.y);
+  $("eo").innerHTML='<div class="card"><div class="big">'+i.thu+' '+fmt(s)+'</div><p>Âm lịch '+i.lunar.d+'/'+i.lunar.m+' · '+i.canNgay+' '+i.chiNgay+'</p></div>'};
+})();
+</script>
+</body>
+</html>

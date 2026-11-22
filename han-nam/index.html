@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Hạn năm · Tứ Hóa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="../css/site.css">
+<style>
+.form{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;align-items:end}
+label{display:block;font-size:12.5px;color:var(--mut);margin-bottom:4px}
+input,select,button{font:inherit;width:100%;padding:10px 11px;border-radius:9px;border:1px solid var(--line);background:var(--card2);color:var(--fg)}
+input:focus,select:focus{outline:2px solid var(--ac)}
+button.go{background:var(--ac);color:#1a1408;border:0;font-weight:700}
+.yr{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 10px}
+.yr.cur{border-color:var(--ac)}
+.yr h3{margin:0 0 8px;font-size:17px;color:var(--ac2);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.yr h3 small{color:var(--mut);font-weight:400;font-size:13px}
+.row{display:grid;grid-template-columns:130px 1fr;gap:8px;padding:5px 0;border-top:1px solid var(--line);font-size:14.5px}
+.row span:first-child{color:var(--mut)}
+.g{color:var(--grn)}.r{color:var(--red)}.n{color:var(--fg)}
+.sum{display:inline-block;border-radius:99px;padding:1px 10px;font-size:12.5px;border:1px solid var(--line)}
+.sum.g{border-color:var(--grn)}.sum.r{border-color:var(--red)}
+@media(max-width:560px){.row{grid-template-columns:1fr;gap:0}}
+</style>
+</head>
+<body data-active="hannam">
+<div class="tv-wrap">
+<div class="tv-eyebrow">Hạn năm</div>
+<h1 class="tv-h1">Năm nào <em>nên giữ gìn</em></h1>
+<p class="tv-note">Cho biết 10 năm liền của một người: Tam tai, Kim lâu, Hoang ốc (hợp làm nhà hay không), sao hạn Cửu diệu theo tuổi mụ, và phạm Thái Tuế. Tuổi tính theo năm âm lịch (tuổi mụ = năm xét − năm sinh + 1).</p>
+<div class="form">
+  <div><label for="g">Giới tính</label><select id="g"><option value="1">Nam</option><option value="0">Nữ</option></select></div>
+  <div><label for="d">Ngày sinh</label><input id="d" type="number" inputmode="numeric" min="1" max="31" placeholder="ngày"></div>
+  <div><label for="m">Tháng</label><input id="m" type="number" inputmode="numeric" min="1" max="12" placeholder="tháng"></div>
+  <div><label for="y">Năm</label><input id="y" type="number" inputmode="numeric" min="1900" max="2100" placeholder="1993"></div>
+  <div><label for="s">Xem từ năm</label><input id="s" type="number" inputmode="numeric" min="1900" max="2100"></div>
+  <div><button class="go" id="go" type="button">Xem hạn</button></div>
+</div>
+<div id="err" class="tv-note" style="color:var(--red);min-height:18px;margin-top:8px"></div>
+<div id="out"></div>
+<p class="tv-note" style="margin-top:20px">Đây là quy tắc dân gian phổ biến, không thuộc bộ sách Tứ Hóa phái, mang tính tham khảo. Cách luận chính xác theo sách là xem đại vận và lưu niên trên <a href="../la-so/">lá số</a>. Các cách tính dân gian có nhiều dị bản; Kim lâu và Hoang ốc chủ yếu dùng để chọn năm làm nhà, cưới hỏi.</p>
+</div>
+<script src="../js/lich.js"></script>
+<script src="../js/tuoi.js"></script>
+<script src="../js/han.js"></script>
+<script src="../js/site.js"></script>
+<script>
+(function(){
+"use strict";
+var T=window.Tuoi,H=window.Han,L=window.Lich,$=function(i){return document.getElementById(i)};
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+var cy=L.toLunar(new Date().getDate(),new Date().getMonth()+1,new Date().getFullYear()).y;
+$("s").value=cy;var by=ls("tv_by");if(by)$("y").value=by;
+function cls(k){return k>0?"g":k<0?"r":"n"}
+function row(a,b,k){return '<div class="row"><span>'+a+'</span><span class="'+cls(k)+'">'+b+'</span></div>'}
+$("go").onclick=function(){
+  var er=$("err"),o=$("out");er.textContent="";
+  var y=parseInt($("y").value,10),s=parseInt($("s").value,10)||cy;
+  if(!(y>=1900&&y<=2100)){er.textContent="Hãy nhập năm sinh hợp lệ.";return}
+  var ly=T.lunarYear(parseInt($("d").value,10)||0,parseInt($("m").value,10)||0,y);
+  if(ly==null){er.textContent="Ngày sinh không hợp lệ.";return}
+  ls("tv_by",ly);var gt=$("g").value==="1",html='<h2 class="tv-h2">'+(gt?"Nam":"Nữ")+' '+L.CAN[L.mod(ly+6,10)]+' '+L.CHI[L.mod(ly+8)]+' ('+ly+')</h2>';
+  for(var yy=s;yy<s+10;yy++){
+    var r=H.nam(ly,yy,gt),ln=H.lamNha(r);
+    var notes=[];
+    html+='<div class="yr'+(yy===cy?' cur':'')+'"><h3><span>'+yy+' · '+r.can+' '+r.chi+'</span><small>'+r.age+' tuổi mụ</small></h3>'+
+      row("Sao hạn",r.sao.ten+': '+r.sao.t,r.sao.k)+
+      row("Tam tai",r.tamTai?r.tamTai.ten:"Không phạm",r.tamTai?-1:1)+
+      row("Kim lâu",r.kimLau.xau?'Phạm: '+r.kimLau.ten:"Không phạm",r.kimLau.xau?-1:1)+
+      row("Hoang ốc",r.hoangOc.ten,r.hoangOc.k)+
+      row("Thái Tuế",r.tue.length?r.tue.map(function(t){return t.ten+' ('+t.t+')'}).join("<br>"):"Không phạm",r.tue.length?-1:1)+
+      row("Làm nhà, cưới",ln?"Năm hợp: không phạm Tam tai, Kim lâu, Hoang ốc.":"Nên cân nhắc hoặc chọn năm khác.",ln?1:-1)+'</div>'}
+  o.innerHTML=html};
+})();
+</script>
+</body>
+</html>

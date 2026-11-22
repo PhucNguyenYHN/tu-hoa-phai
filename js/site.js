@@ -2,7 +2,7 @@
 (function(){
 "use strict";
 var me=document.currentScript,src=me&&me.src||"",base=src.replace(/js\/site\.js.*$/,"");
-var NAV=[["trang-chu/","Trang chủ","home"],["la-so/","Lá số","laso"],["lich/","Lịch vạn niên","lich"],["tuoi/","Xem tuổi","tuoi"],["chon-ngay/","Chọn ngày","chonngay"],["thu-vien/","Thư viện","thuvien"],["","Đọc sách","sach"]];
+var NAV=[["trang-chu/","Trang chủ","home"],["la-so/","Lá số","laso"],["lich/","Lịch vạn niên","lich"],["tuoi/","Xem tuổi","tuoi"],["han-nam/","Hạn năm","hannam"],["chon-ngay/","Chọn ngày","chonngay"],["tien-ich/","Tiện ích","tienich"],["thu-vien/","Thư viện","thuvien"],["","Đọc sách","sach"]];
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function mount(){
   var act=document.body.getAttribute("data-active")||"";
@@ -14,6 +14,9 @@ function mount(){
   var f=document.createElement("footer");f.className="tv-foot";
   f.innerHTML='<div class="in"><div>'+NAV.map(function(n){return '<a href="'+base+n[0]+'">'+n[1]+'</a>'}).join("")+'</div><div>Nội dung luận giải lấy từ bộ sách Trung Châu Tử Vi Đẩu Số (Tứ Hóa phái), chữ là bản OCR đã sửa lỗi nên còn chỗ sai; mỗi đoạn kèm số trang để đối chiếu. Lá số và lịch được tính ngay trên máy bạn, không gửi dữ liệu đi đâu. Chỉ để tham khảo, không phải lời phán định; việc lớn nên bàn với gia đình và người có chuyên môn.</div></div>';
   document.body.appendChild(f);
+  try{var mf=document.createElement("link");mf.rel="manifest";mf.href=base+"manifest.webmanifest";document.head.appendChild(mf);
+    var ic=document.createElement("link");ic.rel="icon";ic.href=base+"icon.svg";document.head.appendChild(ic);
+    if("serviceWorker" in navigator&&location.protocol==="https:"||location.hostname==="localhost")navigator.serviceWorker.register(base+"sw.js",{scope:base}).catch(function(){})}catch(e){}
   function today(){
     if(!window.Lich)return;var t=new Date(),i=Lich.dayInfo(t.getDate(),t.getMonth()+1,t.getFullYear());
     var el=document.getElementById("tvtoday");
