@@ -2,7 +2,7 @@
 (function(){
 "use strict";
 var me=document.currentScript,src=me&&me.src||"",base=src.replace(/js\/site\.js.*$/,"");
-var NAV=[["trang-chu/","Trang chủ","home"],["la-so/","Lá số","laso"],["lich/","Lịch vạn niên","lich"],["tuoi/","Xem tuổi","tuoi"],["han-nam/","Hạn năm","hannam"],["chon-ngay/","Chọn ngày","chonngay"],["gio-sinh/","Giờ sinh","giosinh"],["tien-ich/","Tiện ích","tienich"],["xem/#7b10fae0632fecc5","Hồ sơ","hoso"],["thu-vien/","Thư viện","thuvien"],["","Đọc sách","sach"]];
+var NAV=[["trang-chu/","Trang chủ","home"],["la-so/","Lá số","laso"],["lich/","Lịch vạn niên","lich"],["tuoi/","Xem tuổi","tuoi"],["han-nam/","Hạn năm","hannam"],["chon-ngay/","Chọn ngày","chonngay"],["gio-sinh/","Giờ sinh","giosinh"],["tien-ich/","Tiện ích","tienich"],["thu-vien/","Thư viện","thuvien"],["","Đọc sách","sach"]];
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function mount(){
   var act=document.body.getAttribute("data-active")||"";
